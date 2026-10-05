@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Toko Sembako Kita</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <div class="container header-content">
+
+            <h1>🛒 Toko Sembako Kita</h1>
+
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#produk">Produk</a>
+                <a href="#kategori">Kategori</a>
+                <a href="#keranjang">🛒 Keranjang</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- BANNER -->
+    <section id="home" class="banner">
+
+        <div class="container">
+
+            <h2>Belanja Sembako Lebih Mudah</h2>
+
+            <p>
+                Berbagai kebutuhan sehari-hari
+                tersedia dengan harga terjangkau.
+            </p>
+
+            <a href="#produk" class="btn">
+                Belanja Sekarang
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- KATEGORI -->
+    <section id="kategori">
+
+        <div class="container">
+
+            <h2>Kategori Produk</h2>
+
+            <div class="kategori-list">
+
+                <button>semua</button>
+
+                <button>Air Mineral</button>
+
+                <button>Rokok</button>
+
+                <button>Mouse</button>
+
+                <button>Pulpen</button>
+
+                <button>🍜 Mie Instan</button>
+
+                <button>📦 Lainnya</button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUK -->
+    <section id="produk">
+
+        <div class="container">
+
+            <h2>Produk Kami</h2>
+
+             <div class="pencarian">
+    <input
+        type="text"
+        id="input-pencarian"
+        placeholder="🔍 Cari produk..."
+    >
+</div>
+
+
+            <div class="produk-grid">
+
+
+                <!-- AIR MINERAL -->
+                <div class="produk-card" data-kategori="air mineral">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/air mineral.jpg" alt="Air Mineral 300ml">
+                    </div>
+
+                    <h3>air mineral</h3>
+
+                    <div class="harga-promo" data-promo="10">
+                    <span class="harga-lama">\150</span>
+                    <span class="badge-promo">PROMO -3%</span>
+                </div>
+
+                    <p class="harga">\100</p>
+                    <p class="stok">Stok: 10</p>
+                    </p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+
+                <!-- PULPEN -->
+                <div class="produk-card" data-kategori="pulpen">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/pulpen.jpg" alt="pulpen 3 warna">
+                    </div>
+
+                    <h3>pulpen 3 warna</h3>
+
+                    <div class="harga-promo"data-promo="5">
+                    <span class="harga-lama">Rp18.000</span>
+                    <span class="badge-promo">PROMO -5%</span>
+                </div>
+
+                    <p class="harga">Rp17.100</p>
+                    <p class="stok">Stok: 10</p>
+                    </p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+
+                <!-- ROKOK -->
+                <div class="produk-card" data-kategori="rokok">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/rokok.jpg" alt="<Marlboro 20btg">
+                    </div>
+
+                    <h3>Rokok marlboro 20btg</h3>
+
+                    <div class="harga-promo" data-promo="10">
+                    <span class="harga-lama">Rp17.000</span>
+                    <span class="badge-promo">PROMO -10%</span>
+                </div>
+
+                    <p class="harga">Rp15.300</p>
+                    <p class="stok">Stok: 10</p>
+                    </p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+
+                <!-- MOUSE -->
+                <div class="produk-card" data-kategori="mouse">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/mouse.jpg" alt="FNATIC MOUSE">
+                    </div>
+
+                    <h3>FNATIC MOIUSE</h3>
+
+                    <p class="harga">
+                        \4300
+                    <p class="stok">Stok: 10</p>
+                    </p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- KERANJANG -->
+    <section id="keranjang">
+
+        <div class="container">
+
+            <div class="keranjang">
+
+                <h2>🛒 Keranjang Belanja</h2>
+
+                <p>
+                    Keranjang masih kosong.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<!-- CHECKOUT -->
+
+<section id="checkout">
+
+    <div class="container">
+
+        <div class="checkout-box">
+
+            <h2>📦 Checkout</h2>
+
+            <form id="form-checkout">
+
+                <div class="form-group">
+
+                    <label for="nama">
+                        Nama Lengkap
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nama"
+                        placeholder="Masukkan nama"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="whatsapp">
+                        Nomor WhatsApp
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="whatsapp"
+                        placeholder="08xxxxxxxxxx"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="alamat">
+                        Alamat Lengkap
+                    </label>
+
+                    <textarea
+                        id="alamat"
+                        rows="4"
+                        placeholder="Masukkan alamat lengkap"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="ongkir">
+                        Pilihan Pengiriman
+                    </label>
+
+                    <select id="ongkir">
+
+                        <option value="5000">
+                            Dalam Kota - Rp5.000
+                        </option>
+
+                        <option value="10000">
+                            Luar Kecamatan - Rp10.000
+                        </option>
+
+                        <option value="15000">
+                            Luar Kota - Rp15.000
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="checkout-total">
+
+                    <p>
+                        Total Belanja:
+                        <strong id="checkout-subtotal">
+                            Rp0
+                        </strong>
+                    </p>
+
+                    <p>
+                        Ongkir:
+                        <strong id="checkout-ongkir">
+                            Rp5.000
+                        </strong>
+                    </p>
+
+                    <h3>
+                        Total Pembayaran:
+                        <span id="checkout-total">
+                            Rp5.000
+                        </span>
+                    </h3>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn checkout-button">
+
+                    Buat Pesanan
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="container">
+
+            <p>
+                © 2026 Toko Sembako Kita
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>

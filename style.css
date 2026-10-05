@@ -1,0 +1,412 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* HEADER */
+header {
+    background: #16a34a;
+    color: white;
+    padding: 15px 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 24px;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* BANNER */
+.banner {
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    color: white;
+    padding: 70px 0;
+    text-align: center;
+}
+
+.banner h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.banner p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* KATEGORI */
+section {
+    padding: 40px 0;
+}
+
+section h2 {
+    margin-bottom: 25px;
+}
+
+.kategori-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.kategori-list button {
+    border: none;
+    background: white;
+    padding: 12px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* PRODUK */
+.produk-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.produk-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.produk-gambar {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0fdf4;
+    border-radius: 10px;
+}
+
+.produk-gambar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.produk-card h3 {
+    margin: 15px 0 10px;
+}
+
+.harga {
+    color: #16a34a;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* KERANJANG */
+.keranjang {
+    background: white;
+    margin-bottom: 40px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* FOOTER */
+footer {
+    background: #222;
+    color: white;
+    padding: 25px 0;
+    text-align: center;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .produk-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .produk-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================
+   ITEM KERANJANG
+================================ */
+
+.item-keranjang {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 20px;
+
+    align-items: center;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+.item-keranjang button {
+    width: 32px;
+    height: 32px;
+
+    border: none;
+
+    background: #16a34a;
+    color: white;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+
+.item-keranjang button:hover {
+    background: #15803d;
+}
+
+
+.item-keranjang span {
+    display: inline-block;
+
+    min-width: 30px;
+
+    text-align: center;
+
+    font-weight: bold;
+}
+
+
+.item-keranjang p {
+    margin-top: 5px;
+
+    color: #666;
+}
+
+
+/* TOTAL BELANJA */
+
+.total-belanja {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    font-size: 20px;
+
+    margin: 20px 0;
+}
+
+
+/* RESPONSIVE KERANJANG */
+
+@media (max-width: 600px) {
+
+    .item-keranjang {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .total-belanja {
+        font-size: 18px;
+    }
+
+}
+
+/* ================================
+   CHECKOUT
+================================ */
+
+.checkout-box {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.08);
+
+    max-width: 700px;
+
+    margin: auto;
+}
+
+
+.checkout-box h2 {
+    margin-bottom: 25px;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+}
+
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    font-family: Arial, sans-serif;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+
+    outline: none;
+
+    border-color: #16a34a;
+}
+
+
+.checkout-total {
+
+    border-top: 1px solid #ddd;
+
+    border-bottom: 1px solid #ddd;
+
+    padding: 20px 0;
+
+    margin: 20px 0;
+}
+
+
+.checkout-total p {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+}
+
+
+.checkout-total h3 {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 15px;
+
+    color: #16a34a;
+}
+
+
+.checkout-button {
+
+    width: 100%;
+
+    font-size: 17px;
+
+    padding: 14px;
+}
+
+/* ==========================================
+   TAMPILAN HARGA PROMO
+   ========================================== */
+
+.harga-promo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.harga-lama {
+    color: #888;
+    text-decoration: line-through;
+    font-size: 14px;
+}
+
+.badge-promo {
+    background: #dc2626;
+    color: white;
+    padding: 3px 7px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.harga {
+    color: #16a34a;
+    font-size: 20px;
+    font-weight: bold;
+}
