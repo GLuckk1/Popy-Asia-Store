@@ -602,7 +602,19 @@ if (formCheckout) {
                 }
             );
 
+            // ==================================
+// BUAT PDF NOTA
+// ==================================
 
+buatPDFNota(
+    nama,
+    whatsapp,
+    alamat,
+    subtotal,
+    ongkir,
+    total
+);
+            
             // ==================================
             // BUAT PESAN WHATSAPP
             // ==================================
