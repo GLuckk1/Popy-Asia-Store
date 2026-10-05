@@ -421,7 +421,7 @@ function updateCheckoutTotal() {
     if (subtotalElement) {
 
         subtotalElement.textContent =
-            "Rp" +
+            "¥" +
             subtotal.toLocaleString("id-ID");
 
     }
@@ -430,7 +430,7 @@ function updateCheckoutTotal() {
     if (ongkirElement) {
 
         ongkirElement.textContent =
-            "Rp" +
+            "¥" +
             ongkir.toLocaleString("id-ID");
 
     }
@@ -441,7 +441,7 @@ function updateCheckoutTotal() {
         const total = subtotal + ongkir;
 
         totalElement.textContent =
-            "Rp" +
+            "¥" +
             total.toLocaleString("id-ID");
 
     }
@@ -593,7 +593,7 @@ if (formCheckout) {
                         produk.nama +
                         " x" +
                         produk.jumlah +
-                        " = Rp" +
+                        " = ¥" +
                         subtotalProduk.toLocaleString(
                             "id-ID"
                         ) +
@@ -616,17 +616,17 @@ if (formCheckout) {
 
                 "\n" +
 
-                "Subtotal: Rp" +
+                "Subtotal: ¥" +
                 subtotal.toLocaleString("id-ID") +
 
                 "\n" +
 
-                "Ongkir: Rp" +
+                "Ongkir: ¥" +
                 ongkir.toLocaleString("id-ID") +
 
                 "\n" +
 
-                "Total: Rp" +
+                "Total: ¥" +
                 total.toLocaleString("id-ID") +
 
                 "\n\n" +
