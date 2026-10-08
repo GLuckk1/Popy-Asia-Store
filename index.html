@@ -367,6 +367,20 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+    const SUPABASE_URL = "https://rsmfdhktujpbbypraiwl.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_oMPqtBesRyC02GSRAYrHUg_bKOjzoax";
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+    console.log("Supabase website berhasil terhubung!");
+</script>
+    
     <script src="script.js"></script>
 
 
