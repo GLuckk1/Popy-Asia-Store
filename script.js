@@ -504,7 +504,7 @@ if (formCheckout) {
 
     formCheckout.addEventListener(
         "submit",
-        function(event) {
+       async function(event) {
 
             event.preventDefault();
 
@@ -614,6 +614,56 @@ buatPDFNota(
     ongkir,
     total
 );
+
+           // ==================================
+// SIMPAN PESANAN KE SUPABASE
+// ==================================
+
+const itemsPesanan = keranjang.map(function(produk) {
+
+    return {
+        nama_produk: produk.nama,
+        harga: produk.harga,
+        jumlah: produk.jumlah,
+        subtotal: produk.harga * produk.jumlah
+    };
+
+});
+
+
+const { data: nomorPesanan, error } =
+    await supabaseClient.rpc(
+        "buat_pesanan",
+        {
+            p_nama: nama,
+            p_whatsapp: whatsapp,
+            p_alamat: alamat,
+            p_subtotal: subtotal,
+            p_ongkir: ongkir,
+            p_total: total,
+            p_items: itemsPesanan
+        }
+    );
+
+
+if (error) {
+
+    console.error("Gagal menyimpan pesanan:", error);
+
+    alert(
+        "Pesanan gagal disimpan ke database.\n\n" +
+        error.message
+    );
+
+    return;
+
+}
+
+
+console.log(
+    "Pesanan berhasil disimpan:",
+    nomorPesanan
+); 
             
             // ==================================
             // BUAT PESAN WHATSAPP
