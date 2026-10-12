@@ -665,7 +665,7 @@ const whatsappWindow = window.open("", "_blank");
             // ==================================
 
             const pesan =
-                "Halo Toko Sembako Kita,\n\n" +
+                "Halo Popy Asia Store,\n\n" +
 
                 "Saya ingin melakukan pemesanan:\n\n" +
 
@@ -673,18 +673,18 @@ const whatsappWindow = window.open("", "_blank");
 
                 "\n" +
 
-                "Subtotal: Rp" +
-                subtotal.toLocaleString("id-ID") +
+                "Subtotal: \" +
+                subtotal.toLocaleString("ja-JP") +
 
                 "\n" +
 
-                "Ongkir: Rp" +
-                ongkir.toLocaleString("id-ID") +
+                "Ongkir: \" +
+                ongkir.toLocaleString("ja-JP") +
 
                 "\n" +
 
-                "Total: Rp" +
-                total.toLocaleString("id-ID") +
+                "Total: \" +
+                total.toLocaleString("ja-JP") +
 
                 "\n\n" +
 
