@@ -436,3 +436,8 @@ footer {
     }
 
 }
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 20px;
+    }
+}
