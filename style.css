@@ -457,3 +457,14 @@ footer {
         min-height: 42px;
     }
 }
+@media (max-width: 600px) {
+    .item-keranjang button {
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+    }
+
+    .item-keranjang {
+        padding: 15px 0;
+    }
+}
