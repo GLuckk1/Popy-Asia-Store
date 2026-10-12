@@ -490,3 +490,10 @@ footer {
         font-size: 18px;
     }
 }
+@media (max-width: 600px) {
+    .checkout-button {
+        min-height: 48px;
+        font-size: 17px;
+        border-radius: 10px;
+    }
+}
