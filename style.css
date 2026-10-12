@@ -480,3 +480,13 @@ footer {
         font-size: 16px;
     }
 }
+@media (max-width: 600px) {
+    .checkout-total p,
+    .checkout-total h3 {
+        font-size: 15px;
+    }
+
+    .checkout-total h3 {
+        font-size: 18px;
+    }
+}
