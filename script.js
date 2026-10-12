@@ -153,7 +153,7 @@ function tampilkanKeranjang() {
                         </strong>
 
                         <p>
-                            ¥${produk.harga.toLocaleString("id-ID")}
+                            Rp${produk.harga.toLocaleString("id-ID")}
                             × ${produk.jumlah}
                         </p>
 
@@ -188,7 +188,7 @@ function tampilkanKeranjang() {
 
 
                     <strong>
-                        ¥${subtotal.toLocaleString("id-ID")}
+                        Rp${subtotal.toLocaleString("id-ID")}
                     </strong>
 
                 </div>
@@ -209,7 +209,7 @@ function tampilkanKeranjang() {
                 </strong>
 
                 <strong>
-                    ¥${total.toLocaleString("id-ID")}
+                    Rp${total.toLocaleString("id-ID")}
                 </strong>
 
             </div>
@@ -421,7 +421,7 @@ function updateCheckoutTotal() {
     if (subtotalElement) {
 
         subtotalElement.textContent =
-            "¥" +
+            "Rp" +
             subtotal.toLocaleString("id-ID");
 
     }
@@ -430,7 +430,7 @@ function updateCheckoutTotal() {
     if (ongkirElement) {
 
         ongkirElement.textContent =
-            "¥" +
+            "Rp" +
             ongkir.toLocaleString("id-ID");
 
     }
@@ -441,7 +441,7 @@ function updateCheckoutTotal() {
         const total = subtotal + ongkir;
 
         totalElement.textContent =
-            "¥" +
+            "Rp" +
             total.toLocaleString("id-ID");
 
     }
@@ -593,7 +593,7 @@ if (formCheckout) {
                         produk.nama +
                         " x" +
                         produk.jumlah +
-                        " = ¥" +
+                        " = Rp" +
                         subtotalProduk.toLocaleString(
                             "id-ID"
                         ) +
@@ -602,20 +602,7 @@ if (formCheckout) {
                 }
             );
 
-            // ==================================
-// BUAT PDF NOTA
 // ==================================
-
-buatPDFNota(
-    nama,
-    whatsapp,
-    alamat,
-    subtotal,
-    ongkir,
-    total
-);
-
-           // ==================================
 // SIMPAN PESANAN KE SUPABASE
 // ==================================
 
@@ -663,8 +650,16 @@ if (error) {
 console.log(
     "Pesanan berhasil disimpan:",
     nomorPesanan
-); 
-            
+);
+
+
+// ==================================
+// SIAPKAN WHATSAPP
+// ==================================
+
+const whatsappWindow = window.open("", "_blank");
+
+
             // ==================================
             // BUAT PESAN WHATSAPP
             // ==================================
@@ -678,17 +673,17 @@ console.log(
 
                 "\n" +
 
-                "Subtotal: ¥" +
+                "Subtotal: Rp" +
                 subtotal.toLocaleString("id-ID") +
 
                 "\n" +
 
-                "Ongkir: ¥" +
+                "Ongkir: Rp" +
                 ongkir.toLocaleString("id-ID") +
 
                 "\n" +
 
-                "Total: ¥" +
+                "Total: Rp" +
                 total.toLocaleString("id-ID") +
 
                 "\n\n" +
@@ -746,174 +741,6 @@ console.log(
 // ==========================================
 
 tampilkanKeranjang();
-
-// ==========================================
-// BUAT PDF NOTA PESANAN
-// ==========================================
-
-function buatPDFNota(nama, whatsapp, alamat, subtotal, ongkir, total) {
-
-    const { jsPDF } = window.jspdf;
-
-    const doc = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a5"
-    });
-
-    // Judul
-    doc.setFontSize(18);
-    doc.setFont("helvetica", "bold");
-    doc.text("POPY ASIA STORE", 74, 15, {
-        align: "center"
-    });
-
-    doc.setFontSize(11);
-    doc.setFont("helvetica", "normal");
-    doc.text("Nota Pesanan Pelanggan", 74, 22, {
-        align: "center"
-    });
-
-    // Garis
-    doc.line(10, 27, 138, 27);
-
-    // Informasi pelanggan
-    doc.setFontSize(10);
-
-    doc.text("Nama", 10, 36);
-    doc.text(": " + nama, 35, 36);
-
-    doc.text("WhatsApp", 10, 43);
-    doc.text(": " + whatsapp, 35, 43);
-
-    doc.text("Alamat", 10, 50);
-    doc.text(": " + alamat, 35, 50);
-
-    // Garis
-    doc.line(10, 56, 138, 56);
-
-    // Header tabel
-    doc.setFont("helvetica", "bold");
-
-    doc.text("Produk", 10, 64);
-    doc.text("Qty", 82, 64);
-    doc.text("Harga", 98, 64);
-    doc.text("Jumlah", 120, 64);
-
-    doc.line(10, 67, 138, 67);
-
-    // Daftar produk
-    doc.setFont("helvetica", "normal");
-
-    let posisiY = 75;
-
-    keranjang.forEach(function(produk) {
-
-        const jumlah =
-            produk.harga * produk.jumlah;
-
-        doc.text(produk.nama.substring(0, 28), 10, posisiY);
-
-        doc.text(
-            String(produk.jumlah),
-            84,
-            posisiY
-        );
-
-        doc.text(
-            "¥" + produk.harga.toLocaleString("id-ID"),
-            98,
-            posisiY
-        );
-
-        doc.text(
-            "¥" + jumlah.toLocaleString("id-ID"),
-            120,
-            posisiY
-        );
-
-        posisiY += 7;
-    });
-
-    // Garis total
-    doc.line(10, posisiY + 2, 138, posisiY + 2);
-
-    posisiY += 10;
-
-    doc.text(
-        "Subtotal",
-        90,
-        posisiY
-    );
-
-    doc.text(
-        "¥" + subtotal.toLocaleString("id-ID"),
-        120,
-        posisiY
-    );
-
-    posisiY += 7;
-
-    doc.text(
-        "Ongkir",
-        90,
-        posisiY
-    );
-
-    doc.text(
-        "¥" + ongkir.toLocaleString("id-ID"),
-        120,
-        posisiY
-    );
-
-    posisiY += 9;
-
-    // TOTAL
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-
-    doc.text(
-        "TOTAL",
-        90,
-        posisiY
-    );
-
-    doc.text(
-        "¥" + total.toLocaleString("id-ID"),
-        120,
-        posisiY
-    );
-
-    // Catatan
-    posisiY += 15;
-
-    doc.setFontSize(9);
-    doc.setFont("helvetica", "normal");
-
-    doc.text(
-        "Terima kasih telah berbelanja",
-        74,
-        posisiY,
-        {
-            align: "center"
-        }
-    );
-
-    doc.text(
-        "di Popy Asia Store.",
-        74,
-        posisiY + 5,
-        {
-            align: "center"
-        }
-    );
-
-    // Simpan PDF
-    doc.save(
-        "Nota-Popy-Asia-Store.pdf"
-    );
-}
-
 // ==========================================
 // PENCARIAN + FILTER KATEGORI
 // ==========================================
