@@ -153,7 +153,7 @@ function tampilkanKeranjang() {
                         </strong>
 
                         <p>
-                            Rp${produk.harga.toLocaleString("id-ID")}
+                            \u00A5${produk.harga.toLocaleString("ja-JP")}
                             × ${produk.jumlah}
                         </p>
 
@@ -188,7 +188,7 @@ function tampilkanKeranjang() {
 
 
                     <strong>
-                        Rp${subtotal.toLocaleString("id-ID")}
+                        \u00A5${subtotal.toLocaleString("ja-JP")}
                     </strong>
 
                 </div>
@@ -209,7 +209,7 @@ function tampilkanKeranjang() {
                 </strong>
 
                 <strong>
-                    Rp${total.toLocaleString("id-ID")}
+                    \u00A5${total.toLocaleString("ja-JP")}
                 </strong>
 
             </div>
