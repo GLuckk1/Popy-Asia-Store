@@ -673,17 +673,17 @@ const whatsappWindow = window.open("", "_blank");
 
                 "\n" +
 
-                "Subtotal: \" +
+                "Subtotal: \u00A5" +
                 subtotal.toLocaleString("ja-JP") +
 
                 "\n" +
 
-                "Ongkir: \" +
+                "Ongkir: \u00A5" +
                 ongkir.toLocaleString("ja-JP") +
 
                 "\n" +
 
-                "Total: \" +
+                "Total: \u00A5" +
                 total.toLocaleString("ja-JP") +
 
                 "\n\n" +
