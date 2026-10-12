@@ -451,3 +451,9 @@ footer {
         font-size: 14px;
     }
 }
+@media (max-width: 600px) {
+    .produk-card .btn {
+        width: 100%;
+        min-height: 42px;
+    }
+}
