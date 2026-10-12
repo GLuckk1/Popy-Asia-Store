@@ -667,7 +667,7 @@ const whatsappWindow = window.open("", "_blank");
             const pesan =
                 "Halo Popy Asia Store,\n\n" +
 
-                "Saya ingin melakukan pemesanan:\n\n" +
+                "Saya ingin memesan:\n\n" +
 
                 daftarProduk +
 
