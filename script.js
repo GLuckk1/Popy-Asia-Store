@@ -593,9 +593,9 @@ if (formCheckout) {
                         produk.nama +
                         " x" +
                         produk.jumlah +
-                        " = Rp" +
+                        " = \u00A5" +
                         subtotalProduk.toLocaleString(
-                            "id-ID"
+                            "ja-JP"
                         ) +
                         "\n";
 
