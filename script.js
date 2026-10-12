@@ -421,8 +421,8 @@ function updateCheckoutTotal() {
     if (subtotalElement) {
 
         subtotalElement.textContent =
-            "Rp" +
-            subtotal.toLocaleString("id-ID");
+            "\u00A5" +
+            subtotal.toLocaleString("ja-JP");
 
     }
 
@@ -430,8 +430,8 @@ function updateCheckoutTotal() {
     if (ongkirElement) {
 
         ongkirElement.textContent =
-            "Rp" +
-            ongkir.toLocaleString("id-ID");
+            "\u00A5" +
+            ongkir.toLocaleString("ja-JP");
 
     }
 
@@ -441,8 +441,8 @@ function updateCheckoutTotal() {
         const total = subtotal + ongkir;
 
         totalElement.textContent =
-            "Rp" +
-            total.toLocaleString("id-ID");
+            "\u00A5" +
+            total.toLocaleString("ja-JP");
 
     }
 
