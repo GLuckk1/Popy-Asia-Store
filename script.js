@@ -661,10 +661,7 @@ const whatsappWindow = window.open("", "_blank");
             // BUKA WHATSAPP
             // ==================================
 
-            window.open(
-                url,
-                "_blank"
-            );
+            whatsappWindow.location.href = url;
 
         }
     );
