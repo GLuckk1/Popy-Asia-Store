@@ -557,3 +557,27 @@ nav a,
 .btn {
     touch-action: manipulation;
 }
+
+
+
+/* NAVIGASI BERANDA DAN KERANJANG */
+#keranjang,
+#checkout {
+    display: none;
+}
+
+#keranjang.halaman-aktif,
+#checkout.halaman-aktif {
+    display: block;
+}
+
+/* Sembunyikan beranda saat keranjang atau checkout dibuka */
+body.halaman-keranjang #home,
+body.halaman-keranjang #kategori,
+body.halaman-keranjang #produk,
+body.halaman-checkout #home,
+body.halaman-checkout #kategori,
+body.halaman-checkout #produk,
+body.halaman-checkout #keranjang {
+    display: none;
+}
