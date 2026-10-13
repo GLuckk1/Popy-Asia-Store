@@ -598,8 +598,7 @@ console.log(
 // SIAPKAN WHATSAPP
 // ==================================
 
-const whatsappWindow = window.open("", "_blank");
-
+const whatsappWindow = window.open("about:blank", "_blank");
 
             // ==================================
             // BUAT PESAN WHATSAPP
