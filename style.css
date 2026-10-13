@@ -497,3 +497,14 @@ footer {
         border-radius: 10px;
     }
 }
+
+/* KOLOM PENCARIAN PRODUK */
+#input-pencarian {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
