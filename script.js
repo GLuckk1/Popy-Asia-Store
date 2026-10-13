@@ -600,6 +600,11 @@ console.log(
 
 const whatsappWindow = window.open("about:blank", "_blank");
 
+if (!whatsappWindow) {
+    alert("Browser memblokir WhatsApp. Izinkan pop-up untuk website ini.");
+    return;
+}
+
             // ==================================
             // BUAT PESAN WHATSAPP
             // ==================================
