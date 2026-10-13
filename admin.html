@@ -263,40 +263,48 @@
 
 
         /* CETAK */
+@media print {
 
-        @media print {
-
+    /* Sembunyikan elemen admin */
     .header,
     .sidebar,
     .btn,
-    .login-admin{
+    .login-admin,
+    #login-admin,
+    button,
+    input {
         display: none !important;
     }
 
+    /* Pengaturan halaman */
     body {
-        background: white;
-        margin: 0;
-        padding: 0;
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .content {
-        padding: 0;
-        width: 100%;
-        margin: 0;
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .content h2 {
-        display: none;
+        display: none !important;
     }
 
+    /* Tampilan nota */
     #nota-cetak {
-        width: 90%;
+        display: block !important;
+        width: 100% !important;
         max-width: 700px;
-        margin: 0 auto;
-        padding: 25px;
-        box-shadow: none;
-        border: none;
+        margin: 0 auto !important;
+        padding: 15px !important;
+        box-shadow: none !important;
+        border: none !important;
         font-size: 14px;
+        box-sizing: border-box;
     }
 
     #nota-cetak h1 {
@@ -310,36 +318,20 @@
     #nota-cetak table {
         width: 100%;
         font-size: 13px;
+        border-collapse: collapse;
     }
 
     #nota-cetak th,
     #nota-cetak td {
         padding: 8px;
     }
-@media print {
 
-    /* tombol hanya disembunyikan saat mencetak */
-    #nota-cetak ~ .btn {
-        display: none;
+    .pesanan {
+        box-shadow: none !important;
+        border: none !important;
     }
 
-    ...
 }
-
-            .pesanan {
-                box-shadow: none;
-                border: none;
-            }
-
-            .btn {
-                display: none;
-            }
-
-            body {
-                background: white;
-            }
-
-        }
 
     </style>
 
