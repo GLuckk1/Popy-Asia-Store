@@ -776,8 +776,6 @@ tombolKategori.forEach(function(tombol) {
 
 });
 
-
-```javascript
 // NAVIGASI BERANDA, KERANJANG, DAN CHECKOUT
 
 function bukaKeranjang() {
