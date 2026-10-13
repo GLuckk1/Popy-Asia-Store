@@ -665,7 +665,7 @@ if (!whatsappWindow) {
             // BUKA WHATSAPP
             // ==================================
 
-            whatsappWindow.location.href = url;
+            window.location.href = url;
 
         }
     );
