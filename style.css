@@ -549,3 +549,11 @@ footer {
         background-color: #dcfce7 !important;
     }
 }
+
+
+/* Mencegah zoom akibat ketukan berulang pada tombol */
+button,
+nav a,
+.btn {
+    touch-action: manipulation;
+}
