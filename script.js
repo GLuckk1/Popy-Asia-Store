@@ -391,27 +391,8 @@ function updateCheckoutTotal() {
     });
 
 
-    const pilihanOngkir =
-        document.querySelector("#ongkir");
-
-
-    let ongkir = 0;
-
-
-    if (pilihanOngkir) {
-
-        ongkir =
-            parseInt(pilihanOngkir.value) || 0;
-
-    }
-
-
     const subtotalElement =
         document.querySelector("#checkout-subtotal");
-
-
-    const ongkirElement =
-        document.querySelector("#checkout-ongkir");
 
 
     const totalElement =
@@ -427,46 +408,15 @@ function updateCheckoutTotal() {
     }
 
 
-    if (ongkirElement) {
-
-        ongkirElement.textContent =
-            "\u00A5" +
-            ongkir.toLocaleString("ja-JP");
-
-    }
-
-
     if (totalElement) {
 
-        const total = subtotal + ongkir;
+        const total = subtotal;
 
         totalElement.textContent =
             "\u00A5" +
             total.toLocaleString("ja-JP");
 
     }
-
-}
-
-
-// ==========================================
-// PERUBAHAN ONGKIR
-// ==========================================
-
-const pilihanOngkir =
-    document.querySelector("#ongkir");
-
-
-if (pilihanOngkir) {
-
-    pilihanOngkir.addEventListener(
-        "change",
-        function() {
-
-            updateCheckoutTotal();
-
-        }
-    );
 
 }
 
@@ -536,17 +486,8 @@ if (formCheckout) {
             const alamat =
                 document.querySelector("#alamat").value.trim();
 
+            const ongkir = 0;
 
-            // ==================================
-            // DATA ONGKIR
-            // ==================================
-
-            const pilihanOngkir =
-                document.querySelector("#ongkir");
-
-
-            const ongkir =
-                parseInt(pilihanOngkir.value) || 0;
 
 
             // ==================================
@@ -565,7 +506,7 @@ if (formCheckout) {
 
 
             const total =
-                subtotal + ongkir;
+                subtotal;
 
 
             // ==================================
@@ -675,11 +616,6 @@ const whatsappWindow = window.open("", "_blank");
 
                 "Subtotal: \u00A5" +
                 subtotal.toLocaleString("ja-JP") +
-
-                "\n" +
-
-                "Ongkir: \u00A5" +
-                ongkir.toLocaleString("ja-JP") +
 
                 "\n" +
 
