@@ -532,3 +532,20 @@ footer {
         display: block;
     }
 }
+
+
+/* TOMBOL MENU KHUSUS HP */
+@media (max-width: 600px) {
+    header nav a {
+        background-color: #ffffff !important;
+        color: #16a34a !important;
+        padding: 8px 12px;
+        margin: 4px;
+        border-radius: 8px;
+        display: inline-block;
+    }
+
+    header nav a:hover {
+        background-color: #dcfce7 !important;
+    }
+}
