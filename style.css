@@ -39,9 +39,19 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: #16a34a;
+    background: white;
+    padding: 10px 16px;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
+    display: inline-block;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    background: #f0fdf4;
+    color: #15803d;
 }
 
 /* BANNER */
