@@ -775,3 +775,30 @@ tombolKategori.forEach(function(tombol) {
     );
 
 });
+
+
+```javascript
+// NAVIGASI BERANDA, KERANJANG, DAN CHECKOUT
+
+function bukaKeranjang() {
+    document.body.classList.remove("halaman-checkout");
+    document.body.classList.add("halaman-keranjang");
+
+    document.querySelector("#keranjang").classList.add("halaman-aktif");
+    document.querySelector("#checkout").classList.remove("halaman-aktif");
+}
+
+function bukaCheckout() {
+    document.body.classList.remove("halaman-keranjang");
+    document.body.classList.add("halaman-checkout");
+
+    document.querySelector("#keranjang").classList.remove("halaman-aktif");
+    document.querySelector("#checkout").classList.add("halaman-aktif");
+}
+
+function bukaBeranda() {
+    document.body.classList.remove("halaman-keranjang", "halaman-checkout");
+
+    document.querySelector("#keranjang").classList.remove("halaman-aktif");
+    document.querySelector("#checkout").classList.remove("halaman-aktif");
+}
