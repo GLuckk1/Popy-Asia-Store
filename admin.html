@@ -2,2123 +2,410 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Admin - Popy Asia Store</title>
+    <title>Toko Sembako Kita</title>
 
-    <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f6fa;
-            color: #333;
-        }
-
-        /* HEADER */
-
-        .header {
-            background: #222;
-            color: white;
-            padding: 18px 25px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            font-size: 22px;
-        }
-
-        .admin-label {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-
-        /* LAYOUT */
-
-        .container {
-            display: flex;
-            min-height: calc(100vh - 65px);
-        }
-
-
-        /* SIDEBAR */
-
-        .sidebar {
-            width: 220px;
-            background: white;
-            border-right: 1px solid #ddd;
-            padding: 20px 0;
-        }
-
-        .sidebar button {
-            width: 100%;
-            padding: 14px 20px;
-
-            border: none;
-            background: white;
-
-            text-align: left;
-            font-size: 15px;
-
-            cursor: pointer;
-        }
-
-        .sidebar button:hover {
-            background: #f0f0f0;
-        }
-
-        .sidebar button.aktif {
-            background: #222;
-            color: white;
-        }
-
-
-        /* CONTENT */
-
-        .content {
-            flex: 1;
-            padding: 25px;
-        }
-
-        .content h2 {
-            margin-bottom: 20px;
-        }
-
-
-        /* STATISTIK */
-
-        .statistik {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 15px;
-
-            margin-bottom: 30px;
-        }
-
-        .kartu-statistik {
-            background: white;
-
-            padding: 20px;
-
-            border-radius: 10px;
-
-            box-shadow:
-                0 2px 8px
-                rgba(0,0,0,0.08);
-        }
-
-        .kartu-statistik h3 {
-            font-size: 14px;
-            color: #777;
-
-            margin-bottom: 10px;
-        }
-
-        .kartu-statistik p {
-            font-size: 25px;
-            font-weight: bold;
-        }
-
-
-        /* PESANAN */
-
-        .pesanan {
-            background: white;
-
-            padding: 20px;
-
-            border-radius: 10px;
-
-            box-shadow:
-                0 2px 8px
-                rgba(0,0,0,0.08);
-        }
-
-        .pesanan h3 {
-            margin-bottom: 15px;
-        }
-
-        .pesanan table {
-            width: 100%;
-
-            border-collapse: collapse;
-        }
-
-        .pesanan th,
-        .pesanan td {
-            padding: 12px;
-
-            border-bottom:
-                1px solid #eee;
-
-            text-align: left;
-        }
-
-        .pesanan th {
-            background: #f8f8f8;
-        }
-
-
-        /* STATUS */
-
-        .status {
-            padding: 5px 10px;
-
-            border-radius: 15px;
-
-            font-size: 12px;
-
-            background: #fff3cd;
-        }
-
-
-        /* BUTTON */
-
-        .btn {
-            padding: 7px 12px;
-
-            border: none;
-
-            border-radius: 5px;
-
-            cursor: pointer;
-
-            background: #222;
-
-            color: white;
-        }
-
-        .btn:hover {
-            opacity: 0.8;
-        }
-
-        .login-admin .btn {
-    display: inline-block !important;
-    background: #222 !important;
-    color: white !important;
-    padding: 7px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-        /* RESPONSIVE */
-
-        @media (max-width: 800px) {
-
-            .sidebar {
-                width: 170px;
-            }
-
-            .statistik {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-        }
-
-
-        @media (max-width: 600px) {
-
-            .container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-
-                border-right: none;
-
-                border-bottom:
-                    1px solid #ddd;
-            }
-
-            .statistik {
-                grid-template-columns: 1fr;
-            }
-
-            .pesanan {
-                overflow-x: auto;
-            }
-
-        }
-
-
-        /* CETAK */
-@media print {
-
-    /* Sembunyikan elemen admin */
-    .header,
-    .sidebar,
-    .btn,
-    .login-admin,
-    #login-admin,
-    button,
-    input {
-        display: none !important;
-    }
-
-    /* Pengaturan halaman */
-    body {
-        background: white !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .content {
-        display: block !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .content h2 {
-        display: none !important;
-    }
-
-    /* Tampilan nota */
-    #nota-cetak {
-        display: block !important;
-        width: 100% !important;
-        max-width: 700px;
-        margin: 0 auto !important;
-        padding: 15px !important;
-        box-shadow: none !important;
-        border: none !important;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
-
-    #nota-cetak h1 {
-        font-size: 24px !important;
-    }
-
-    #nota-cetak h3 {
-        font-size: 16px;
-    }
-
-    #nota-cetak table {
-        width: 100%;
-        font-size: 13px;
-        border-collapse: collapse;
-    }
-
-    #nota-cetak th,
-    #nota-cetak td {
-        padding: 8px;
-    }
-
-    .pesanan {
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-}
-
-    </style>
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-    <div id="login-admin" class="login-admin">
-
-        <div class="login-box">
-
-            <h2>🔐 Login Admin</h2>
-
-            <input
-                type="email"
-                id="admin-email"
-                placeholder="Email admin"
-            >
-
-            <input
-                type="password"
-                id="admin-password"
-                placeholder="Password admin"
-            >
-
-            <button
-                class="btn"
-                onclick="loginAdmin()">
-                Login
-            </button>
-
-            <p id="login-error"></p>
-
-        </div>
-
-    </div>
-
-
     <!-- HEADER -->
+    <header>
 
-    <header class="header">
+        <div class="container header-content">
 
-        <h1>
-            🛒 Popy Asia Store
-        </h1>
+            <h1>🛒 Toko Sembako Kita</h1>
 
-        <div class="admin-label">
-            Admin Panel
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#produk">Produk</a>
+                <a href="#kategori">Kategori</a>
+                <a href="#keranjang">🛒 Keranjang</a>
+            </nav>
+
         </div>
 
     </header>
 
 
+    <!-- BANNER -->
+    <section id="home" class="banner">
 
-    <div class="container">
+        <div class="container">
 
-
-        <!-- SIDEBAR -->
-
-        <aside class="sidebar">
-
-            <button class="aktif">
-                🏠 Dashboard
-            </button>
-
-            <button>
-    📦 Pesanan
-    <span id="badge-pesanan-baru"></span>
-</button>
-
-            <button>
-                👥 Pelanggan
-            </button>
-
-            <button>
-                📄 Nota
-            </button>
-
-            <button>
-                ⚙️ Pengaturan
-            </button>
-
-        </aside>
-
-
-
-        <!-- CONTENT -->
-
-        <main class="content">
-
-            <h2>
-                Dashboard
-            </h2>
-
-
-
-            <!-- STATISTIK -->
-
-            <section class="statistik">
-
-
-                <div class="kartu-statistik">
-
-                    <h3>
-                        Pesanan Baru
-                    </h3>
-
-                    <p>
-                        0
-                    </p>
-
-                </div>
-
-
-
-                <div class="kartu-statistik">
-
-                    <h3>
-                        Diproses
-                    </h3>
-
-                    <p>
-                        0
-                    </p>
-
-                </div>
-
-
-
-                <div class="kartu-statistik">
-
-                    <h3>
-                        Selesai
-                    </h3>
-
-                    <p>
-                        0
-                    </p>
-
-                </div>
-
-
-
-                <div class="kartu-statistik">
-
-                    <h3>
-                        Total Pesanan
-                    </h3>
-
-                    <p>
-                        0
-                    </p>
-
-                </div>
-
-
-            </section>
-
-
-
-            <!-- DAFTAR PESANAN -->
-
-            <section class="pesanan">
-
-                <h3>
-                    📦 Pesanan Terbaru
-                </h3>
-
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                No. Pesanan
-                            </th>
-
-                            <th>
-                                Pelanggan
-                            </th>
-
-                            <th>
-                                Total
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                            <th>
-                                Aksi
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-
-                    <tbody>
-
-                        <tr>
-
-                            <td>
-                                -
-                            </td>
-
-                            <td>
-                                Belum ada pesanan
-                            </td>
-
-                            <td>
-                                -
-                            </td>
-
-                            <td>
-                                -
-                            </td>
-
-                            <td>
-                                -
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </section>
-
-
-        </main>
-
-    </div>
-
-
-
-    <!-- SUPABASE -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-    <script>
-
-        const SUPABASE_URL =
-            "https://rsmfdhktujpbbyprailw.supabase.co";
-
-
-        const SUPABASE_PUBLISHABLE_KEY =
-            "sb_publishable_oMPqtBesRyC02GSRAYrHUg_bKOjzoax";
-
-
-        const supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_PUBLISHABLE_KEY
-            );
-
-
-        console.log(
-            "Supabase Admin berhasil terhubung!"
-        );
-
-        async function tampilkanStatistik() {
-
-    const { data: pesanan, error } = await supabaseClient
-        .from("pesanan")
-        .select("status");
-
-    if (error) {
-        console.error("Gagal mengambil statistik:", error);
-        return;
-    }
-
-    const totalPesanan = pesanan.length;
-
-    const pesananBaru = pesanan.filter(function(order) {
-        return order.status === "Pesanan Baru";
-    }).length;
-
-    const diproses = pesanan.filter(function(order) {
-        return order.status === "Diproses";
-    }).length;
-
-    const selesai = pesanan.filter(function(order) {
-        return order.status === "Selesai";
-    }).length;
-
-    const kartu = document.querySelectorAll(
-        ".kartu-statistik p"
-    );
-
-    kartu[0].textContent = pesananBaru;
-    kartu[1].textContent = diproses;
-    kartu[2].textContent = selesai;
-    kartu[3].textContent = totalPesanan;
-}
-
-async function cekPesananBaru() {
-
-    const { data: pesanan, error } =
-        await supabaseClient
-            .from("pesanan")
-            .select("nomor_pesanan, status")
-            .eq("status", "Pesanan Baru");
-
-    if (error) {
-
-        console.error(
-            "Gagal mengecek pesanan baru:",
-            error
-        );
-
-        return;
-    }
-
-    console.log(
-        "Jumlah pesanan baru:",
-        pesanan.length
-    );
-
-}
-
-
-let jumlahPesananSebelumnya = null;
-
-async function cekPesananBaru() {
-
-    const { data: pesanan, error } =
-        await supabaseClient
-            .from("pesanan")
-            .select("nomor_pesanan, status")
-            .eq("status", "Pesanan Baru");
-
-    if (error) {
-
-        console.error(
-            "Gagal mengecek pesanan baru:",
-            error
-        );
-
-        return;
-    }
-
-
-    const jumlahSekarang =
-        pesanan.length;
-
-     const badge =
-    document.getElementById(
-        "badge-pesanan-baru"
-    );
-
-if (badge) {
-
-    if (jumlahSekarang > 0) {
-
-        badge.textContent =
-            jumlahSekarang;
-
-    } else {
-
-        badge.textContent = "";
-
-    }
-
-}
-    console.log(
-        "Jumlah pesanan baru:",
-        jumlahSekarang
-    );
-
-
-    // Pengecekan pertama hanya menyimpan jumlah awal
-    if (jumlahPesananSebelumnya === null) {
-
-        jumlahPesananSebelumnya =
-            jumlahSekarang;
-
-        return;
-    }
-
-
-    // Jika jumlah pesanan bertambah
-    if (
-    sedangDiHalamanPesanan &&
-    jumlahSekarang !== jumlahPesananSebelumnya
-) {
-    tampilkanDaftarPesanan();
-}
-    if (
-        jumlahSekarang >
-        jumlahPesananSebelumnya
-    ) {
-
-        const pesananTerbaru =
-            pesanan[0];
-
-        alert(
-            "🔔 PESANAN BARU!\n\n" +
-            "No. Pesanan: " +
-            pesananTerbaru.nomor_pesanan
-        );
-    }
-
-
-    jumlahPesananSebelumnya =
-        jumlahSekarang;
-}
-
-let sedangDiHalamanPesanan = false;
-
-// Cek pertama
-cekPesananBaru();
-
-
-// Cek otomatis setiap 30 detik
-setInterval(
-    cekPesananBaru,
-    30000
-);
-
-
-        async function loginAdmin() {
-
-    const email = document.getElementById("admin-email").value;
-    const password = document.getElementById("admin-password").value;
-    const errorElement = document.getElementById("login-error");
-
-    errorElement.textContent = "";
-
-    const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password
-        });
-
-    if (error) {
-
-        errorElement.textContent =
-            "Login gagal: " + error.message;
-
-        return;
-    }
-
-    alert("Login admin berhasil!");
-
-    document.getElementById("login-admin").style.display = "none";
-    tampilkanStatistik();
-    console.log("Admin berhasil login:", data.user.email);
-}
-
-
-    </script>
-
-
-
-    <!-- KODE ADMIN -->
-
-    <script>
-
-        const tombolMenu =
-            document.querySelectorAll(
-                ".sidebar button"
-            );
-
-
-        const judulHalaman =
-            document.querySelector(
-                ".content h2"
-            );
-
-
-
-        /*
-        ================================
-        MENU PESANAN
-        ================================
-        */
-        async function tampilkanDaftarPesanan() {
-
-    const { data: pesanan, error } =
-        await supabaseClient
-            .from("pesanan")
-            .select("*")
-            .order("id", {
-                ascending: false
-            });
-
-    if (error) {
-
-        console.error(
-            "Gagal mengambil pesanan:",
-            error
-        );
-
-        return;
-    }
-
-
-    const daftarPelanggan =
-        await Promise.all(
-
-            pesanan.map(
-                async function(order) {
-
-                    const { data: pelanggan } =
-                        await supabaseClient
-                            .from("pelanggan")
-                            .select("nama")
-                            .eq(
-                                "id",
-                                order.pelanggan_id
-                            )
-                            .single();
-
-                    return {
-                        order: order,
-                        nama: pelanggan
-                            ? pelanggan.nama
-                            : "-"
-                    };
-
-                }
-            )
-
-        );
-
-
-    document.querySelector(
-        ".content"
-    ).innerHTML = `
-
-        <section class="pesanan">
-
-            <h3>
-                📦 Daftar Pesanan
-            </h3>
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>No. Pesanan</th>
-                        <th>Pelanggan</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    ${
-                        daftarPelanggan.map(
-                            function(data) {
-
-                                const order =
-                                    data.order;
-
-                                return `
-
-                                    <tr>
-
-                                        <td>
-                                            ${order.nomor_pesanan}
-                                        </td>
-
-                                        <td>
-                                            ${data.nama}
-                                        </td>
-
-                                        <td>
-                                            ¥${Number(
-                                                order.total
-                                            ).toLocaleString(
-                                                "ja-JP"
-                                            )}
-                                        </td>
-
-                                        <td>
-
-                                            <select
-                                                class="status"
-                                                onchange="ubahStatusPesanan('${order.nomor_pesanan}', this.value)"
-                                            >
-
-                                                <option
-                                                    value="Pesanan Baru"
-                                                    ${
-                                                        order.status ===
-                                                        "Pesanan Baru"
-                                                            ? "selected"
-                                                            : ""
-                                                    }
-                                                >
-                                                    🟡 Pesanan Baru
-                                                </option>
-
-                                                <option
-                                                    value="Diproses"
-                                                    ${
-                                                        order.status ===
-                                                        "Diproses"
-                                                            ? "selected"
-                                                            : ""
-                                                    }
-                                                >
-                                                    🔵 Diproses
-                                                </option>
-
-                                                <option
-                                                    value="Selesai"
-                                                    ${
-                                                        order.status ===
-                                                        "Selesai"
-                                                            ? "selected"
-                                                            : ""
-                                                    }
-                                                >
-                                                    🟢 Selesai
-                                                </option>
-
-                                            </select>
-
-                                        </td>
-
-                                        <td>
-
-                                            <button
-                                                class="btn"
-                                                onclick="lihatPesanan('${order.nomor_pesanan}')"
-                                            >
-                                                Lihat
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
-
-                                `;
-
-                            }
-                        ).join("")
-                    }
-
-                </tbody>
-
-            </table>
-
-        </section>
-
-    `;
-
-}
-
-        tombolMenu[1].addEventListener(
-    "click",
-    async function () {
-       sedangDiHalamanPesanan = true;
-
-        judulHalaman.textContent =
-            "📦 Pesanan";
-
-        const { data: pesanan, error } =
-            await supabaseClient
-                .from("pesanan")
-                .select("*")
-                .order("id", {
-                    ascending: false
-                });
-
-        if (error) {
-
-            console.error(
-                "Gagal mengambil pesanan:",
-                error
-            );
-
-            document.querySelector(
-                ".content"
-            ).innerHTML = `
-                <section class="pesanan">
-
-                    <h3>
-                        ❌ Gagal memuat pesanan
-                    </h3>
-
-                    <p>
-                        ${error.message}
-                    </p>
-
-                </section>
-            `;
-
-            return;
-        }
-
-
-        const daftarPelanggan =
-            await Promise.all(
-
-                pesanan.map(
-                    async function(order) {
-
-                        const { data: pelanggan } =
-                            await supabaseClient
-                                .from("pelanggan")
-                                .select("nama")
-                                .eq(
-                                    "id",
-                                    order.pelanggan_id
-                                )
-                                .single();
-
-                        return {
-                            order: order,
-                            nama: pelanggan
-                                ? pelanggan.nama
-                                : "-"
-                        };
-
-                    }
-                )
-
-            );
-
-
-        document.querySelector(
-            ".content"
-        ).innerHTML = `
-
-            <section class="pesanan">
-
-                <h3>
-                    📦 Daftar Pesanan
-                </h3>
-
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                No. Pesanan
-                            </th>
-
-                            <th>
-                                Pelanggan
-                            </th>
-
-                            <th>
-                                Total
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                            <th>
-                                Aksi
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody>
-
-                        ${
-                            daftarPelanggan.map(
-                                function(data) {
-
-                                    const order =
-                                        data.order;
-
-                                    return `
-
-                                        <tr>
-
-                                            <td>
-                                                ${order.nomor_pesanan}
-                                            </td>
-
-                                            <td>
-                                                ${data.nama}
-                                            </td>
-
-                                            <td>
-                                                ¥${Number(
-                                                    order.total
-                                                ).toLocaleString(
-                                                    "ja-JP"
-                                                )}
-                                            </td>
-
-                                            <td>
-
-                                                <select
-                                                    class="status"
-                                                    onchange="ubahStatusPesanan('${order.nomor_pesanan}', this.value)"
-                                                >
-
-                                                    <option
-                                                        value="Pesanan Baru"
-                                                        ${
-                                                            order.status ===
-                                                            "Pesanan Baru"
-                                                                ? "selected"
-                                                                : ""
-                                                        }
-                                                    >
-                                                        🟡 Pesanan Baru
-                                                    </option>
-
-                                                    <option
-                                                        value="Diproses"
-                                                        ${
-                                                            order.status ===
-                                                            "Diproses"
-                                                                ? "selected"
-                                                                : ""
-                                                        }
-                                                    >
-                                                        🔵 Diproses
-                                                    </option>
-
-                                                    <option
-                                                        value="Selesai"
-                                                        ${
-                                                            order.status ===
-                                                            "Selesai"
-                                                                ? "selected"
-                                                                : ""
-                                                        }
-                                                    >
-                                                        🟢 Selesai
-                                                    </option>
-
-                                                </select>
-
-                                            </td>
-
-                                            <td>
-
-                                                <button
-                                                    class="btn"
-                                                    onclick="lihatPesanan('${order.nomor_pesanan}')"
-                                                >
-                                                    Lihat
-                                                </button>
-
-                                            </td>
-
-                                        </tr>
-
-                                    `;
-
-                                }
-                            ).join("")
-                        }
-
-                    </tbody>
-
-                </table>
-
-            </section>
-
-        `;
-
-    }
-);
-async function ubahStatusPesanan(nomorPesanan, statusBaru) {
-
-    const { error } = await supabaseClient
-        .from("pesanan")
-        .update({
-            status: statusBaru
-        })
-        .eq("nomor_pesanan", nomorPesanan);
-
-    if (error) {
-        console.error(
-            "Gagal mengubah status:",
-            error
-        );
-
-        alert(
-            "❌ Gagal mengubah status pesanan"
-        );
-
-        return;
-    }
-
-    alert(
-        "✅ Status pesanan berhasil diubah menjadi " +
-        statusBaru
-    );
-
-    tampilkanStatistik();
-}
-
-                tombolMenu[2].addEventListener(
-            "click",
-            async function () {
-
-                judulHalaman.textContent =
-                    "👥 Pelanggan";
-
-                const { data: pelanggan, error } =
-                    await supabaseClient
-                        .from("pelanggan")
-                        .select("*")
-                        .order("id", { ascending: false });
-
-                if (error) {
-                    console.error(
-                        "Gagal mengambil pelanggan:",
-                        error
-                    );
-
-                    document.querySelector(
-                        ".content"
-                    ).innerHTML = `
-                        <section class="pesanan">
-                            <h3>❌ Gagal memuat pelanggan</h3>
-                            <p>${error.message}</p>
-                        </section>
-                    `;
-
-                    return;
-                }
-
-                document.querySelector(
-                    ".content"
-                ).innerHTML = `
-
-                    <section class="pesanan">
-
-                        <h3>
-                            👥 Daftar Pelanggan
-                        </h3>
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Nama
-                                    </th>
-
-                                    <th>
-                                        WhatsApp
-                                    </th>
-
-                                    <th>
-                                        Alamat
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                ${
-                                    pelanggan.map(
-                                        function(customer) {
-
-                                            return `
-
-                                                <tr>
-
-                                                    <td>
-                                                        ${customer.nama}
-                                                    </td>
-
-                                                    <td>
-                                                        ${customer.whatsapp}
-                                                    </td>
-
-                                                    <td>
-                                                        ${customer.alamat}
-                                                    </td>
-
-                                                </tr>
-
-                                            `;
-
-                                        }
-                                    ).join("")
-                                }
-
-                            </tbody>
-
-                        </table>
-
-                    </section>
-
-                `;
-
-            }
-        );
-
-        tombolMenu[3].addEventListener(
-            "click",
-            async function () {
-
-                judulHalaman.textContent =
-                    "📄 Nota";
-
-                const { data: pesanan, error } =
-                    await supabaseClient
-                        .from("pesanan")
-                        .select("*")
-                        .order("id", {
-                            ascending: false
-                        });
-
-                if (error) {
-
-                    console.error(
-                        "Gagal mengambil pesanan:",
-                        error
-                    );
-
-                    document.querySelector(
-                        ".content"
-                    ).innerHTML = `
-                        <section class="pesanan">
-
-                            <h3>
-                                ❌ Gagal memuat nota
-                            </h3>
-
-                            <p>
-                                ${error.message}
-                            </p>
-
-                        </section>
-                    `;
-
-                    return;
-                }
-
-                document.querySelector(
-                    ".content"
-                ).innerHTML = `
-
-                    <section class="pesanan">
-
-                        <h3>
-                            📄 Pilih Pesanan
-                        </h3>
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        No. Pesanan
-                                    </th>
-
-                                    <th>
-                                        Total
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
-                                    <th>
-                                        Aksi
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                ${
-                                    pesanan.map(
-                                        function(order) {
-
-                                            return `
-
-                                                <tr>
-
-                                                    <td>
-                                                        ${order.nomor_pesanan}
-                                                    </td>
-
-                                                    <td>
-                                                        ¥${Number(
-                                                            order.total
-                                                        ).toLocaleString(
-                                                            "ja-JP"
-                                                        )}
-                                                    </td>
-
-                                                    <td>
-                                                        ${order.status}
-                                                    </td>
-
-                                                    <td>
-
-                                                        <button
-                                                            class="btn"
-                                                            onclick="buatNota('${order.nomor_pesanan}')"
-                                                        >
-                                                            📄 Lihat Nota
-                                                        </button>
-
-                                                    </td>
-
-                                                </tr>
-
-                                            `;
-
-                                        }
-                                    ).join("")
-                                }
-
-                            </tbody>
-
-                        </table>
-
-                    </section>
-
-                `;
-
-            }
-        );
-                async function buatNota(nomorPesanan) {
-
-            const content =
-                document.querySelector(".content");
-
-            content.innerHTML = `
-                <h2>📄 Nota Pesanan</h2>
-
-                <section class="pesanan">
-                    <p>
-                        Memuat nota...
-                    </p>
-                </section>
-            `;
-
-
-            // ==============================
-            // AMBIL DATA PESANAN
-            // ==============================
-
-            const { data: pesanan, error: errorPesanan } =
-                await supabaseClient
-                    .from("pesanan")
-                    .select("*")
-                    .eq("nomor_pesanan", nomorPesanan)
-                    .single();
-
-
-            if (errorPesanan) {
-
-                console.error(
-                    "Gagal mengambil pesanan:",
-                    errorPesanan
-                );
-
-                content.innerHTML = `
-                    <section class="pesanan">
-                        <h3>❌ Gagal memuat nota</h3>
-                        <p>
-                            ${errorPesanan.message}
-                        </p>
-                    </section>
-                `;
-
-                return;
-            }
-
-
-            // ==============================
-            // AMBIL DATA PELANGGAN
-            // ==============================
-
-            const { data: pelanggan, error: errorPelanggan } =
-                await supabaseClient
-                    .from("pelanggan")
-                    .select("*")
-                    .eq("id", pesanan.pelanggan_id)
-                    .single();
-
-
-            if (errorPelanggan) {
-
-                console.error(
-                    "Gagal mengambil pelanggan:",
-                    errorPelanggan
-                );
-
-                return;
-            }
-
-
-            // ==============================
-            // AMBIL DETAIL PRODUK
-            // ==============================
-
-            const { data: detail, error: errorDetail } =
-                await supabaseClient
-                    .from("detail_pesanan")
-                    .select("*")
-                    .eq("pesanan_id", pesanan.id);
-
-
-            if (errorDetail) {
-
-                console.error(
-                    "Gagal mengambil detail pesanan:",
-                    errorDetail
-                );
-
-                return;
-            }
-
-
-            // ==============================
-            // TAMPILKAN NOTA
-            // ==============================
-
-            content.innerHTML = `
-
-                <h2>📄 Nota Pesanan</h2>
-
-                <section
-                    class="pesanan"
-                    id="nota-cetak"
-                >
-
-                    <h1
-                        style="
-                            text-align:center;
-                            margin-bottom:5px;
-                        "
-                    >
-                        🛒 Popy Asia Store
-                    </h1>
-
-                    <p
-                        style="
-                            text-align:center;
-                            margin-bottom:20px;
-                        "
-                    >
-                        Nota Pesanan
-                    </p>
-
-
-                    <hr>
-
-
-                    <p>
-                        <strong>No. Pesanan:</strong>
-                        ${pesanan.nomor_pesanan}
-                    </p>
-
-                    <p>
-                        <strong>Tanggal:</strong>
-                        ${new Date().toLocaleDateString("id-ID")}
-                    </p>
-
-
-                    <hr>
-
-
-                    <h3>👤 Informasi Pelanggan</h3>
-
-                    <p>
-                        <strong>Nama:</strong>
-                        ${pelanggan.nama}
-                    </p>
-
-                    <p>
-                        <strong>WhatsApp:</strong>
-                        ${pelanggan.whatsapp}
-                    </p>
-
-                    <p>
-                        <strong>Alamat:</strong>
-                        ${pelanggan.alamat}
-                    </p>
-
-
-                    <hr>
-
-
-                    <h3>🛒 Produk</h3>
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>Produk</th>
-                                <th>Jumlah</th>
-                                <th>Harga</th>
-                                <th>Total</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            ${
-                                detail.map(
-                                    function(item) {
-
-                                        return `
-
-                                            <tr>
-
-                                                <td>
-                                                    ${item.nama_produk}
-                                                </td>
-
-                                                <td>
-                                                    ${item.jumlah}
-                                                </td>
-
-                                                <td>
-                                                    ¥${Number(
-                                                        item.harga
-                                                    ).toLocaleString(
-                                                        "ja-JP"
-                                                    )}
-                                                </td>
-
-                                                <td>
-                                                    ¥${Number(
-                                                        item.subtotal
-                                                    ).toLocaleString(
-                                                        "ja-JP"
-                                                    )}
-                                                </td>
-
-                                            </tr>
-
-                                        `;
-
-                                    }
-                                ).join("")
-                            }
-
-                        </tbody>
-
-                    </table>
-
-
-                    <hr>
-
-
-                    <p>
-                        <strong>Subtotal:</strong>
-                        ¥${Number(
-                            pesanan.subtotal
-                        ).toLocaleString("ja-JP")}
-                    </p>
-
-                    <p>
-                        <strong>Ongkir:</strong>
-                        ¥${Number(
-                            pesanan.ongkir
-                        ).toLocaleString("ja-JP")}
-                    </p>
-
-                    <h3>
-                        Total:
-                        ¥${Number(
-                            pesanan.total
-                        ).toLocaleString("ja-JP")}
-                    </h3>
-
-
-                    <p>
-                        <strong>Status:</strong>
-                        ${pesanan.status}
-                    </p>
-
-                </section>
-
-
-                <br>
-
-                <button
-                    class="btn"
-                    onclick="window.print()"
-                >
-                    🖨️ Cetak Nota
-                </button>
-
-            `;
-
-        }
-        /*
-        ================================
-        LIHAT DETAIL PESANAN
-        ================================
-        */
-
-        async function lihatPesanan(nomorPesanan) {
-
-    const content =
-        document.querySelector(".content");
-
-    content.innerHTML = `
-        <h2>📦 Detail Pesanan</h2>
-
-        <section class="pesanan">
-            <p>Memuat detail pesanan...</p>
-        </section>
-    `;
-
-
-    // Ambil data pesanan
-    const { data: pesanan, error: errorPesanan } =
-        await supabaseClient
-            .from("pesanan")
-            .select("*")
-            .eq("nomor_pesanan", nomorPesanan)
-            .single();
-
-
-    if (errorPesanan) {
-
-        console.error(
-            "Gagal mengambil pesanan:",
-            errorPesanan
-        );
-
-        content.innerHTML = `
-            <section class="pesanan">
-
-                <h3>
-                    ❌ Gagal memuat pesanan
-                </h3>
-
-                <p>
-                    ${errorPesanan.message}
-                </p>
-
-            </section>
-        `;
-
-        return;
-    }
-
-
-    // Ambil data pelanggan
-    const { data: pelanggan, error: errorPelanggan } =
-        await supabaseClient
-            .from("pelanggan")
-            .select("*")
-            .eq("id", pesanan.pelanggan_id)
-            .single();
-
-
-    if (errorPelanggan) {
-
-        console.error(
-            "Gagal mengambil pelanggan:",
-            errorPelanggan
-        );
-
-        return;
-    }
-
-
-    // Ambil detail produk
-    const { data: detail, error: errorDetail } =
-        await supabaseClient
-            .from("detail_pesanan")
-            .select("*")
-            .eq("pesanan_id", pesanan.id);
-
-
-    if (errorDetail) {
-
-        console.error(
-            "Gagal mengambil detail produk:",
-            errorDetail
-        );
-
-        return;
-    }
-
-
-    content.innerHTML = `
-
-        <h2>
-            📦 Detail Pesanan
-        </h2>
-
-
-        <section class="pesanan">
-
-
-            <h1
-                style="
-                    text-align:center;
-                    margin-bottom:10px;
-                "
-            >
-                Popy Asia Store
-            </h1>
-
-
-            <p
-                style="
-                    text-align:center;
-                    margin-bottom:20px;
-                "
-            >
-                Nota Pesanan
-            </p>
-
+            <h2>Belanja Sembako Lebih Mudah</h2>
 
             <p>
-
-                <strong>
-                    No. Pesanan:
-                </strong>
-
-                ${pesanan.nomor_pesanan}
-
+                Berbagai kebutuhan sehari-hari
+                tersedia dengan harga terjangkau.
             </p>
 
+            <a href="#produk" class="btn">
+                Belanja Sekarang
+            </a>
 
-            <p>
+        </div>
 
-                <strong>
-                    Tanggal:
-                </strong>
-
-                ${new Date()
-                    .toLocaleDateString(
-                        "id-ID"
-                    )}
-
-            </p>
+    </section>
 
 
-            <div
-                style="
-                    margin-top:20px;
-                    margin-bottom:20px;
-                "
-            >
+    <!-- KATEGORI -->
+    <section id="kategori">
 
-                <h3>
-                    👤 Informasi Pelanggan
-                </h3>
+        <div class="container">
 
+            <h2>Kategori Produk</h2>
+
+            <div class="kategori-list">
+
+                <button>semua</button>
+
+                <button>Air Mineral</button>
+
+                <button>Rokok</button>
+
+                <button>Mouse</button>
+
+                <button>Pulpen</button>
+
+                <button>🍜 Mie Instan</button>
+
+                <button>📦 Lainnya</button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUK -->
+    <section id="produk">
+
+        <div class="container">
+
+            <h2>Produk Kami</h2>
+
+             <div class="pencarian">
+    <input
+        type="text"
+        id="input-pencarian"
+        placeholder="🔍 Cari produk..."
+    >
+</div>
+
+
+            <div class="produk-grid">
+
+
+                <!-- AIR MINERAL -->
+                <div class="produk-card" data-kategori="air mineral">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/air mineral.JPG" alt="Air Mineral 300ml">
+                    </div>
+
+                    <h3>air mineral</h3>
+
+                    <div class="harga-promo" data-promo="10">
+                    <span class="harga-lama">&yen;150</span>
+                    <span class="badge-promo">PROMO -3%</span>
+                </div>
+
+                    <p class="harga">&yen;100</p>
+                    <p class="stok">Stok: 10</p>
+                    </p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+
+                <!-- PULPEN -->
+                <div class="produk-card" data-kategori="pulpen">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/pulpen.JPG" alt="pulpen 3 warna">
+                    </div>
+
+                    <h3>pulpen 3 warna</h3>
+
+                    <div class="harga-promo"data-promo="5">
+                    <span class="harga-lama">\250</span>
+                    <span class="badge-promo">PROMO -5%</span>
+                </div>
+
+                    <p class="harga">\210</p>
+                    <p class="stok">Stok: 10</p>
+                    </p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+
+                <!-- ROKOK -->
+                <div class="produk-card" data-kategori="rokok">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/rokok.JPG" alt="<Marlboro 20btg">
+                    </div>
+
+                    <h3>Rokok marlboro 20btg</h3>
+
+                    <div class="harga-promo" data-promo="10">
+                    <span class="harga-lama">\530</span>
+                    <span class="badge-promo">PROMO -10%</span>
+                </div>
+
+                    <p class="harga">\480</p>
+                    <p class="stok">Stok: 10</p>
+                    </p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+
+                <!-- MOUSE -->
+                <div class="produk-card" data-kategori="mouse">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/mouse.JPG" alt="FNATIC MOUSE">
+                    </div>
+
+                    <h3>FNATIC MOIUSE</h3>
+
+                    <p class="harga">
+                        \4300
+                    <p class="stok">Stok: 10</p>
+                    </p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+                <!-- INDOMIE GORENG RENDANG -->
+                <div class="produk-card" data-kategori="🍜 mie instan">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/Indomie Goreng Rendang.JPG"
+                             alt="Indomie Rendang">
+                    </div>
+
+                    <h3>Indomie Goreng Rendang</h3>
+
+                    <p class="harga">\190</p>
+                    <p class="stok">Stok: 10</p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+
+                <!-- INDOMIE GORENG ACEH -->
+                <div class="produk-card" data-kategori="🍜 mie instan">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/Indomie Goreng Aceh.JPG"
+                             alt="Indomie Goreng Aceh">
+                    </div>
+
+                    <h3>Indomie Goreng Aceh</h3>
+
+                    <p class="harga">\190</p>
+                    <p class="stok">Stok: 10</p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+
+                <!-- INDOMIE AYAM GEPREK -->
+                <div class="produk-card" data-kategori="🍜 mie instan">
+
+                    <div class="produk-gambar">
+                        <img src="gambar/Indomie Ayam Geprek.JPG"
+                             alt="Indomie Ayam Geprek">
+                    </div>
+
+                    <h3>Indomie Ayam Geprek</h3>
+
+                    <p class="harga">\190</p>
+                    <p class="stok">Stok: 10</p>
+
+                    <button class="btn">
+                        Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+                
+
+        </div>
+
+    </section>
+
+
+    <!-- KERANJANG -->
+    <section id="keranjang">
+
+        <div class="container">
+
+            <div class="keranjang">
+
+                <h2>🛒 Keranjang Belanja</h2>
 
                 <p>
-
-                    <strong>
-                        Nama:
-                    </strong>
-
-                    ${pelanggan.nama}
-
-                </p>
-
-
-                <p>
-
-                    <strong>
-                        WhatsApp:
-                    </strong>
-
-                    ${pelanggan.whatsapp}
-
-                </p>
-
-
-                <p>
-
-                    <strong>
-                        Alamat:
-                    </strong>
-
-                    ${pelanggan.alamat}
-
+                    Keranjang masih kosong.
                 </p>
 
             </div>
 
+        </div>
 
-            <hr
-                style="
-                    margin:20px 0;
-                "
-            >
+    </section>
 
+<!-- CHECKOUT -->
 
-            <h3>
-                🛒 Produk
-            </h3>
+<section id="checkout">
 
+    <div class="container">
 
-            <table
-                style="
-                    margin-top:15px;
-                "
-            >
+        <div class="checkout-box">
 
-                <thead>
+            <h2>📦 Checkout</h2>
 
-                    <tr>
+            <form id="form-checkout">
 
-                        <th>
-                            Produk
-                        </th>
+                <div class="form-group">
 
-                        <th>
-                            Jumlah
-                        </th>
+                    <label for="nama">
+                        Nama Lengkap
+                    </label>
 
-                        <th>
-                            Harga
-                        </th>
+                    <input
+                        type="text"
+                        id="nama"
+                        placeholder="Masukkan nama"
+                        required
+                    >
 
-                        <th>
-                            Total
-                        </th>
-
-                    </tr>
-
-                </thead>
+                </div>
 
 
-                <tbody>
+                <div class="form-group">
 
-                    ${
-                        detail.map(
-                            function(item) {
+                    <label for="whatsapp">
+                        Nomor WhatsApp
+                    </label>
 
-                                return `
+                    <input
+                        type="tel"
+                        id="whatsapp"
+                        placeholder="08xxxxxxxxxx"
+                        required
+                    >
 
-                                    <tr>
-
-                                        <td>
-                                            ${item.nama_produk}
-                                        </td>
-
-                                        <td>
-                                            ${item.jumlah}
-                                        </td>
-
-                                        <td>
-                                            ¥${Number(
-                                                item.harga
-                                            ).toLocaleString(
-                                                "ja-JP"
-                                            )}
-                                        </td>
-
-                                        <td>
-                                            ¥${Number(
-                                                item.subtotal
-                                            ).toLocaleString(
-                                                "ja-JP"
-                                            )}
-                                        </td>
-
-                                    </tr>
-
-                                `;
-
-                            }
-                        ).join("")
-                    }
-
-                </tbody>
-
-            </table>
+                </div>
 
 
-            <hr
-                style="
-                    margin:20px 0;
-                "
-            >
+                <div class="form-group">
+
+                    <label for="alamat">
+                        Alamat Lengkap
+                    </label>
+
+                    <textarea
+                        id="alamat"
+                        rows="4"
+                        placeholder="Masukkan alamat lengkap"
+                        required
+                    ></textarea>
+
+                </div>
 
 
-            <p>
+                <div class="checkout-total">
 
-                <strong>
-                    Subtotal:
-                </strong>
+                    <p>
+                        Total Belanja:
+                        <strong id="checkout-subtotal">
+                            Rp0
+                        </strong>
+                    </p>
 
-                ¥${Number(
-                    pesanan.subtotal
-                ).toLocaleString("ja-JP")}
+                    <h3>
+                        Total Pembayaran:
+                        <span id="checkout-total">
+                            Rp5.000
+                        </span>
+                    </h3>
 
-            </p>
+                </div>
 
+
+                <button
+                    type="submit"
+                    class="btn checkout-button">
+
+                    Buat Pesanan
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="container">
 
             <p>
-
-                <strong>
-                    Ongkir:
-                </strong>
-
-                ¥${Number(
-                    pesanan.ongkir
-                ).toLocaleString("ja-JP")}
-
+                © 2026 Toko Sembako Kita
             </p>
 
+        </div>
 
-            <h3
-                style="
-                    margin-top:15px;
-                "
-            >
+    </footer>
 
-                TOTAL:
-                ¥${Number(
-                    pesanan.total
-                ).toLocaleString("ja-JP")}
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-            </h3>
+<script>
+    const SUPABASE_URL = "https://rsmfdhktujpbbyprailw.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_oMPqtBesRyC02GSRAYrHUg_bKOjzoax";
 
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-            <p>
+    console.log("Supabase website berhasil terhubung!");
+</script>
 
-                <strong>
-                    Status:
-                </strong>
-
-                ${pesanan.status}
-
-            </p>
-
-
-            <br>
-
-
-            <button
-                class="btn"
-                onclick="window.print()"
-            >
-                🖨️ Cetak Nota
-            </button>
-
-
-            <button
-                class="btn"
-                onclick="location.reload()"
-            >
-                ← Kembali
-            </button>
-
-
-        </section>
-
-    `;
-
-}
-    </script>
+    <script src="script.js"></script>
 
 
 </body>
