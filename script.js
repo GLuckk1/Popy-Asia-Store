@@ -243,6 +243,7 @@ function tampilkanKeranjang() {
 
     areaKeranjang.innerHTML = html;
 
+    updateJumlahKeranjang();
 
     updateCheckoutTotal();
 
