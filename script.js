@@ -800,3 +800,13 @@ function bukaBeranda() {
     document.querySelector("#keranjang").classList.remove("halaman-aktif");
     document.querySelector("#checkout").classList.remove("halaman-aktif");
 }
+
+function bukaProduk() {
+    bukaBeranda();
+    document.querySelector("#produk").scrollIntoView({ behavior: "smooth" });
+}
+
+function bukaKategori() {
+    bukaBeranda();
+    document.querySelector("#kategori").scrollIntoView({ behavior: "smooth" });
+}
