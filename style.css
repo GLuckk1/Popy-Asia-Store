@@ -669,11 +669,14 @@ body.halaman-checkout #keranjang {
         border-radius: 14px;
     }
 
+   
     .kategori-beranda-card .produk-card img {
         width: 100%;
-        height: 130px;
+        height: 180px;
         object-fit: contain;
+        display: block;
     }
+
 
     .kategori-beranda-card .produk-card h3 {
         font-size: 15px;
