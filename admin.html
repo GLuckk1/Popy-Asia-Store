@@ -285,7 +285,27 @@ async function lihatDetailPesanan(nomorPesanan) {
             <h3>NOTA PESANAN</h3>
             <p>Nomor: ${aman(pesanan.nomor_pesanan)}</p>
             <p>Tanggal: ${aman(new Date(pesanan.created_at).toLocaleString("id-ID"))}</p>
-            <p>Status: ${aman(pesanan.status || "-")}</p>
+            <p>
+    Status:
+    <strong>${aman(pesanan.status || "-")}</strong>
+</p>
+
+<label for="status-pesanan-baru">Ubah Status:</label>
+
+<select id="status-pesanan-baru"
+    style="padding:8px;margin:8px 0;">
+    <option value="Menunggu">Menunggu</option>
+    <option value="Diproses">Diproses</option>
+    <option value="Selesai">Selesai</option>
+    <option value="Dibatalkan">Dibatalkan</option>
+</select>
+
+<button type="button" class="btn"
+    onclick="simpanStatusPesanan('${aman(pesanan.nomor_pesanan)}')">
+    Simpan Status
+</button>
+
+<p id="pesan-status-pesanan"></p>
 
             <hr>
 
@@ -370,6 +390,40 @@ function cetakNotaPesanan() {
     jendela.print();
 }
 
+async function simpanStatusPesanan(nomorPesanan) {
+    const pilihan = document.querySelector("#status-pesanan-baru");
+    const pesan = document.querySelector("#pesan-status-pesanan");
+
+    if (!pilihan || !pesan) return;
+
+    const statusBaru = pilihan.value;
+    pesan.textContent = "Menyimpan status...";
+
+    const { data: pesanan, error: errorCari } = await supabaseClient
+        .from("pesanan")
+        .select("id")
+        .eq("nomor_pesanan", nomorPesanan)
+        .single();
+
+    if (errorCari || !pesanan) {
+        pesan.textContent = "Gagal menemukan pesanan.";
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("pesanan")
+        .update({ status: statusBaru })
+        .eq("id", pesanan.id);
+
+    if (error) {
+        pesan.textContent = "Gagal menyimpan status: " + error.message;
+        return;
+    }
+
+    pesan.textContent = "Status berhasil disimpan!";
+
+    await lihatDetailPesanan(nomorPesanan);
+}
 </script>
 
 </body>
