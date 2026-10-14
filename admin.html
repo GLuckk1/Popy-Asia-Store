@@ -14,6 +14,33 @@
 
 <body>
 
+<div id="login-admin" style="max-width:400px;margin:80px auto;padding:24px;border:1px solid #ddd;border-radius:12px;">
+    <h2>Login Admin Popy Asia Store</h2>
+
+    <form id="form-login-admin">
+        <label for="email-admin">Email</label>
+        <input
+            id="email-admin"
+            type="email"
+            required
+            autocomplete="username"
+            style="display:block;width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
+        >
+
+        <label for="password-admin">Password</label>
+        <input
+            id="password-admin"
+            type="password"
+            required
+            autocomplete="current-password"
+            style="display:block;width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
+        >
+
+        <button type="submit" class="btn">Masuk</button>
+        <p id="pesan-login-admin" role="status"></p>
+    </form>
+</div>
+<div id="konten-admin" style="display:none;">
     <!-- HEADER -->
     <header>
 
@@ -390,7 +417,9 @@
         </div>
 
     </footer>
-
+    
+ </div>
+    
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -403,11 +432,37 @@
     );
 
     console.log("Supabase website berhasil terhubung!");
+    
+const loginAdmin = document.querySelector("#form-login-admin");
+const pesanLoginAdmin = document.querySelector("#pesan-login-admin");
+
+loginAdmin.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email = document.querySelector("#email-admin").value.trim();
+    const password = document.querySelector("#password-admin").value;
+
+    pesanLoginAdmin.textContent = "Sedang memeriksa akun...";
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+        pesanLoginAdmin.textContent = "Login gagal. Periksa email dan password.";
+        return;
+    }
+
+ pesanLoginAdmin.textContent = "Login berhasil!";
+
+document.querySelector("#login-admin").style.display = "none";
+document.querySelector("#konten-admin").style.display = "block";
+
+console.log("Admin berhasil login:", data.user.id);
+});
+
 </script>
 
-    <script src="script.js"></script>
-
-
 </body>
-
 </html>
