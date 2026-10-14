@@ -195,14 +195,7 @@ async function muatPesananAdmin() {
             <td style="padding:10px;border-bottom:1px solid #ddd;">
                 ${escapeHTML(pesanan.nomor_pesanan || "-")}
             </td>
-            <td style="padding:10px;border-bottom:1px solid #ddd;">
-    <button
-        type="button"
-        class="btn"
-        onclick="lihatDetailPesanan('${escapeHTML(pesanan.nomor_pesanan)}')">
-        Lihat Detail
-    </button>
-</td>
+            
             <td style="padding:10px;border-bottom:1px solid #ddd;">
                 ${escapeHTML(
                     pesanan.created_at
@@ -216,6 +209,14 @@ async function muatPesananAdmin() {
             <td style="padding:10px;border-bottom:1px solid #ddd;">
                 ${escapeHTML(pesanan.status || "-")}
             </td>
+            <td style="padding:10px;border-bottom:1px solid #ddd;">
+    <button
+        type="button"
+        class="btn"
+        onclick="lihatDetailPesanan('${escapeHTML(pesanan.nomor_pesanan)}')">
+        Lihat Detail
+    </button>
+</td>
         </tr>
     `).join("");
 }
