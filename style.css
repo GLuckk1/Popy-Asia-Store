@@ -581,3 +581,63 @@ body.halaman-checkout #produk,
 body.halaman-checkout #keranjang {
     display: none;
 }
+
+/* KATEGORI BERANDA */
+#kategori-beranda {
+    padding: 30px 0;
+}
+
+#kategori-beranda h2 {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.kategori-beranda-card {
+    margin-bottom: 35px;
+    padding: 18px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.kategori-beranda-card h3 {
+    margin-bottom: 18px;
+    font-size: 20px;
+}
+
+.kategori-beranda-card .produk-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.kategori-beranda-card .produk-card {
+    min-width: 0;
+}
+
+.kategori-beranda-card .produk-gambar img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+
+.kategori-beranda-card > .btn {
+    display: block;
+    margin: 20px auto 0;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .kategori-beranda-card {
+        padding: 12px;
+    }
+
+    .kategori-beranda-card .produk-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .kategori-beranda-card .produk-gambar img {
+        height: 120px;
+    }
+}
