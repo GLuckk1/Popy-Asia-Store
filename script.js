@@ -456,7 +456,7 @@ function scrollKeCheckout() {
 const formCheckout =
     document.querySelector("#form-checkout");
 
-
+console.log("TES SCRIPT TERBARU");
 console.log("Form checkout ditemukan:", !!formCheckout);
 
 if (formCheckout) {
