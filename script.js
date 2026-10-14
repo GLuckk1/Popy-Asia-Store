@@ -448,8 +448,6 @@ function scrollKeCheckout() {
     });
 }
 
-}
-
 
 // ==========================================
 // CHECKOUT KE WHATSAPP
