@@ -41,382 +41,29 @@
     </form>
 </div>
 <div id="konten-admin" style="display:none;">
-    <!-- HEADER -->
-    <header>
-
-        <div class="container header-content">
-
-            <h1>🛒 Toko Sembako Kita</h1>
-
-            <nav>
-                <a href="#home">Home</a>
-                <a href="#produk">Produk</a>
-                <a href="#kategori">Kategori</a>
-                <a href="#keranjang">🛒 Keranjang</a>
-            </nav>
-
-        </div>
-
-    </header>
-
-
-    <!-- BANNER -->
-    <section id="home" class="banner">
-
-        <div class="container">
-
-            <h2>Belanja Sembako Lebih Mudah</h2>
-
-            <p>
-                Berbagai kebutuhan sehari-hari
-                tersedia dengan harga terjangkau.
-            </p>
-
-            <a href="#produk" class="btn">
-                Belanja Sekarang
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- KATEGORI -->
-    <section id="kategori">
-
-        <div class="container">
-
-            <h2>Kategori Produk</h2>
-
-            <div class="kategori-list">
-
-                <button>semua</button>
-
-                <button>Air Mineral</button>
-
-                <button>Rokok</button>
-
-                <button>Mouse</button>
-
-                <button>Pulpen</button>
-
-                <button>🍜 Mie Instan</button>
-
-                <button>📦 Lainnya</button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- PRODUK -->
-    <section id="produk">
-
-        <div class="container">
-
-            <h2>Produk Kami</h2>
-
-             <div class="pencarian">
-    <input
-        type="text"
-        id="input-pencarian"
-        placeholder="🔍 Cari produk..."
-    >
-</div>
-
-
-            <div class="produk-grid">
-
-
-                <!-- AIR MINERAL -->
-                <div class="produk-card" data-kategori="air mineral">
-
-                    <div class="produk-gambar">
-                        <img src="gambar/air mineral.JPG" alt="Air Mineral 300ml">
-                    </div>
-
-                    <h3>air mineral</h3>
-
-                    <div class="harga-promo" data-promo="10">
-                    <span class="harga-lama">¥150</span>
-                    <span class="badge-promo">PROMO -3%</span>
-                </div>
-
-                    <p class="harga">¥100</p>
-                    <p class="stok">Stok: 10</p>
-                    </p>
-
-                    <button class="btn">
-                        Tambah ke Keranjang
-                    </button>
-
-                </div>
-
-
-                <!-- PULPEN -->
-                <div class="produk-card" data-kategori="pulpen">
-
-                    <div class="produk-gambar">
-                        <img src="gambar/pulpen.JPG" alt="pulpen 3 warna">
-                    </div>
-
-                    <h3>pulpen 3 warna</h3>
-
-                    <div class="harga-promo"data-promo="5">
-                    <span class="harga-lama">\250</span>
-                    <span class="badge-promo">PROMO -5%</span>
-                </div>
-
-                    <p class="harga">\210</p>
-                    <p class="stok">Stok: 10</p>
-                    </p>
-
-                    <button class="btn">
-                        Tambah ke Keranjang
-                    </button>
-
-                </div>
-
-
-                <!-- ROKOK -->
-                <div class="produk-card" data-kategori="rokok">
-
-                    <div class="produk-gambar">
-                        <img src="gambar/rokok.JPG" alt="<Marlboro 20btg">
-                    </div>
-
-                    <h3>Rokok marlboro 20btg</h3>
-
-                    <div class="harga-promo" data-promo="10">
-                    <span class="harga-lama">\530</span>
-                    <span class="badge-promo">PROMO -10%</span>
-                </div>
-
-                    <p class="harga">\480</p>
-                    <p class="stok">Stok: 10</p>
-                    </p>
-
-                    <button class="btn">
-                        Tambah ke Keranjang
-                    </button>
-
-                </div>
-
-
-                <!-- MOUSE -->
-                <div class="produk-card" data-kategori="mouse">
-
-                    <div class="produk-gambar">
-                        <img src="gambar/mouse.JPG" alt="FNATIC MOUSE">
-                    </div>
-
-                    <h3>FNATIC MOIUSE</h3>
-
-                    <p class="harga">
-                        \4300
-                    <p class="stok">Stok: 10</p>
-                    </p>
-
-                    <button class="btn">
-                        Tambah ke Keranjang
-                    </button>
-
-                </div>
-
-                <!-- INDOMIE GORENG RENDANG -->
-                <div class="produk-card" data-kategori="🍜 mie instan">
-
-                    <div class="produk-gambar">
-                        <img src="gambar/Indomie Goreng Rendang.JPG"
-                             alt="Indomie Rendang">
-                    </div>
-
-                    <h3>Indomie Goreng Rendang</h3>
-
-                    <p class="harga">\190</p>
-                    <p class="stok">Stok: 10</p>
-
-                    <button class="btn">
-                        Tambah ke Keranjang
-                    </button>
-
-                </div>
-
-
-                <!-- INDOMIE GORENG ACEH -->
-                <div class="produk-card" data-kategori="🍜 mie instan">
-
-                    <div class="produk-gambar">
-                        <img src="gambar/Indomie Goreng Aceh.JPG"
-                             alt="Indomie Goreng Aceh">
-                    </div>
-
-                    <h3>Indomie Goreng Aceh</h3>
-
-                    <p class="harga">\190</p>
-                    <p class="stok">Stok: 10</p>
-
-                    <button class="btn">
-                        Tambah ke Keranjang
-                    </button>
-
-                </div>
-
-
-                <!-- INDOMIE AYAM GEPREK -->
-                <div class="produk-card" data-kategori="🍜 mie instan">
-
-                    <div class="produk-gambar">
-                        <img src="gambar/Indomie Ayam Geprek.JPG"
-                             alt="Indomie Ayam Geprek">
-                    </div>
-
-                    <h3>Indomie Ayam Geprek</h3>
-
-                    <p class="harga">\190</p>
-                    <p class="stok">Stok: 10</p>
-
-                    <button class="btn">
-                        Tambah ke Keranjang
-                    </button>
-
-                </div>
-
-                
-
-        </div>
-
-    </section>
-
-
-    <!-- KERANJANG -->
-    <section id="keranjang">
-
-        <div class="container">
-
-            <div class="keranjang">
-
-                <h2>🛒 Keranjang Belanja</h2>
-
-                <p>
-                    Keranjang masih kosong.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-<!-- CHECKOUT -->
-
-<section id="checkout">
-
-    <div class="container">
-
-        <div class="checkout-box">
-
-            <h2>📦 Checkout</h2>
-
-            <form id="form-checkout">
-
-                <div class="form-group">
-
-                    <label for="nama">
-                        Nama Lengkap
-                    </label>
-
-                    <input
-                        type="text"
-                        id="nama"
-                        placeholder="Masukkan nama"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="whatsapp">
-                        Nomor WhatsApp
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="whatsapp"
-                        placeholder="08xxxxxxxxxx"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="alamat">
-                        Alamat Lengkap
-                    </label>
-
-                    <textarea
-                        id="alamat"
-                        rows="4"
-                        placeholder="Masukkan alamat lengkap"
-                        required
-                    ></textarea>
-
-                </div>
-
-
-                <div class="checkout-total">
-
-                    <p>
-                        Total Belanja:
-                        <strong id="checkout-subtotal">
-                            Rp0
-                        </strong>
-                    </p>
-
-                    <h3>
-                        Total Pembayaran:
-                        <span id="checkout-total">
-                            Rp5.000
-                        </span>
-                    </h3>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="btn checkout-button">
-
-                    Buat Pesanan
-
-                </button>
-
-            </form>
-
-        </div>
-
+    <div class="container" style="max-width:1100px;margin:30px auto;padding:20px;">
+    <h1>🛒 Popy Asia Store</h1>
+    <h2>Dashboard Admin</h2>
+
+    <p>Selamat datang di panel admin!</p>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:20px 0;">
+        <button type="button" class="btn" onclick="tampilkanMenuAdmin('dashboard')">🏠 Dashboard</button>
+        <button type="button" class="btn" onclick="tampilkanMenuAdmin('pesanan')">📦 Pesanan</button>
+        <button type="button" class="btn" onclick="tampilkanMenuAdmin('pelanggan')">👥 Pelanggan</button>
+        <button type="button" class="btn" onclick="tampilkanMenuAdmin('nota')">📄 Nota</button>
+        <button type="button" class="btn" onclick="logoutAdmin()">Keluar</button>
     </div>
 
-</section>
+    <hr>
 
-    <!-- FOOTER -->
-    <footer>
+    <div id="isi-menu-admin">
+        <h2>🏠 Dashboard</h2>
+        <p>Dashboard admin berhasil dibuka.</p>
+        <p>Pilih menu di atas untuk melanjutkan.</p>
+    </div>
 
-        <div class="container">
-
-            <p>
-                © 2026 Toko Sembako Kita
-            </p>
-
-        </div>
-
-    </footer>
+    </div>
     
  </div>
     
@@ -462,6 +109,43 @@ document.querySelector("#konten-admin").style.display = "block";
 console.log("Admin berhasil login:", data.user.id);
 });
 
+    function tampilkanMenuAdmin(menu) {
+    const isi = document.querySelector("#isi-menu-admin");
+
+    if (menu === "dashboard") {
+        isi.innerHTML = `
+            <h2>🏠 Dashboard</h2>
+            <p>Selamat datang di Popy Asia Store.</p>
+        `;
+    } else if (menu === "pesanan") {
+        isi.innerHTML = `
+            <h2>📦 Pesanan</h2>
+            <p>Menu pesanan siap dibuat.</p>
+        `;
+    } else if (menu === "pelanggan") {
+        isi.innerHTML = `
+            <h2>👥 Pelanggan</h2>
+            <p>Menu pelanggan siap dibuat.</p>
+        `;
+    } else if (menu === "nota") {
+        isi.innerHTML = `
+            <h2>📄 Nota</h2>
+            <p>Menu nota siap dibuat.</p>
+        `;
+    }
+}
+
+async function logoutAdmin() {
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+        alert("Gagal keluar. Silakan coba lagi.");
+        return;
+    }
+
+    document.querySelector("#konten-admin").style.display = "none";
+    document.querySelector("#login-admin").style.display = "block";
+}
 </script>
 
 </body>
