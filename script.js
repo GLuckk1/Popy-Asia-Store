@@ -438,7 +438,10 @@ function updateCheckoutTotal() {
 // SCROLL KE CHECKOUT
 // ==========================================
 
+
 function scrollKeCheckout() {
+    bukaCheckout();
+
     const checkout = document.querySelector("#checkout");
 
     if (checkout) {
