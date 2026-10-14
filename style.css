@@ -651,7 +651,7 @@ body.halaman-checkout #keranjang {
 }
 
 
-/* Kategori beranda lebih kecil di HP */
+/* Tampilan kategori beranda di HP */
 @media (max-width: 600px) {
     .kategori-beranda-card {
         padding: 8px;
@@ -659,40 +659,37 @@ body.halaman-checkout #keranjang {
     }
 
     .kategori-beranda-card .produk-grid {
-        gap: 8px;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
     }
-
 
     .kategori-beranda-card .produk-card {
-        padding: 4px;
+        padding: 8px;
         min-width: 0;
-        border-radius: 8px;
+        border-radius: 14px;
     }
-
-    .kategori-beranda-card .produk-grid {
-        gap: 6px;
-    }
-
 
     .kategori-beranda-card .produk-card img {
         width: 100%;
-        height: 75px;
+        height: 130px;
         object-fit: contain;
     }
-}
 
-.kategori-beranda-card .produk-card h3 {
-    font-size: 12px;
-    margin: 4px 0;
-}
+    .kategori-beranda-card .produk-card h3 {
+        font-size: 15px;
+        line-height: 1.3;
+        margin: 8px 0;
+    }
 
-.kategori-beranda-card .produk-card p {
-    font-size: 11px;
-    margin: 3px 0;
-}
+    .kategori-beranda-card .produk-card p {
+        font-size: 13px;
+        margin: 5px 0;
+    }
 
-.kategori-beranda-card .produk-card button {
-    font-size: 11px;
-    padding: 6px 4px;
+    .kategori-beranda-card .produk-card button {
+        font-size: 12px;
+        padding: 8px 5px;
+        line-height: 1.3;
+        border-radius: 10px;
+    }
 }
