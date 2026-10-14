@@ -109,7 +109,8 @@ document.querySelector("#konten-admin").style.display = "block";
 console.log("Admin berhasil login:", data.user.id);
 });
 
-    function tampilkanMenuAdmin(menu) {
+    
+function tampilkanMenuAdmin(menu) {
     const isi = document.querySelector("#isi-menu-admin");
 
     if (menu === "dashboard") {
@@ -117,34 +118,34 @@ console.log("Admin berhasil login:", data.user.id);
             <h2>🏠 Dashboard</h2>
             <p>Selamat datang di Popy Asia Store.</p>
         `;
-    
-} else if (menu === "pesanan") {
-    isi.innerHTML = `
-        <h2>📦 Daftar Pesanan</h2>
-        <p id="status-pesanan">Memuat pesanan...</p>
-        <div style="overflow-x:auto;">
-            <table style="width:100%;border-collapse:collapse;">
-                <thead>
-                    <tr>
-                        <th style="padding:10px;border-bottom:1px solid #ddd;">Nomor Pesanan</th>
-                        <th style="padding:10px;border-bottom:1px solid #ddd;">Tanggal</th>
-                        <th style="padding:10px;border-bottom:1px solid #ddd;">Total</th>
-                        <th style="padding:10px;border-bottom:1px solid #ddd;">Status</th>
-                    </tr>
-                </thead>
-                <tbody id="daftar-pesanan"></tbody>
-            </table>
-        </div>
-    `;
 
-    muatPesananAdmin();
-}
+    } else if (menu === "pesanan") {
+        isi.innerHTML = `
+            <h2>📦 Daftar Pesanan</h2>
+            <p id="status-pesanan">Memuat pesanan...</p>
+            <div style="overflow-x:auto;">
+                <table style="width:100%;border-collapse:collapse;">
+                    <thead>
+                        <tr>
+                            <th style="padding:10px;border-bottom:1px solid #ddd;">Nomor Pesanan</th>
+                            <th style="padding:10px;border-bottom:1px solid #ddd;">Tanggal</th>
+                            <th style="padding:10px;border-bottom:1px solid #ddd;">Total</th>
+                            <th style="padding:10px;border-bottom:1px solid #ddd;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="daftar-pesanan"></tbody>
+                </table>
+            </div>
+        `;
 
-    }  else if (menu === "pelanggan") {
+        muatPesananAdmin();
+
+    } else if (menu === "pelanggan") {
         isi.innerHTML = `
             <h2>👥 Pelanggan</h2>
             <p>Menu pelanggan siap dibuat.</p>
         `;
+
     } else if (menu === "nota") {
         isi.innerHTML = `
             <h2>📄 Nota</h2>
