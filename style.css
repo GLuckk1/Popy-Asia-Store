@@ -617,6 +617,17 @@ body.halaman-checkout #keranjang {
     min-width: 0;
 }
 
+
+/* Hilangkan latar hijau pada pembungkus gambar kategori */
+.kategori-beranda-card .produk-gambar {
+    background: transparent !important;
+    padding: 0;
+}
+
+.kategori-beranda-card .produk-gambar img {
+    background: transparent !important;
+}
+
 .kategori-beranda-card .produk-gambar img {
     width: 100%;
     height: 150px;
