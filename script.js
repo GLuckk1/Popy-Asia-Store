@@ -798,6 +798,9 @@ function bukaKeranjang() {
 
     document.querySelector("#keranjang").classList.add("halaman-aktif");
     document.querySelector("#checkout").classList.remove("halaman-aktif");
+
+    document.querySelector("#kategori-beranda").style.display = "none";
+    document.querySelector("#produk").style.display = "none";
 }
 
 function bukaCheckout() {
