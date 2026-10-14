@@ -681,3 +681,18 @@ body.halaman-checkout #keranjang {
         object-fit: contain;
     }
 }
+
+.kategori-beranda-card .produk-card h3 {
+    font-size: 12px;
+    margin: 4px 0;
+}
+
+.kategori-beranda-card .produk-card p {
+    font-size: 11px;
+    margin: 3px 0;
+}
+
+.kategori-beranda-card .produk-card button {
+    font-size: 11px;
+    padding: 6px 4px;
+}
