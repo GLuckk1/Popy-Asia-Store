@@ -824,3 +824,87 @@ function bukaKategori() {
     bukaBeranda();
     document.querySelector("#kategori").scrollIntoView({ behavior: "smooth" });
 }
+
+// KATEGORI BERANDA
+function tampilkanKategoriBeranda() {
+    const areaKategori = document.querySelector("#daftar-kategori-beranda");
+    const semuaProduk = Array.from(
+        document.querySelectorAll("#produk .produk-card")
+    );
+
+    if (!areaKategori) return;
+
+    const kategori = [
+        {
+            nama: "🍜 Mie Instan",
+            nilai: "🍜 mie instan"
+        },
+        {
+            nama: "🥤 Air Mineral",
+            nilai: "air mineral"
+        },
+        {
+            nama: "🚬 Rokok",
+            nilai: "rokok"
+        },
+        {
+            nama: "🖱️ Aksesori Komputer",
+            nilai: "mouse"
+        },
+        {
+            nama: "✏️ Alat Tulis",
+            nilai: "pulpen"
+        }
+    ];
+
+    areaKategori.innerHTML = "";
+
+    kategori.forEach(function(item) {
+        const produkKategori = semuaProduk.filter(function(produk) {
+            return produk.dataset.kategori === item.nilai;
+        });
+
+        if (produkKategori.length === 0) return;
+
+        const bagian = document.createElement("div");
+        bagian.className = "kategori-beranda-card";
+
+        const judul = document.createElement("h3");
+        judul.textContent = item.nama;
+        bagian.appendChild(judul);
+
+        const grid = document.createElement("div");
+        grid.className = "produk-grid";
+
+        produkKategori.slice(0, 4).forEach(function(produk) {
+            const kartu = produk.cloneNode(true);
+            grid.appendChild(kartu);
+        });
+
+        bagian.appendChild(grid);
+
+        const tombol = document.createElement("button");
+        tombol.className = "btn";
+        tombol.textContent = "Lihat Semua";
+
+        tombol.addEventListener("click", function() {
+            bukaBeranda();
+
+            if (inputPencarian) {
+                inputPencarian.value = "";
+            }
+
+            kategoriAktif = item.nilai;
+            filterProduk();
+
+            document.querySelector("#produk").scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+
+        bagian.appendChild(tombol);
+        areaKategori.appendChild(bagian);
+    });
+}
+
+tampilkanKategoriBeranda();
