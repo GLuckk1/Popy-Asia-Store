@@ -819,10 +819,18 @@ function bukaBeranda() {
 }
 
 function bukaProduk() {
+    kategoriAktif = "semua";
+
+    if (inputPencarian) {
+        inputPencarian.value = "";
+    }
+
     bukaBeranda();
 
     document.querySelector("#kategori-beranda").style.display = "none";
     document.querySelector("#produk").style.display = "block";
+
+    filterProduk();
 
     document.querySelector("#produk").scrollIntoView({
         behavior: "smooth"
