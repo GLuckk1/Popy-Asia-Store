@@ -457,7 +457,15 @@ const formCheckout =
     document.querySelector("#form-checkout");
 
 
+console.log("Form checkout ditemukan:", !!formCheckout);
+
 if (formCheckout) {
+    console.log("Event checkout dipasang");
+
+    formCheckout.addEventListener(
+        "submit",
+        async function(event) {
+            console.log("Submit checkout berjalan");
 
     formCheckout.addEventListener(
         "submit",
