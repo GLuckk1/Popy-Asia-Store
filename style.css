@@ -649,3 +649,13 @@ body.halaman-checkout #keranjang {
 #kategori {
     display: none;
 }
+
+
+/* Ukuran gambar produk di kategori beranda versi HP */
+@media (max-width: 600px) {
+    .kategori-beranda-card .produk-card img {
+        height: 110px;
+        width: 100%;
+        object-fit: contain;
+    }
+}
