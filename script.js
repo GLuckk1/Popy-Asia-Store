@@ -434,18 +434,18 @@ function updateCheckoutTotal() {
 
 }
 
-
 // ==========================================
 // SCROLL KE CHECKOUT
 // ==========================================
 
 function scrollKeCheckout() {
-    bukaCheckout();
+    const checkout = document.querySelector("#checkout");
 
-    document.querySelector("#checkout").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
+    if (checkout) {
+        checkout.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
 }
 
 
