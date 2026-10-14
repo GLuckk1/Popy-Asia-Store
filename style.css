@@ -651,11 +651,26 @@ body.halaman-checkout #keranjang {
 }
 
 
-/* Ukuran gambar produk di kategori beranda versi HP */
+/* Kategori beranda lebih kecil di HP */
 @media (max-width: 600px) {
+    .kategori-beranda-card {
+        padding: 8px;
+        margin-bottom: 12px;
+    }
+
+    .kategori-beranda-card .produk-grid {
+        gap: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .kategori-beranda-card .produk-card {
+        padding: 6px;
+        min-width: 0;
+    }
+
     .kategori-beranda-card .produk-card img {
-        height: 110px;
         width: 100%;
+        height: 75px;
         object-fit: contain;
     }
 }
