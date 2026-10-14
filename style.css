@@ -571,12 +571,14 @@ nav a,
     display: block;
 }
 
-/* Sembunyikan beranda saat keranjang atau checkout dibuka */
+/* Sembunyikan halaman lain saat keranjang atau checkout dibuka */
 body.halaman-keranjang #home,
 body.halaman-keranjang #kategori,
+body.halaman-keranjang #kategori-beranda,
 body.halaman-keranjang #produk,
 body.halaman-checkout #home,
 body.halaman-checkout #kategori,
+body.halaman-checkout #kategori-beranda,
 body.halaman-checkout #produk,
 body.halaman-checkout #keranjang {
     display: none;
