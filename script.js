@@ -463,7 +463,7 @@ if (formCheckout) {
         async function(event) {
 
             event.preventDefault();
-
+            console.log("CHECKOUT DIJALANKAN");
 
 
             // Cek keranjang
