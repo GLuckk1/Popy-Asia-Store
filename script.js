@@ -897,19 +897,25 @@ function tampilkanKategoriBeranda() {
         tombol.textContent = "Lihat Semua";
 
         tombol.addEventListener("click", function() {
-            bukaBeranda();
+    document.body.classList.remove("halaman-keranjang", "halaman-checkout");
 
-            if (inputPencarian) {
-                inputPencarian.value = "";
-            }
+    document.querySelector("#keranjang").classList.remove("halaman-aktif");
+    document.querySelector("#checkout").classList.remove("halaman-aktif");
 
-            kategoriAktif = item.nilai;
-            filterProduk();
+    document.querySelector("#kategori-beranda").style.display = "none";
+    document.querySelector("#produk").style.display = "block";
 
-            document.querySelector("#produk").scrollIntoView({
-                behavior: "smooth"
-            });
-        });
+    if (inputPencarian) {
+        inputPencarian.value = "";
+    }
+
+    kategoriAktif = item.nilai;
+    filterProduk();
+
+    document.querySelector("#produk").scrollIntoView({
+        behavior: "smooth"
+    });
+});
 
         bagian.appendChild(tombol);
         areaKategori.appendChild(bagian);
