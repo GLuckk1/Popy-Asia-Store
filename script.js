@@ -813,11 +813,20 @@ function bukaBeranda() {
 
     document.querySelector("#keranjang").classList.remove("halaman-aktif");
     document.querySelector("#checkout").classList.remove("halaman-aktif");
+
+    document.querySelector("#kategori-beranda").style.display = "block";
+    document.querySelector("#produk").style.display = "none";
 }
 
 function bukaProduk() {
     bukaBeranda();
-    document.querySelector("#produk").scrollIntoView({ behavior: "smooth" });
+
+    document.querySelector("#kategori-beranda").style.display = "none";
+    document.querySelector("#produk").style.display = "block";
+
+    document.querySelector("#produk").scrollIntoView({
+        behavior: "smooth"
+    });
 }
 
 function bukaKategori() {
