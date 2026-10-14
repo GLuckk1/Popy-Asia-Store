@@ -110,6 +110,19 @@ keranjang.push({
 // TAMPILKAN KERANJANG
 // ==========================================
 
+function updateJumlahKeranjang() {
+    const badge = document.querySelector("#jumlahKeranjang");
+
+    if (!badge) return;
+
+    const totalJumlah = keranjang.reduce(function(total, produk) {
+        return total + produk.jumlah;
+    }, 0);
+
+    badge.textContent = totalJumlah;
+    badge.style.display = totalJumlah > 0 ? "inline-block" : "none";
+}
+
 function tampilkanKeranjang() {
 
     const areaKeranjang =
