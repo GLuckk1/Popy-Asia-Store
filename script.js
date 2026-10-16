@@ -904,8 +904,6 @@ function tampilkanKategoriBeranda() {
     });
 }
 
-tampilkanKategoriBeranda();
-
 
 async function muatProdukSupabase() {
     const grid = document.querySelector("#produk .produk-grid");
@@ -974,6 +972,8 @@ async function muatProdukSupabase() {
         }).join("");
 
         console.log("Produk Supabase berhasil ditampilkan:", data.length);
+
+        tampilkanKategoriBeranda();
 
     } catch (err) {
         console.error("Terjadi kesalahan saat memuat produk:", err);
