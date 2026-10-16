@@ -943,11 +943,15 @@ async function muatProdukSupabase() {
             const hargaTampil = sedangPromo ? hargaPromo : harga;
 
             return `
-                <div class="produk-card"
-                     data-kategori="${kategori}"
-                     data-nama="${nama}">
-                    <img src="${gambar}" alt="${nama}"
-                         onerror="this.style.display='none'">
+                
+                  <div class="produk-card"
+                      data-kategori="${kategori}"
+                      data-nama="${nama}">
+                  <div class="produk-gambar">
+                  <img src="${gambar}" alt="${nama}"
+                      onerror="this.style.display='none'">
+                   </div>
+
 
                     <h3>${nama}</h3>
 
