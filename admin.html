@@ -50,6 +50,7 @@
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin:20px 0;">
         <button type="button" class="btn" onclick="tampilkanMenuAdmin('dashboard')">🏠 Dashboard</button>
         <button type="button" class="btn" onclick="tampilkanMenuAdmin('pesanan')">📦 Pesanan</button>
+        <button type="button" class="btn" onclick="tampilkanMenuAdmin('produk')">🛍️ Produk</button>
         <button type="button" class="btn" onclick="tampilkanMenuAdmin('pelanggan')">👥 Pelanggan</button>
         <button type="button" class="btn" onclick="tampilkanMenuAdmin('nota')">📄 Nota</button>
         <button type="button" class="btn" onclick="logoutAdmin()">Keluar</button>
@@ -140,6 +141,68 @@ function tampilkanMenuAdmin(menu) {
         `;
 
         muatPesananAdmin();
+
+        
+} else if (menu === "produk") {
+    isi.innerHTML = `
+        <h2>🛍️ Kelola Produk</h2>
+        <p>Tambahkan produk baru ke Popy Asia Store.</p>
+
+        <form id="form-produk-admin">
+            <label>Nama Produk</label>
+            <input id="nama-produk-admin" type="text" required
+                   style="display:block;width:100%;padding:10px;margin:8px 0 16px;">
+
+            <label>Kategori</label>
+            <select id="kategori-produk-admin" required
+                    style="display:block;width:100%;padding:10px;margin:8px 0 16px;">
+                <option value="">Pilih kategori</option>
+                <option value="🍜 mie instan">Mie Instan</option>
+                <option value="air mineral">Air Mineral</option>
+                <option value="rokok">Rokok</option>
+                <option value="mouse">Aksesori Komputer</option>
+                <option value="pulpen">Alat Tulis</option>
+            </select>
+
+            <label>Harga Normal (¥)</label>
+            <input id="harga-produk-admin" type="number" min="0" required
+                   style="display:block;width:100%;padding:10px;margin:8px 0 16px;">
+
+            <label>Harga Lama (¥), jika ada</label>
+            <input id="harga-lama-admin" type="number" min="0"
+                   style="display:block;width:100%;padding:10px;margin:8px 0 16px;">
+
+            <label>Harga Promo (¥), jika ada</label>
+            <input id="harga-promo-admin" type="number" min="0"
+                   style="display:block;width:100%;padding:10px;margin:8px 0 16px;">
+
+            <label>Deskripsi</label>
+            <textarea id="deskripsi-produk-admin"
+                      style="display:block;width:100%;padding:10px;margin:8px 0 16px;"></textarea>
+
+            <label>Lokasi Foto (contoh: gambar/air mineral.JPG)</label>
+            <input id="gambar-produk-admin" type="text" required
+                   placeholder="gambar/nama-foto.JPG"
+                   style="display:block;width:100%;padding:10px;margin:8px 0 16px;">
+
+            <label>Stok</label>
+            <input id="stok-produk-admin" type="number" min="0" value="0" required
+                   style="display:block;width:100%;padding:10px;margin:8px 0 16px;">
+
+            <label>
+                <input id="aktif-produk-admin" type="checkbox" checked>
+                Produk aktif
+            </label>
+
+            <p id="pesan-produk-admin" role="status"></p>
+
+            <button class="btn" type="submit">Simpan Produk</button>
+        </form>
+    `;
+
+    document.querySelector("#form-produk-admin")
+        .addEventListener("submit", simpanProdukAdmin);
+
 
     } else if (menu === "pelanggan") {
         isi.innerHTML = `
