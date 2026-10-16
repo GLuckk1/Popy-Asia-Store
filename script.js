@@ -34,76 +34,51 @@ document.querySelectorAll(".produk-card").forEach(function(kartu) {
 // TOMBOL TAMBAH KE KERANJANG
 // ==========================================
 
-const tombolProduk = document.querySelectorAll(
-    ".produk-card .btn"
-);
 
-tombolProduk.forEach(function(tombol) {
+document.addEventListener("click", function(event) {
+    const tombol = event.target.closest(".produk-card .btn");
 
-    tombol.addEventListener("click", function() {
+    if (!tombol) return;
 
-        const kartu = tombol.closest(".produk-card");
+    const kartu = tombol.closest(".produk-card");
 
-        const nama =
-            kartu.querySelector("h3").textContent.trim();
+    const nama = kartu.querySelector("h3").textContent.trim();
 
-        const hargaText =
-            kartu.querySelector(".harga").textContent;
+    const hargaText = kartu.querySelector(".harga").textContent;
+    const harga = parseInt(hargaText.replace(/\D/g, ""), 10) || 0;
 
-        const harga =
-            parseInt(hargaText.replace(/\D/g, ""));
+    // Cek stok
+    if (stokProduk[nama] <= 0) {
+        alert("Maaf, stok " + nama + " sudah habis.");
+        return;
+    }
 
-        // Cek stok
-        if (stokProduk[nama] <= 0) {
-
-            alert("Maaf, stok " + nama + " sudah habis.");
-
-            return;
-
-        }
-
-        const produkAda =
-            keranjang.find(function(produk) {
-
-                return produk.nama === nama;
-
-            });
-
-        if (produkAda) {
-
-            produkAda.jumlah++;
-
-        } else {
-
-            const areaPromo =
-    kartu.querySelector(".harga-promo");
-
-const promo =
-    areaPromo
-        ? parseInt(areaPromo.dataset.promo) || 0
-        : 0;
-
-
-keranjang.push({
-
-    nama: nama,
-    harga: harga,
-    jumlah: 1,
-    promo: promo > 0
-
-});
-
-        }
-
-        // Kurangi stok
-        stokProduk[nama]--;
-
-        tampilkanKeranjang();
-
-        tampilkanStok();
-
+    const produkAda = keranjang.find(function(produk) {
+        return produk.nama === nama;
     });
 
+    if (produkAda) {
+        produkAda.jumlah++;
+    } else {
+        const areaPromo = kartu.querySelector(".harga-promo");
+
+        const promo = areaPromo
+            ? parseInt(areaPromo.dataset.promo, 10) || 0
+            : 0;
+
+        keranjang.push({
+            nama: nama,
+            harga: harga,
+            jumlah: 1,
+            promo: promo > 0
+        });
+    }
+
+    // Kurangi stok
+    stokProduk[nama]--;
+
+    tampilkanKeranjang();
+    tampilkanStok();
 });
 
 // ==========================================
