@@ -988,7 +988,7 @@ async function muatProdukSupabase() {
 
                     <p class="stok">Stok: ${stok}</p>
 
-                    <button class="btn-keranjang"
+                    <button class="btn"
                             data-nama="${nama}"
                             data-harga="${hargaTampil}"
                             ${stok <= 0 ? "disabled" : ""}>
