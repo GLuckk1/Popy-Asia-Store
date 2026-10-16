@@ -931,11 +931,15 @@ function tampilkanKategoriBeranda() {
 
 tampilkanKategoriBeranda();
 
-// ==========================================
-// CEK KONEKSI DAN DATA PRODUK SUPABASE
-// ==========================================
 
-async function cekProdukSupabase() {
+async function muatProdukSupabase() {
+    const grid = document.querySelector(".produk-grid");
+
+    if (!grid) {
+        console.error("Elemen .produk-grid tidak ditemukan.");
+        return;
+    }
+
     try {
         const { data, error } = await supabaseClient
             .from("produk")
@@ -944,16 +948,61 @@ async function cekProdukSupabase() {
             .order("id");
 
         if (error) {
-            console.error("Gagal mengambil produk:", error);
+            console.error("Gagal memuat produk:", error);
             return;
         }
 
-        console.log("Produk dari Supabase:", data);
-        console.log("Jumlah produk aktif:", data.length);
+        if (!data || data.length === 0) {
+            grid.innerHTML = "<p>Belum ada produk tersedia.</p>";
+            return;
+        }
 
-    } catch (error) {
-        console.error("Terjadi kesalahan:", error);
+        grid.innerHTML = data.map(produk => {
+            const nama = produk.nama_produk || "Produk";
+            const kategori = produk.kategori || "";
+            const harga = Number(produk.harga) || 0;
+            const hargaPromo = Number(produk.harga_promo) || 0;
+            const hargaLama = Number(produk.harga_lama) || harga;
+            const stok = Number(produk.stok) || 0;
+            const gambar = produk.gambar_url || "";
+            const sedangPromo = hargaPromo > 0 && hargaPromo < harga;
+
+            const hargaTampil = sedangPromo ? hargaPromo : harga;
+
+            return `
+                <div class="produk-card"
+                     data-kategori="${kategori}"
+                     data-nama="${nama}">
+                    <img src="${gambar}" alt="${nama}"
+                         onerror="this.style.display='none'">
+
+                    <h3>${nama}</h3>
+
+                    <div class="harga">
+                        ${sedangPromo
+                            ? `<span class="harga-lama">¥${hargaLama.toLocaleString("ja-JP")}</span>
+                               <span class="harga-promo">¥${hargaTampil.toLocaleString("ja-JP")}</span>`
+                            : `<span>¥${hargaTampil.toLocaleString("ja-JP")}</span>`
+                        }
+                    </div>
+
+                    <p class="stok">Stok: ${stok}</p>
+
+                    <button class="btn-keranjang"
+                            data-nama="${nama}"
+                            data-harga="${hargaTampil}"
+                            ${stok <= 0 ? "disabled" : ""}>
+                        ${stok <= 0 ? "Stok Habis" : "Tambah ke Keranjang"}
+                    </button>
+                </div>
+            `;
+        }).join("");
+
+        console.log("Produk Supabase berhasil ditampilkan:", data.length);
+
+    } catch (err) {
+        console.error("Terjadi kesalahan saat memuat produk:", err);
     }
 }
 
-cekProdukSupabase();
+muatProdukSupabase();
