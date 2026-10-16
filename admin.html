@@ -229,6 +229,74 @@ async function logoutAdmin() {
     document.querySelector("#konten-admin").style.display = "none";
     document.querySelector("#login-admin").style.display = "block";
 }
+
+
+async function simpanProdukAdmin(event) {
+    event.preventDefault();
+
+    const form = document.querySelector("#form-produk-admin");
+    const pesan = document.querySelector("#pesan-produk-admin");
+
+    const nama = document.querySelector("#nama-produk-admin").value.trim();
+    const kategori = document.querySelector("#kategori-produk-admin").value;
+    const harga = Number(document.querySelector("#harga-produk-admin").value);
+    const hargaLamaInput = document.querySelector("#harga-lama-admin").value;
+    const hargaPromoInput = document.querySelector("#harga-promo-admin").value;
+    const deskripsi = document.querySelector("#deskripsi-produk-admin").value.trim();
+    const gambar = document.querySelector("#gambar-produk-admin").value.trim();
+    const stok = Number(document.querySelector("#stok-produk-admin").value);
+    const aktif = document.querySelector("#aktif-produk-admin").checked;
+
+    const hargaLama = hargaLamaInput === "" ? null : Number(hargaLamaInput);
+    const hargaPromo = hargaPromoInput === "" ? null : Number(hargaPromoInput);
+
+    if (!nama || !kategori || !gambar || harga < 0 || stok < 0) {
+        pesan.textContent = "Periksa kembali data produk.";
+        return;
+    }
+
+    if (hargaPromo !== null && hargaPromo >= harga) {
+        pesan.textContent = "Harga promo harus lebih rendah dari harga normal.";
+        return;
+    }
+
+    const hargaAcuan = hargaLama !== null && hargaLama > 0
+        ? hargaLama
+        : harga;
+
+    const promoPersen = hargaPromo !== null && hargaAcuan > hargaPromo
+        ? Math.round((hargaAcuan - hargaPromo) / hargaAcuan * 100)
+        : 0;
+
+    pesan.textContent = "Sedang menyimpan produk...";
+
+    const { error } = await supabaseClient
+        .from("produk")
+        .insert([{
+            nama_produk: nama,
+            kategori: kategori,
+            harga: harga,
+            harga_lama: hargaLama,
+            harga_promo: hargaPromo,
+            promo_persen: promoPersen,
+            deskripsi: deskripsi,
+            gambar_url: gambar,
+            stok: stok,
+            aktif: aktif
+        }]);
+
+    if (error) {
+        console.error("Gagal menyimpan produk:", error);
+        pesan.textContent = "Gagal menyimpan produk. Periksa izin Supabase dan data yang dimasukkan.";
+        return;
+    }
+
+    pesan.textContent = "Produk berhasil disimpan!";
+    form.reset();
+    document.querySelector("#stok-produk-admin").value = "0";
+    document.querySelector("#aktif-produk-admin").checked = true;
+}
+
     
 async function muatPesananAdmin() {
     const status = document.querySelector("#status-pesanan");
