@@ -930,3 +930,30 @@ function tampilkanKategoriBeranda() {
 }
 
 tampilkanKategoriBeranda();
+
+// ==========================================
+// CEK KONEKSI DAN DATA PRODUK SUPABASE
+// ==========================================
+
+async function cekProdukSupabase() {
+    try {
+        const { data, error } = await supabaseClient
+            .from("produk")
+            .select("*")
+            .eq("aktif", true)
+            .order("id");
+
+        if (error) {
+            console.error("Gagal mengambil produk:", error);
+            return;
+        }
+
+        console.log("Produk dari Supabase:", data);
+        console.log("Jumlah produk aktif:", data.length);
+
+    } catch (error) {
+        console.error("Terjadi kesalahan:", error);
+    }
+}
+
+cekProdukSupabase();
