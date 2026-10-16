@@ -180,10 +180,19 @@ function tampilkanMenuAdmin(menu) {
             <textarea id="deskripsi-produk-admin"
                       style="display:block;width:100%;padding:10px;margin:8px 0 16px;"></textarea>
 
-            <label>Lokasi Foto (contoh: gambar/air mineral.JPG)</label>
-            <input id="gambar-produk-admin" type="text" required
-                   placeholder="gambar/nama-foto.JPG"
-                   style="display:block;width:100%;padding:10px;margin:8px 0 16px;">
+            
+            <label>Foto Produk</label>
+            <input
+                      id="gambar-produk-admin"
+                      type="file"
+                      accept="image/*"
+                      required
+                      style="display:block;width:100%;padding:10px;margin:8px 0 16px;"
+                           >
+            <p style="font-size:13px;color:#666;">
+                      Pilih foto produk dari komputer kamu.
+            </p>
+
 
             <label>Stok</label>
             <input id="stok-produk-admin" type="number" min="0" value="0" required
