@@ -763,3 +763,25 @@ body.halaman-checkout #keranjang {
     background: transparent;
     border-radius: 12px;
 }
+
+#produk .produk-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 20px;
+    width: 100%;
+}
+
+#produk .produk-card {
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+#produk .produk-card img {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 180px !important;
+    object-fit: contain !important;
+    box-sizing: border-box !important;
+}
