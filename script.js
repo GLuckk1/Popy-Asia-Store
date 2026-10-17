@@ -793,8 +793,8 @@ function tampilkanKategoriBeranda() {
 
     const kategori = [
         {
-            nama: "🍜 Mie Instan",
-            nilai: "🍜 mie instan"
+            nama: "Mie Instan",
+            nilai: "mie instan"
         },
         {
             nama: "🥤 Air Mineral",
