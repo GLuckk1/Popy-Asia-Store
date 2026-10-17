@@ -668,97 +668,63 @@ const tombolKategori =
     document.querySelectorAll(".kategori-list button");
 
 const semuaProduk =
-    document.querySelectorAll(".produk-card");
+    document.querySelectorAll("#produk .produk-card");
 
-
-// Kategori yang sedang dipilih
 let kategoriAktif = "semua";
 
+// Menyamakan penulisan kategori
+function normalisasiKategori(teks) {
+    return teks
+        .toLowerCase()
+        .replace(/[🍜🥤💧🚬🖱️✏️📦🛒]/gu, "")
+        .trim();
+}
 
-// ==========================================
-// FUNGSI FILTER PRODUK
-// ==========================================
-
+// Filter produk
 function filterProduk() {
+    const kataKunci = inputPencarian
+        ? inputPencarian.value.toLowerCase().trim()
+        : "";
 
-    const kataKunci =
-        inputPencarian
-            ? inputPencarian.value.toLowerCase().trim()
-            : "";
+    document
+        .querySelectorAll("#produk .produk-card")
+        .forEach(function(produk) {
+            const namaProduk =
+                produk.querySelector("h3").textContent.toLowerCase();
 
-    semuaProduk.forEach(function(produk) {
+            const kategoriProduk = normalisasiKategori(
+                produk.dataset.kategori || ""
+            );
 
-        const namaProduk =
-            produk
-                .querySelector("h3")
-                .textContent
-                .toLowerCase();
+            const kategoriDipilih =
+                normalisasiKategori(kategoriAktif);
 
-        const kategoriProduk =
-            produk.dataset.kategori;
+            const cocokKategori =
+                kategoriDipilih === "semua" ||
+                kategoriProduk === kategoriDipilih;
 
-        const cocokKategori =
-            kategoriAktif === "semua" ||
-            kategoriProduk === kategoriAktif;
+            const cocokPencarian =
+                namaProduk.includes(kataKunci);
 
-        const cocokPencarian =
-            namaProduk.includes(kataKunci);
-
-        if (cocokKategori && cocokPencarian) {
-
-            produk.style.display = "";
-
-        } else {
-
-            produk.style.display = "none";
-
-        }
-
-    });
-
+            produk.style.display =
+                cocokKategori && cocokPencarian ? "" : "none";
+        });
 }
 
-
-// ==========================================
-// PENCARIAN PRODUK
-// ==========================================
-
+// Pencarian produk
 if (inputPencarian) {
-
-    inputPencarian.addEventListener(
-        "input",
-        function() {
-
-            filterProduk();
-
-        }
-    );
-
+    inputPencarian.addEventListener("input", filterProduk);
 }
 
-
-// ==========================================
-// FILTER KATEGORI
-// ==========================================
-
+// Klik kategori
 tombolKategori.forEach(function(tombol) {
+    tombol.addEventListener("click", function() {
+        kategoriAktif = normalisasiKategori(
+            tombol.textContent
+        );
 
-    tombol.addEventListener(
-        "click",
-        function() {
-
-            const teksKategori =
-                tombol.textContent
-                    .toLowerCase()
-                    .trim();
-
-            kategoriAktif = teksKategori;
-
-            filterProduk();
-
-        }
-    );
-
+        filterProduk();
+    });
 });
 
 // NAVIGASI BERANDA, KERANJANG, DAN CHECKOUT
