@@ -797,21 +797,21 @@ function tampilkanKategoriBeranda() {
             nilai: "mie instan"
         },
         {
-            nama: "🥤 Air Mineral",
+            nama: "Air Mineral",
             nilai: "air mineral"
         },
         {
-            nama: "🚬 Rokok",
-            nilai: "rokok"
+            nama: "Sirop",
+            nilai: "sirop"
         },
         {
-            nama: "🖱️ Aksesori Komputer",
-            nilai: "mouse"
+            nama: "Kopi",
+            nilai: "kopi"
         },
         {
-            nama: "✏️ Alat Tulis",
-            nilai: "pulpen"
-        }
+            nama: "Mie Cup",
+            nilai: "mie cup"
+        },
     ];
 
     areaKategori.innerHTML = "";
