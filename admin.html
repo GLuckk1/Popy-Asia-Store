@@ -400,6 +400,11 @@ async function muatDaftarProdukAdmin() {
 
     
 async function editProdukAdmin(id) {
+    let fotoEditProdukBaru = null;
+let dataEditProdukAktif = null;
+
+// Membuka form edit produk
+async function editProdukAdmin(id) {
     const { data: produk, error } = await supabaseClient
         .from("produk")
         .select("*")
@@ -412,266 +417,373 @@ async function editProdukAdmin(id) {
         return;
     }
 
-    // 1. Nama produk
-    const nama = prompt(
-        "Nama produk:",
-        produk.nama_produk || ""
-    );
-    if (nama === null) return;
+    dataEditProdukAktif = produk;
+    fotoEditProdukBaru = null;
 
-    // 2. Kategori
-    const kategori = prompt(
-        "Kategori produk:",
-        produk.kategori || ""
-    );
-    if (kategori === null) return;
+    const formEdit = document.getElementById("form-edit-produk-admin");
 
-    // 3. Harga normal
-    const hargaInput = prompt(
-        "Harga normal (¥):",
-        produk.harga ?? 0
-    );
-    if (hargaInput === null) return;
-
-    // 4. Harga lama
-    const hargaLamaInput = prompt(
-        "Harga sebelum diskon (¥). Kosongkan jika tidak ada:",
-        produk.harga_lama ?? ""
-    );
-    if (hargaLamaInput === null) return;
-
-    // 5. Harga promo
-    const hargaPromoInput = prompt(
-        "Harga promo (¥). Kosongkan jika tidak ada promo:",
-        produk.harga_promo ?? ""
-    );
-    if (hargaPromoInput === null) return;
-
-    // 6. Deskripsi
-    const deskripsi = prompt(
-        "Deskripsi produk:",
-        produk.deskripsi || ""
-    );
-    if (deskripsi === null) return;
-
-    // 7. Stok
-    const stokInput = prompt(
-        "Stok produk:",
-        produk.stok ?? 0
-    );
-    if (stokInput === null) return;
-
-    // 8. Status produk
-    const statusInput = prompt(
-        "Status produk: ketik 1 untuk Aktif atau 0 untuk Nonaktif.",
-        produk.aktif ? "1" : "0"
-    );
-    if (statusInput === null) return;
-
-    // 9. Validasi data
-    const namaBaru = nama.trim();
-    const kategoriBaru = kategori.trim();
-    const hargaBaru = Number(hargaInput);
-    const hargaLamaBaru = hargaLamaInput.trim() === ""
-        ? null
-        : Number(hargaLamaInput);
-    const hargaPromoBaru = hargaPromoInput.trim() === ""
-        ? null
-        : Number(hargaPromoInput);
-    const stokBaru = Number(stokInput);
-    const statusBaru = statusInput.trim();
-
-    if (
-        !namaBaru ||
-        !kategoriBaru ||
-        hargaInput.trim() === "" ||
-        !Number.isFinite(hargaBaru) ||
-        hargaBaru < 0 ||
-        (hargaLamaBaru !== null &&
-            (!Number.isFinite(hargaLamaBaru) || hargaLamaBaru < 0)) ||
-        (hargaPromoBaru !== null &&
-            (!Number.isFinite(hargaPromoBaru) ||
-                hargaPromoBaru < 0 ||
-                hargaPromoBaru >= hargaBaru)) ||
-        stokInput.trim() === "" ||
-        !Number.isInteger(stokBaru) ||
-        stokBaru < 0 ||
-        !["0", "1"].includes(statusBaru)
-    ) {
-        alert("Data tidak valid. Periksa kembali harga, stok, dan status.");
+    if (!formEdit) {
+        alert("Form edit produk tidak ditemukan.");
         return;
     }
 
-    const hargaAcuan = hargaLamaBaru !== null && hargaLamaBaru > 0
-        ? hargaLamaBaru
-        : hargaBaru;
+    formEdit.style.display = "block";
 
-    const promoPersen = hargaPromoBaru !== null &&
-        hargaAcuan > hargaPromoBaru
-        ? Math.round(
-            ((hargaAcuan - hargaPromoBaru) / hargaAcuan) * 100
-        )
-        : 0;
+    formEdit.innerHTML = `
+        <div style="
+            padding:20px;
+            border:1px solid #ddd;
+            border-radius:12px;
+            background:#fff;
+        ">
+            <h2>✏️ Edit Produk</h2>
 
-    // 10. Pilihan mengganti foto
-    const inginGantiFoto = confirm(
-        "Apakah kamu ingin mengganti foto produk ini?\n\n" +
-        "Pilih OK untuk memilih foto baru.\n" +
-        "Pilih Cancel untuk mempertahankan foto lama."
-    );
+            <form id="form-simpan-edit-produk">
+                <label>Nama Produk</label>
+                <input
+                    id="edit-nama-produk"
+                    type="text"
+                    value="${escapeHTML(produk.nama_produk || "")}"
+                    required
+                    style="width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
+                >
 
-    let urlFotoBaru = produk.gambar_url;
-    let pathFotoBaru = null;
-    let pathFotoLama = null;
+                <label>Kategori</label>
+                <input
+                    id="edit-kategori-produk"
+                    type="text"
+                    value="${escapeHTML(produk.kategori || "")}"
+                    required
+                    style="width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
+                >
 
-    if (inginGantiFoto) {
-        // Memilih file gambar
-        const fileFoto = await new Promise(resolve => {
-    const inputFoto = document.createElement("input");
+                <label>Harga Normal (¥)</label>
+                <input
+                    id="edit-harga-produk"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="${Number(produk.harga) || 0}"
+                    required
+                    style="width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
+                >
 
-    inputFoto.type = "file";
-    inputFoto.accept = "image/*";
-    inputFoto.style.display = "none";
+                <label>Harga Lama (¥), jika ada</label>
+                <input
+                    id="edit-harga-lama"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="${produk.harga_lama ?? ""}"
+                    style="width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
+                >
 
-    document.body.appendChild(inputFoto);
+                <label>Harga Promo (¥), jika ada</label>
+                <input
+                    id="edit-harga-promo"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="${produk.harga_promo ?? ""}"
+                    style="width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
+                >
 
-    inputFoto.addEventListener("change", () => {
-        const file = inputFoto.files[0] || null;
-        inputFoto.remove();
-        resolve(file);
-    }, { once: true });
+                <label>Deskripsi</label>
+                <textarea
+                    id="edit-deskripsi-produk"
+                    rows="4"
+                    style="width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
+                >${escapeHTML(produk.deskripsi || "")}</textarea>
 
-    inputFoto.addEventListener("cancel", () => {
-        inputFoto.remove();
-        resolve(null);
-    }, { once: true });
+                <label>Stok</label>
+                <input
+                    id="edit-stok-produk"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="${Number(produk.stok) || 0}"
+                    required
+                    style="width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
+                >
 
-    inputFoto.click();
-});
+                <div style="margin:8px 0 16px;">
+                    <label>
+                        <input
+                            id="edit-aktif-produk"
+                            type="checkbox"
+                            ${produk.aktif ? "checked" : ""}
+                        >
+                        Produk aktif
+                    </label>
+                </div>
 
-        if (!fileFoto) {
-            alert("Tidak ada foto yang dipilih. Perubahan dibatalkan.");
+                <label>Foto Produk Saat Ini</label>
+                <div style="margin:10px 0 16px;">
+                    ${
+                        produk.gambar_url
+                            ? `<img
+                                src="${escapeHTML(produk.gambar_url)}"
+                                alt="Foto produk"
+                                style="width:150px;height:150px;object-fit:contain;border:1px solid #ddd;border-radius:8px;"
+                            >`
+                            : "<p>Belum ada foto produk.</p>"
+                    }
+                </div>
+
+                <label>Pilih Foto Baru (opsional)</label>
+                <input
+                    id="edit-foto-produk"
+                    type="file"
+                    accept="image/*"
+                    style="display:block;margin:10px 0;"
+                >
+
+                <p id="edit-pesan-produk" style="margin:10px 0;"></p>
+
+                <button
+                    type="submit"
+                    id="tombol-simpan-edit"
+                    style="padding:12px 18px;margin:8px 5px 8px 0;cursor:pointer;"
+                >
+                    💾 Simpan Perubahan
+                </button>
+
+                <button
+                    type="button"
+                    id="tombol-batal-edit"
+                    style="padding:12px 18px;margin:8px 0;cursor:pointer;"
+                >
+                    Batal
+                </button>
+            </form>
+        </div>
+    `;
+
+    // Pilihan foto dilakukan langsung oleh pengguna.
+    document
+        .getElementById("edit-foto-produk")
+        .addEventListener("change", function () {
+            fotoEditProdukBaru = this.files[0] || null;
+
+            const pesan = document.getElementById("edit-pesan-produk");
+
+            if (fotoEditProdukBaru) {
+                pesan.textContent = "Foto baru dipilih: " + fotoEditProdukBaru.name;
+            } else {
+                pesan.textContent = "";
+            }
+        });
+
+    document
+        .getElementById("form-simpan-edit-produk")
+        .addEventListener("submit", simpanPerubahanProdukAdmin);
+
+    document
+        .getElementById("tombol-batal-edit")
+        .addEventListener("click", function () {
+            formEdit.style.display = "none";
+            formEdit.innerHTML = "";
+            fotoEditProdukBaru = null;
+            dataEditProdukAktif = null;
+        });
+
+    formEdit.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+
+// Menyimpan perubahan produk
+async function simpanPerubahanProdukAdmin(event) {
+    event.preventDefault();
+
+    const produkLama = dataEditProdukAktif;
+
+    if (!produkLama) {
+        alert("Data produk tidak ditemukan. Silakan buka form edit kembali.");
+        return;
+    }
+
+    const pesan = document.getElementById("edit-pesan-produk");
+    const tombol = document.getElementById("tombol-simpan-edit");
+
+    const nama = document.getElementById("edit-nama-produk").value.trim();
+    const kategori = document.getElementById("edit-kategori-produk").value.trim();
+
+    const hargaInput = document.getElementById("edit-harga-produk").value;
+    const hargaLamaInput = document.getElementById("edit-harga-lama").value.trim();
+    const hargaPromoInput = document.getElementById("edit-harga-promo").value.trim();
+    const deskripsi = document.getElementById("edit-deskripsi-produk").value.trim();
+    const stokInput = document.getElementById("edit-stok-produk").value;
+    const aktif = document.getElementById("edit-aktif-produk").checked;
+
+    const harga = Number(hargaInput);
+    const hargaLama = hargaLamaInput === "" ? null : Number(hargaLamaInput);
+    const hargaPromo = hargaPromoInput === "" ? null : Number(hargaPromoInput);
+    const stok = Number(stokInput);
+
+    if (
+        !nama ||
+        !kategori ||
+        hargaInput.trim() === "" ||
+        !Number.isFinite(harga) ||
+        harga < 0 ||
+        (hargaLama !== null &&
+            (!Number.isFinite(hargaLama) || hargaLama < 0)) ||
+        (hargaPromo !== null &&
+            (!Number.isFinite(hargaPromo) ||
+                hargaPromo < 0 ||
+                hargaPromo >= harga)) ||
+        stokInput.trim() === "" ||
+        !Number.isInteger(stok) ||
+        stok < 0
+    ) {
+        alert("Periksa kembali nama, kategori, harga, harga promo, dan stok.");
+        return;
+    }
+
+    if (fotoEditProdukBaru) {
+        if (!fotoEditProdukBaru.type.startsWith("image/")) {
+            alert("File yang dipilih harus berupa gambar.");
             return;
         }
 
-        if (!fileFoto.type.startsWith("image/")) {
-            alert("File harus berupa gambar.");
-            return;
-        }
-
-        if (fileFoto.size > 5 * 1024 * 1024) {
+        if (fotoEditProdukBaru.size > 5 * 1024 * 1024) {
             alert("Ukuran foto maksimal 5 MB.");
             return;
         }
-
-        const ekstensi = fileFoto.name.split(".").pop().toLowerCase();
-        const namaFile = `${crypto.randomUUID()}.${ekstensi}`;
-
-        const { data: hasilUpload, error: errorUpload } =
-            await supabaseClient
-                .storage
-                .from("produk")
-                .upload(namaFile, fileFoto, {
-                    cacheControl: "3600",
-                    upsert: false
-                });
-
-        if (errorUpload) {
-            console.error("Gagal upload foto baru:", errorUpload);
-            alert("Upload foto baru gagal. Foto lama tetap dipertahankan.");
-            return;
-        }
-
-        pathFotoBaru = hasilUpload.path;
-
-        const { data: urlFoto } = supabaseClient
-            .storage
-            .from("produk")
-            .getPublicUrl(pathFotoBaru);
-
-        urlFotoBaru = urlFoto.publicUrl;
-
-        // Ambil lokasi foto lama hanya jika berasal dari bucket produk kita
-        try {
-            const urlLama = new URL(produk.gambar_url);
-            const bagianPath = "/storage/v1/object/public/produk/";
-
-            if (urlLama.pathname.includes(bagianPath)) {
-                pathFotoLama = decodeURIComponent(
-                    urlLama.pathname.split(bagianPath)[1]
-                );
-
-                // Jangan menghapus foto jika URL ternyata mengarah ke file baru
-                if (pathFotoLama === pathFotoBaru) {
-                    pathFotoLama = null;
-                }
-            }
-        } catch (e) {
-            console.warn("URL foto lama tidak dapat diperiksa.");
-        }
     }
 
-    // 11. Simpan perubahan ke database
-    const { error: errorUpdate } = await supabaseClient
-        .from("produk")
-        .update({
-            nama_produk: namaBaru,
-            kategori: kategoriBaru,
-            harga: hargaBaru,
-            harga_lama: hargaLamaBaru,
-            harga_promo: hargaPromoBaru,
-            promo_persen: promoPersen,
-            deskripsi: deskripsi.trim(),
-            stok: stokBaru,
-            aktif: statusBaru === "1",
-            gambar_url: urlFotoBaru
-        })
-        .eq("id", id);
+    tombol.disabled = true;
+    pesan.textContent = "Sedang menyimpan perubahan...";
 
-    if (errorUpdate) {
-        console.error("Gagal memperbarui produk:", errorUpdate);
+    let pathFotoBaru = null;
+    let urlFoto = produkLama.gambar_url || null;
+    let pathFotoLama = null;
 
-        // Jika database gagal, hapus foto baru yang belum digunakan
+    try {
+        // Upload foto baru jika pengguna memilihnya.
+        if (fotoEditProdukBaru) {
+            const ekstensi = fotoEditProdukBaru.name.includes(".")
+                ? fotoEditProdukBaru.name.split(".").pop().toLowerCase()
+                : "jpg";
+
+            const namaFile = `${crypto.randomUUID()}.${ekstensi}`;
+
+            const { data: hasilUpload, error: errorUpload } =
+                await supabaseClient
+                    .storage
+                    .from("produk")
+                    .upload(namaFile, fotoEditProdukBaru, {
+                        cacheControl: "3600",
+                        upsert: false
+                    });
+
+            if (errorUpload) {
+                throw new Error("Upload foto gagal: " + errorUpload.message);
+            }
+
+            pathFotoBaru = hasilUpload.path;
+
+            const { data: hasilURL } = supabaseClient
+                .storage
+                .from("produk")
+                .getPublicUrl(pathFotoBaru);
+
+            urlFoto = hasilURL.publicUrl;
+        }
+
+        const hargaAcuan = hargaLama !== null && hargaLama > 0
+            ? hargaLama
+            : harga;
+
+        const promoPersen = hargaPromo !== null && hargaAcuan > hargaPromo
+            ? Math.round(((hargaAcuan - hargaPromo) / hargaAcuan) * 100)
+            : 0;
+
+        const { error: errorUpdate } = await supabaseClient
+            .from("produk")
+            .update({
+                nama_produk: nama,
+                kategori: kategori,
+                harga: harga,
+                harga_lama: hargaLama,
+                harga_promo: hargaPromo,
+                promo_persen: promoPersen,
+                deskripsi: deskripsi,
+                stok: stok,
+                aktif: aktif,
+                gambar_url: urlFoto
+            })
+            .eq("id", produkLama.id);
+
+        if (errorUpdate) {
+            throw new Error("Gagal menyimpan ke database: " + errorUpdate.message);
+        }
+
+        // Hapus foto lama hanya setelah database berhasil diperbarui.
+        if (pathFotoBaru && produkLama.gambar_url) {
+            try {
+                const urlLama = new URL(produkLama.gambar_url);
+                const bagianPath = "/storage/v1/object/public/produk/";
+
+                if (urlLama.pathname.includes(bagianPath)) {
+                    pathFotoLama = decodeURIComponent(
+                        urlLama.pathname.split(bagianPath)[1]
+                    );
+                }
+            } catch (e) {
+                console.warn("URL foto lama tidak dapat diperiksa.");
+            }
+
+            if (pathFotoLama && pathFotoLama !== pathFotoBaru) {
+                const { error: errorHapus } = await supabaseClient
+                    .storage
+                    .from("produk")
+                    .remove([pathFotoLama]);
+
+                if (errorHapus) {
+                    console.warn("Foto lama belum terhapus:", errorHapus);
+                }
+            }
+        }
+
+        alert("Produk berhasil diperbarui!");
+
+        document.getElementById("form-edit-produk-admin").style.display = "none";
+        document.getElementById("form-edit-produk-admin").innerHTML = "";
+
+        fotoEditProdukBaru = null;
+        dataEditProdukAktif = null;
+
+        await muatDaftarProdukAdmin();
+
+    } catch (error) {
+        console.error(error);
+
+        // Jika update database gagal, bersihkan foto baru yang belum digunakan.
         if (pathFotoBaru) {
-            const { error: errorHapusFotoBaru } = await supabaseClient
+            const { error: errorHapusBaru } = await supabaseClient
                 .storage
                 .from("produk")
                 .remove([pathFotoBaru]);
 
-            if (errorHapusFotoBaru) {
-                console.error(
-                    "Foto baru yang gagal digunakan belum terhapus:",
-                    errorHapusFotoBaru
-                );
+            if (errorHapusBaru) {
+                console.warn("Foto baru belum terhapus:", errorHapusBaru);
             }
         }
 
-        alert("Gagal menyimpan perubahan. Foto lama tetap dipertahankan.");
-        return;
-    }
+        pesan.textContent = error.message || "Terjadi kesalahan.";
+        alert(error.message || "Gagal memperbarui produk.");
 
-    // 12. Hapus foto lama setelah database berhasil diperbarui
-    if (pathFotoLama) {
-        const { error: errorHapusFotoLama } = await supabaseClient
-            .storage
-            .from("produk")
-            .remove([pathFotoLama]);
+    } finally {
+        const tombolAkhir = document.getElementById("tombol-simpan-edit");
 
-        if (errorHapusFotoLama) {
-            console.error("Foto lama gagal dihapus:", errorHapusFotoLama);
-
-            alert(
-                "Produk berhasil diperbarui, tetapi foto lama belum terhapus. " +
-                "Periksa izin penghapusan Storage."
-            );
-        } else {
-            alert("Produk dan foto berhasil diperbarui!");
+        if (tombolAkhir) {
+            tombolAkhir.disabled = false;
         }
-    } else {
-        alert("Produk berhasil diperbarui!");
     }
-
-    await muatDaftarProdukAdmin();
 }
     
 async function hapusProdukAdmin(id) {
