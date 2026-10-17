@@ -524,16 +524,28 @@ async function editProdukAdmin(id) {
 
     if (inginGantiFoto) {
         // Memilih file gambar
-        const inputFoto = document.createElement("input");
-        inputFoto.type = "file";
-        inputFoto.accept = "image/*";
-
         const fileFoto = await new Promise(resolve => {
-            inputFoto.onchange = () => {
-                resolve(inputFoto.files[0] || null);
-            };
-            inputFoto.click();
-        });
+    const inputFoto = document.createElement("input");
+
+    inputFoto.type = "file";
+    inputFoto.accept = "image/*";
+    inputFoto.style.display = "none";
+
+    document.body.appendChild(inputFoto);
+
+    inputFoto.addEventListener("change", () => {
+        const file = inputFoto.files[0] || null;
+        inputFoto.remove();
+        resolve(file);
+    }, { once: true });
+
+    inputFoto.addEventListener("cancel", () => {
+        inputFoto.remove();
+        resolve(null);
+    }, { once: true });
+
+    inputFoto.click();
+});
 
         if (!fileFoto) {
             alert("Tidak ada foto yang dipilih. Perubahan dibatalkan.");
