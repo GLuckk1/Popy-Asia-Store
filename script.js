@@ -817,10 +817,17 @@ function tampilkanKategoriBeranda() {
     areaKategori.innerHTML = "";
 
     kategori.forEach(function(item) {
-        const produkKategori = semuaProduk.filter(function(produk) {
-            return produk.dataset.kategori === item.nilai;
-        });
+    const normalisasi = function(teks) {
+        return (teks || "")
+            .toLowerCase()
+            .replace(/^[^\p{L}\p{N}]+/u, "")
+            .trim();
+    };
 
+    const produkKategori = semuaProduk.filter(function(produk) {
+        return normalisasi(produk.dataset.kategori) ===
+               normalisasi(item.nilai);
+    });
         if (produkKategori.length === 0) return;
 
         const bagian = document.createElement("div");
