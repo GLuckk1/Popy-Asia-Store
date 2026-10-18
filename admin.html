@@ -223,6 +223,52 @@ function tampilkanMenuAdmin(menu) {
         muatKategoriAdmin();
         muatDaftarProdukAdmin();
 
+            } else if (menu === "kategori") {
+        isi.innerHTML = `
+            <h2>🏷️ Kelola Kategori</h2>
+            <p>Tambahkan kategori produk baru ke Popy Asia Store.</p>
+
+            <form id="form-kategori-admin">
+                <label>Nama Kategori</label>
+                <input
+                    id="nama-kategori-admin"
+                    type="text"
+                    placeholder="Contoh: Minuman"
+                    required
+                    style="display:block;width:100%;padding:10px;margin:8px 0 16px;"
+                >
+
+                <label>Nilai Kategori</label>
+                <input
+                    id="nilai-kategori-admin"
+                    type="text"
+                    placeholder="Contoh: minuman"
+                    required
+                    style="display:block;width:100%;padding:10px;margin:8px 0 16px;"
+                >
+
+                <p style="font-size:13px;color:#666;">
+                    Gunakan nilai kategori dengan huruf kecil.
+                    Contoh: minuman, bumbu dapur, atau mie instan.
+                </p>
+
+                <p id="pesan-kategori-admin" role="status"></p>
+
+                <button class="btn" type="submit">
+                    Simpan Kategori
+                </button>
+            </form>
+
+            <hr style="margin:30px 0;">
+
+            <h3>Daftar Kategori</h3>
+            <div id="daftar-kategori-admin">
+                Memuat kategori...
+            </div>
+        `;
+
+        muatDaftarKategoriAdmin();
+
     } else if (menu === "pelanggan") {
         isi.innerHTML = `
             <h2>👥 Pelanggan</h2>
