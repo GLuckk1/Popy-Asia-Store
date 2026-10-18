@@ -219,6 +219,7 @@ function tampilkanMenuAdmin(menu) {
     document.querySelector("#form-produk-admin")
         .addEventListener("submit", simpanProdukAdmin);
 
+        muatKategoriAdmin();
         muatDaftarProdukAdmin();
 
     } else if (menu === "pelanggan") {
@@ -1060,6 +1061,36 @@ async function simpanStatusPesanan(nomorPesanan) {
     pesan.textContent = "Status berhasil disimpan!";
 
     await lihatDetailPesanan(nomorPesanan);
+}
+
+    async function muatKategoriAdmin() {
+    const selectKategori = document.getElementById("kategori-produk-admin");
+
+    if (!selectKategori) return;
+
+    const { data, error } = await supabaseClient
+        .from("kategori_produk")
+        .select("nama_kategori, nilai_kategori")
+        .order("nama_kategori", { ascending: true });
+
+    if (error) {
+        console.error("Gagal memuat kategori:", error);
+        selectKategori.innerHTML =
+            '<option value="">Gagal memuat kategori</option>';
+        return;
+    }
+
+    selectKategori.innerHTML =
+        '<option value="">Pilih kategori</option>';
+
+    data.forEach(function(kategori) {
+        const option = document.createElement("option");
+
+        option.value = kategori.nilai_kategori;
+        option.textContent = kategori.nama_kategori;
+
+        selectKategori.appendChild(option);
+    });
 }
 </script>
 
