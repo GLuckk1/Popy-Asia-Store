@@ -267,6 +267,9 @@ function tampilkanMenuAdmin(menu) {
             </div>
         `;
 
+        document.getElementById("form-kategori-admin")
+            .addEventListener("submit", simpanKategoriAdmin);
+        
         muatDaftarKategoriAdmin();
 
     } else if (menu === "pelanggan") {
@@ -1138,6 +1141,96 @@ async function simpanStatusPesanan(nomorPesanan) {
 
         selectKategori.appendChild(option);
     });
+}
+
+    async function muatDaftarKategoriAdmin() {
+    const area = document.getElementById("daftar-kategori-admin");
+
+    if (!area) return;
+
+    area.textContent = "Memuat kategori...";
+
+    const { data, error } = await supabaseClient
+        .from("kategori_produk")
+        .select("id, nama_kategori, nilai_kategori")
+        .order("nama_kategori", { ascending: true });
+
+    if (error) {
+        console.error("Gagal memuat daftar kategori:", error);
+        area.textContent = "Gagal memuat kategori.";
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        area.textContent = "Belum ada kategori.";
+        return;
+    }
+
+    const daftar = document.createElement("div");
+
+    data.forEach(function(kategori) {
+        const baris = document.createElement("div");
+
+        baris.style.cssText =
+            "padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;";
+
+        const nama = document.createElement("strong");
+        nama.textContent = kategori.nama_kategori;
+
+        const nilai = document.createElement("div");
+        nilai.textContent = "Nilai: " + kategori.nilai_kategori;
+
+        nilai.style.cssText = "font-size:13px;color:#666;margin-top:4px;";
+
+        baris.appendChild(nama);
+        baris.appendChild(nilai);
+        daftar.appendChild(baris);
+    });
+
+    area.replaceChildren(daftar);
+}
+
+    async function simpanKategoriAdmin(event) {
+    event.preventDefault();
+
+    const namaInput = document.getElementById("nama-kategori-admin");
+    const nilaiInput = document.getElementById("nilai-kategori-admin");
+    const pesan = document.getElementById("pesan-kategori-admin");
+
+    const namaKategori = namaInput.value.trim();
+    const nilaiKategori = nilaiInput.value.trim().toLowerCase();
+
+    if (!namaKategori || !nilaiKategori) {
+        pesan.textContent = "Nama dan nilai kategori wajib diisi.";
+        return;
+    }
+
+    pesan.textContent = "Menyimpan kategori...";
+
+    const { error } = await supabaseClient
+        .from("kategori_produk")
+        .insert([{
+            nama_kategori: namaKategori,
+            nilai_kategori: nilaiKategori
+        }]);
+
+    if (error) {
+        console.error("Gagal menyimpan kategori:", error);
+
+        if (error.code === "23505") {
+            pesan.textContent = "Kategori tersebut sudah ada.";
+        } else {
+            pesan.textContent = "Gagal menyimpan kategori. Periksa izin Supabase.";
+        }
+
+        return;
+    }
+
+    pesan.textContent = "Kategori berhasil disimpan!";
+
+    document.getElementById("form-kategori-admin").reset();
+
+    await muatDaftarKategoriAdmin();
 }
 </script>
 
