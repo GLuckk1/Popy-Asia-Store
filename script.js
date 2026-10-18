@@ -783,86 +783,55 @@ function bukaKategori() {
 }
 
 // KATEGORI BERANDA
-function tampilkanKategoriBeranda() {
+async function tampilkanKategoriBeranda() {
     const areaKategori = document.querySelector("#daftar-kategori-beranda");
+
     const semuaProduk = Array.from(
         document.querySelectorAll("#produk .produk-card")
     );
 
     if (!areaKategori) return;
 
-    const kategori = [
-    {
-        nama: "Mie Instan",
-        nilai: "mie instan"
-    },
-    {
-        nama: "Aneka Kopi",
-        nilai: "kopi"
-    },
-    {
-        nama: "Rokok",
-        nilai: "rokok"
-    },
-    {
-        nama: "Sirop",
-        nilai: "sirop"
-    },
-    {
-        nama: "Mie Cup",
-        nilai: "mie cup"
-    },
-    {
-        nama: "Bakso",
-        nilai: "bakso"
-    },
-    {
-        nama: "Nugget",
-        nilai: "nugget"
-    },
-    {
-        nama: "Snack",
-        nilai: "snack"
-    },
-    {
-        nama: "Bumbu Dapur",
-        nilai: "bumbu dapur"
-    },
-    {
-        nama: "Instant Frozen Food",
-        nilai: "instant frozen food"
+    const { data: kategori, error } = await supabaseClient
+        .from("kategori_produk")
+        .select("nama_kategori, nilai_kategori")
+        .order("nama_kategori", { ascending: true });
+
+    if (error) {
+        console.error("Gagal memuat kategori beranda:", error);
+        areaKategori.innerHTML = "<p>Kategori belum dapat dimuat.</p>";
+        return;
     }
-];
 
     areaKategori.innerHTML = "";
 
     kategori.forEach(function(item) {
-    const normalisasi = function(teks) {
-        return (teks || "")
-            .toLowerCase()
-            .replace(/^[^\p{L}\p{N}]+/u, "")
-            .trim();
-    };
+        const normalisasi = function(teks) {
+            return (teks || "")
+                .toLowerCase()
+                .replace(/[^a-z0-9\s]/g, "")
+                .trim();
+        };
 
-    const produkKategori = semuaProduk.filter(function(produk) {
-        return normalisasi(produk.dataset.kategori) ===
-               normalisasi(item.nilai);
-    });
+        const produkKategori = semuaProduk.filter(function(produk) {
+            return normalisasi(produk.dataset.kategori) ===
+                normalisasi(item.nilai_kategori);
+        });
+
         if (produkKategori.length === 0) return;
 
         const bagian = document.createElement("div");
         bagian.className = "kategori-beranda-card";
 
         const judul = document.createElement("h3");
-        judul.textContent = item.nama;
+        judul.textContent = item.nama_kategori;
         bagian.appendChild(judul);
 
         const grid = document.createElement("div");
         grid.className = "produk-grid";
 
         produkKategori.slice(0, 4).forEach(function(produk) {
-            const kartu = produk.cloneNode(true);
-            grid.appendChild(kartu);
+            grid.appendChild(produk.cloneNode(true));
         });
 
         bagian.appendChild(grid);
@@ -872,25 +841,28 @@ function tampilkanKategoriBeranda() {
         tombol.textContent = "Lihat Semua";
 
         tombol.addEventListener("click", function() {
-    document.body.classList.remove("halaman-keranjang", "halaman-checkout");
+            document.body.classList.remove(
+                "halaman-keranjang",
+                "halaman-checkout"
+            );
 
-    document.querySelector("#keranjang").classList.remove("halaman-aktif");
-    document.querySelector("#checkout").classList.remove("halaman-aktif");
+            document.querySelector("#keranjang").classList.remove("halaman-aktif");
+            document.querySelector("#checkout").classList.remove("halaman-aktif");
 
-    document.querySelector("#kategori-beranda").style.display = "none";
-    document.querySelector("#produk").style.display = "block";
+            document.querySelector("#kategori-beranda").style.display = "none";
+            document.querySelector("#produk").style.display = "block";
 
-    if (inputPencarian) {
-        inputPencarian.value = "";
-    }
+            if (inputPencarian) {
+                inputPencarian.value = "";
+            }
 
-    kategoriAktif = item.nilai;
-    filterProduk();
+            kategoriAktif = item.nilai_kategori;
+            filterProduk();
 
-    document.querySelector("#produk").scrollIntoView({
-        behavior: "smooth"
-    });
-});
+            document.querySelector("#produk").scrollIntoView({
+                behavior: "smooth"
+            });
+        });
 
         bagian.appendChild(tombol);
         areaKategori.appendChild(bagian);
