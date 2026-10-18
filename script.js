@@ -792,27 +792,47 @@ function tampilkanKategoriBeranda() {
     if (!areaKategori) return;
 
     const kategori = [
-        {
-            nama: "Mie Instan",
-            nilai: "mie instan"
-        },
-        {
-            nama: "Air Mineral",
-            nilai: "air mineral"
-        },
-        {
-            nama: "Sirop",
-            nilai: "sirop"
-        },
-        {
-            nama: "Kopi",
-            nilai: "kopi"
-        },
-        {
-            nama: "Mie Cup",
-            nilai: "mie cup"
-        },
-    ];
+    {
+        nama: "Mie Instan",
+        nilai: "mie instan"
+    },
+    {
+        nama: "Aneka Kopi",
+        nilai: "kopi"
+    },
+    {
+        nama: "Rokok",
+        nilai: "rokok"
+    },
+    {
+        nama: "Sirop",
+        nilai: "sirop"
+    },
+    {
+        nama: "Mie Cup",
+        nilai: "mie cup"
+    },
+    {
+        nama: "Bakso",
+        nilai: "bakso"
+    },
+    {
+        nama: "Nugget",
+        nilai: "nugget"
+    },
+    {
+        nama: "Snack",
+        nilai: "snack"
+    },
+    {
+        nama: "Bumbu Dapur",
+        nilai: "bumbu dapur"
+    },
+    {
+        nama: "Instant Frozen Food",
+        nilai: "instant frozen food"
+    }
+];
 
     areaKategori.innerHTML = "";
 
