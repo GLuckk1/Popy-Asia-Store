@@ -809,3 +809,64 @@ body.halaman-checkout #keranjang {
     object-fit: contain;
     box-sizing: border-box;
 }
+
+
+/* =====================================
+   TAMPILAN PRODUK DI HP
+   ===================================== */
+
+@media screen and (max-width: 600px) {
+
+    #produk .produk-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+    }
+
+    #produk .produk-card {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 12px 8px;
+        overflow: hidden;
+    }
+
+    #produk .produk-card img {
+        max-width: 100%;
+        height: 140px;
+        object-fit: contain;
+    }
+
+    #produk .produk-card h3 {
+        font-size: 15px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+
+    #produk .produk-card .btn {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 10px 4px;
+        font-size: 12px;
+        line-height: 1.4;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #produk .container {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    #input-pencarian {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
