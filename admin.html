@@ -1151,7 +1151,8 @@ async function simpanStatusPesanan(nomorPesanan) {
     });
 }
 
-    async function muatDaftarKategoriAdmin() {
+    
+async function muatDaftarKategoriAdmin() {
     const area = document.getElementById("daftar-kategori-admin");
 
     if (!area) return;
@@ -1187,11 +1188,22 @@ async function simpanStatusPesanan(nomorPesanan) {
 
         const nilai = document.createElement("div");
         nilai.textContent = "Nilai: " + kategori.nilai_kategori;
+        nilai.style.cssText =
+            "font-size:13px;color:#666;margin-top:4px;";
 
-        nilai.style.cssText = "font-size:13px;color:#666;margin-top:4px;";
+        const tombolEdit = document.createElement("button");
+        tombolEdit.type = "button";
+        tombolEdit.textContent = "✏️ Edit";
+        tombolEdit.style.cssText =
+            "margin-top:8px;padding:6px 12px;cursor:pointer;";
+
+        tombolEdit.addEventListener("click", function() {
+            alert("Kategori dipilih: " + kategori.nama_kategori);
+        });
 
         baris.appendChild(nama);
         baris.appendChild(nilai);
+        baris.appendChild(tombolEdit);
         daftar.appendChild(baris);
     });
 
