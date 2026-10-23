@@ -942,8 +942,6 @@ filterProduk();
 async function muatProdukSupabase() {
     const grid = document.querySelector("#produk .produk-grid");
 
-        tampilkanKategoriBeranda();
-
     if (!grid) {
         console.error("Elemen .produk-grid tidak ditemukan.");
         return;
