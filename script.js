@@ -672,13 +672,16 @@ const semuaProduk =
 
 let kategoriAktif = "semua";
 
-// Menyamakan penulisan kategori
+
+ // Menyamakan penulisan kategori
 function normalisasiKategori(teks) {
-    return teks
+    return (teks || "")
         .toLowerCase()
-        .replace(/[🍜🥤💧🚬🖱️✏️📦🛒]/gu, "")
+        .replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, "")
+        .replace(/\s+/g, " ")
         .trim();
 }
+
 
 // Filter produk
 function filterProduk() {
