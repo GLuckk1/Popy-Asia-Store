@@ -1197,9 +1197,50 @@ async function muatDaftarKategoriAdmin() {
         tombolEdit.style.cssText =
             "margin-top:8px;padding:6px 12px;cursor:pointer;";
 
-        tombolEdit.addEventListener("click", function() {
-            alert("Kategori dipilih: " + kategori.nama_kategori);
-        });
+        
+tombolEdit.addEventListener("click", async function() {
+    const namaBaru = prompt(
+        "Masukkan nama baru untuk kategori:",
+        kategori.nama_kategori
+    );
+
+    if (namaBaru === null) return;
+
+    const namaBersih = namaBaru.trim();
+
+    if (!namaBersih) {
+        alert("Nama kategori tidak boleh kosong.");
+        return;
+    }
+
+    if (namaBersih === kategori.nama_kategori) {
+        return;
+    }
+
+    const konfirmasi = confirm(
+        "Ubah nama kategori '" + kategori.nama_kategori +
+        "' menjadi '" + namaBersih + "'?"
+    );
+
+    if (!konfirmasi) return;
+
+    const { error } = await supabaseClient
+        .from("kategori_produk")
+        .update({ nama_kategori: namaBersih })
+        .eq("id", kategori.id);
+
+    if (error) {
+        console.error("Gagal mengubah kategori:", error);
+        alert("Gagal mengubah kategori. Periksa izin Supabase.");
+        return;
+    }
+
+    alert("Nama kategori berhasil diperbarui!");
+
+    await muatDaftarKategoriAdmin();
+    await muatKategoriAdmin();
+});
+
 
         baris.appendChild(nama);
         baris.appendChild(nilai);
