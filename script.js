@@ -855,6 +855,46 @@ async function tampilkanKategoriBeranda() {
             document.querySelector("#kategori-beranda").style.display = "none";
             document.querySelector("#produk").style.display = "block";
 
+            
+let tombolKembali = document.getElementById("tombol-kembali-kategori");
+
+if (!tombolKembali) {
+    tombolKembali = document.createElement("button");
+    tombolKembali.id = "tombol-kembali-kategori";
+    tombolKembali.textContent = "← Kembali ke Kategori";
+    tombolKembali.type = "button";
+
+    tombolKembali.style.cssText = `
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 9999;
+        padding: 10px 16px;
+        background: #ffffff;
+        color: #333333;
+        border: 1px solid #dddddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        cursor: pointer;
+    `;
+
+    tombolKembali.addEventListener("click", function() {
+        document.querySelector("#produk").style.display = "none";
+        document.querySelector("#kategori-beranda").style.display = "block";
+
+        tombolKembali.style.display = "none";
+
+        document.querySelector("#kategori-beranda").scrollIntoView({
+            behavior: "smooth"
+        });
+    });
+
+    document.body.appendChild(tombolKembali);
+}
+
+tombolKembali.style.display = "block";
+
+
             if (inputPencarian) {
                 inputPencarian.value = "";
             }
