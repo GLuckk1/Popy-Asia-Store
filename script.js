@@ -859,8 +859,34 @@ async function tampilkanKategoriBeranda() {
                 inputPencarian.value = "";
             }
 
-            kategoriAktif = item.nilai_kategori;
-            filterProduk();
+            
+kategoriAktif = item.nilai_kategori;
+
+// Urutkan produk dalam kategori berdasarkan nama A-Z
+const gridProduk = document.querySelector("#produk .produk-grid");
+
+if (gridProduk) {
+    const daftarProduk = Array.from(
+        gridProduk.querySelectorAll(".produk-card")
+    );
+
+    daftarProduk.sort(function(a, b) {
+        const namaA = a.querySelector("h3").textContent.trim();
+        const namaB = b.querySelector("h3").textContent.trim();
+
+        return namaA.localeCompare(namaB, "id", {
+            sensitivity: "base",
+            numeric: true
+        });
+    });
+
+    daftarProduk.forEach(function(produk) {
+        gridProduk.appendChild(produk);
+    });
+}
+
+filterProduk();
+
 
             document.querySelector("#produk").scrollIntoView({
                 behavior: "smooth"
