@@ -877,14 +877,20 @@ body.halaman-checkout #keranjang {
     margin: 15px 0 25px;
 }
 
+/* Mengatur ukuran kartu hasil pencarian */
 #hasil-pencarian .produk-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 15px;
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
+gap: 15px;
+justify-content: start;
+align-items: start;
 }
 
 #hasil-pencarian .produk-card {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+display: block !important;
+width: 100%;
+max-width: 220px;
+box-sizing: border-box;
+visibility: visible !important;
+opacity: 1 !important;
 }
