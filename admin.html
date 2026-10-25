@@ -179,6 +179,22 @@ function tampilkanMenuAdmin(menu) {
         isi.innerHTML = `
             <h2>📦 Daftar Pesanan</h2>
             <p id="status-pesanan">Memuat pesanan...</p>
+
+<div style="margin:15px 0;">
+    <label for="filter-status-pesanan"><strong>Filter Status:</strong></label>
+
+    <select id="filter-status-pesanan"
+        onchange="muatPesananAdmin()"
+        style="padding:8px;margin-left:8px;border:1px solid #ccc;border-radius:6px;">
+
+        <option value="semua">📋 Semua Pesanan</option>
+        <option value="Pesanan Baru">🆕 Pesanan Baru</option>
+        <option value="Diproses">🔄 Sedang Diproses</option>
+        <option value="Selesai">✅ Selesai</option>
+        <option value="Dibatalkan">❌ Dibatalkan</option>
+
+    </select>
+</div>
             <div style="overflow-x:auto;">
                 <table style="width:100%;border-collapse:collapse;">
                     <thead>
@@ -1096,14 +1112,22 @@ async function hapusProdukAdmin(id) {
 async function muatPesananAdmin() {
     const status = document.querySelector("#status-pesanan");
     const daftar = document.querySelector("#daftar-pesanan");
+    const filterStatus = document.querySelector("#filter-status-pesanan");
 
     status.textContent = "Memuat pesanan...";
 
-    const { data, error } = await supabaseClient
-        .from("pesanan")
-        .select("nomor_pesanan, subtotal, ongkir, total, status, created_at")
-        .order("created_at", { ascending: false });
+    const pilihanStatus = filterStatus?.value || "semua";
 
+let queryPesanan = supabaseClient
+    .from("pesanan")
+    .select("nomor_pesanan, subtotal, ongkir, total, status, created_at")
+    .order("created_at", { ascending: false });
+
+if (pilihanStatus !== "semua") {
+    queryPesanan = queryPesanan.eq("status", pilihanStatus);
+}
+
+const { data, error } = await queryPesanan;
     if (error) {
         status.textContent = "Gagal memuat pesanan: " + error.message;
         return;
