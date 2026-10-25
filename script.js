@@ -801,6 +801,9 @@ function bukaBeranda() {
 
     document.querySelector("#kategori-beranda").style.display = "block";
     document.querySelector("#produk").style.display = "none";
+
+    // Aktifkan indikator menu Home
+    ubahMenuAktif("home");
 }
 
 function bukaProduk() {
