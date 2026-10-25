@@ -1068,3 +1068,16 @@ async function muatProdukSupabase() {
 }
 
 muatProdukSupabase();
+
+// INDIKATOR MENU AKTIF
+function ubahMenuAktif(menu) {
+    document.querySelectorAll("nav a").forEach(function(link) {
+        link.classList.remove("active");
+    });
+
+    const menuAktif = document.querySelector("#nav-" + menu);
+
+    if (menuAktif) {
+        menuAktif.classList.add("active");
+    }
+}
