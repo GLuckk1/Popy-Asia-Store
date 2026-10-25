@@ -683,35 +683,74 @@ function normalisasiKategori(teks) {
 }
 
 
-// Filter produk
+// Filter produk dan tampilkan hasil pencarian di bawah kolom pencarian
 function filterProduk() {
-    const kataKunci = inputPencarian
-        ? inputPencarian.value.toLowerCase().trim()
+const kataKunci = inputPencarian
+? inputPencarian.value.toLowerCase().trim()
+: "";
+
+const hasilPencarian = document.getElementById("hasil-pencarian");
+const semuaProduk = Array.from(
+    document.querySelectorAll("#produk .produk-card")
+);
+
+// Jika kolom pencarian kosong, kembalikan produk ke tampilan semula
+if (!kataKunci) {
+    if (hasilPencarian) {
+        hasilPencarian.innerHTML = "";
+        hasilPencarian.style.display = "none";
+    }
+
+    semuaProduk.forEach(function(produk) {
+        const kategoriProduk = normalisasiKategori(
+            produk.dataset.kategori || ""
+        );
+
+        const kategoriDipilih = normalisasiKategori(kategoriAktif);
+
+        const cocokKategori =
+            kategoriDipilih === "semua" ||
+            kategoriProduk === kategoriDipilih;
+
+        produk.style.display = cocokKategori ? "" : "none";
+    });
+
+    return;
+}
+
+// Cari produk yang namanya cocok dengan kata kunci
+const produkCocok = semuaProduk.filter(function(produk) {
+    const judul = produk.querySelector("h3");
+    const namaProduk = judul
+        ? judul.textContent.toLowerCase()
         : "";
 
-    document
-        .querySelectorAll("#produk .produk-card")
-        .forEach(function(produk) {
-            const namaProduk =
-                produk.querySelector("h3").textContent.toLowerCase();
+    return namaProduk.includes(kataKunci);
+});
 
-            const kategoriProduk = normalisasiKategori(
-                produk.dataset.kategori || ""
-            );
+// Sembunyikan produk di bagian bawah agar tidak muncul dua kali
+semuaProduk.forEach(function(produk) {
+    produk.style.display = "none";
+});
 
-            const kategoriDipilih =
-                normalisasiKategori(kategoriAktif);
+// Tampilkan hasil di bawah kolom pencarian
+if (hasilPencarian) {
+    hasilPencarian.style.display = "block";
 
-            const cocokKategori =
-                kategoriDipilih === "semua" ||
-                kategoriProduk === kategoriDipilih;
+    if (produkCocok.length === 0) {
+        hasilPencarian.innerHTML =
+            "<p>Produk tidak ditemukan.</p>";
+    } else {
+        hasilPencarian.innerHTML = "<div class='produk-grid'></div>";
 
-            const cocokPencarian =
-                namaProduk.includes(kataKunci);
+        const gridHasil = hasilPencarian.querySelector(".produk-grid");
 
-            produk.style.display =
-                cocokKategori && cocokPencarian ? "" : "none";
+        produkCocok.forEach(function(produk) {
+            gridHasil.appendChild(produk.cloneNode(true));
         });
+    }
+}
+
 }
 
 // Pencarian produk
