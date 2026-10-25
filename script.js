@@ -943,6 +943,12 @@ tombolKembali.style.display = "block";
 
             
 kategoriAktif = item.nilai_kategori;
+            // Ubah judul sesuai kategori yang dipilih
+const judulProduk = document.querySelector("#judul-produk");
+
+if (judulProduk) {
+    judulProduk.textContent = item.nama_kategori;
+}
 
 // Urutkan produk dalam kategori berdasarkan nama A-Z
 const gridProduk = document.querySelector("#produk .produk-grid");
