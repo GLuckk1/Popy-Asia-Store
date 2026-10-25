@@ -1015,7 +1015,7 @@ async function muatProdukSupabase() {
             .from("produk")
             .select("*")
             .eq("aktif", true)
-            .order("id");
+            .order("nama_produk", { ascending: true });
 
         if (error) {
             console.error("Gagal memuat produk:", error);
