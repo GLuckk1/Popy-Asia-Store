@@ -27,14 +27,18 @@
      style="width: 30px; height: 20px; vertical-align: middle;">
 </h1>
 
-    <nav>
-    <a href="#home" onclick="bukaBeranda(); return false;">Home</a>
-    <a href="#produk" onclick="bukaProduk(); return false;">Produk</a>
-    <a href="#kategori" onclick="bukaKategori(); return false;">Kategori</a>
-    <a href="#keranjang" onclick="bukaKeranjang(); return false;" style="position: relative;">
-    🛒 <span id="jumlahKeranjang" style="display: none; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: -8px; right: -8px;">0</span>
-</a>
-    </nav>
+<nav>
+    <a href="#home" id="nav-home" class="active" onclick="bukaBeranda(); return false;">Home</a>
+
+    <a href="#produk" id="nav-produk" onclick="bukaProduk(); return false;">Produk</a>
+
+    <a href="#kategori" id="nav-kategori" onclick="bukaKategori(); return false;">Kategori</a>
+
+    <a href="#keranjang" id="nav-keranjang" onclick="bukaKeranjang(); return false;" style="position: relative;">
+        🛒
+        <span id="jumlahKeranjang" style="display: none; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: -8px; right: -8px;">0</span>
+    </a>
+</nav>
 
         </div>
 
