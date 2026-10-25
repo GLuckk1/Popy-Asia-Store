@@ -727,7 +727,7 @@ const produkCocok = semuaProduk.filter(function(produk) {
 
     return namaProduk.includes(kataKunci);
 });
-
+console.log("Kata kunci:", kataKunci, "| Jumlah produk:", semuaProduk.length, "| Produk cocok:", produkCocok.length);
 // Sembunyikan produk di bagian bawah agar tidak muncul dua kali
 semuaProduk.forEach(function(produk) {
     produk.style.display = "none";
