@@ -872,17 +872,19 @@ body.halaman-checkout #keranjang {
 
 /* HASIL PENCARIAN DI BAWAH KOLOM PENCARIAN */
 #hasil-pencarian {
-display: none;
-width: 100%;
-margin: 15px 0 25px;
+    display: none;
+    width: 100%;
+    margin: 15px 0 25px;
 }
 
 #hasil-pencarian .produk-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
 }
 
 #hasil-pencarian .produk-card {
-display: block;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
