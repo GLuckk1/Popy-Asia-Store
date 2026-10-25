@@ -735,20 +735,23 @@ semuaProduk.forEach(function(produk) {
 
 // Tampilkan hasil di bawah kolom pencarian
 if (hasilPencarian) {
-    hasilPencarian.style.display = "block";
+hasilPencarian.style.display = "block";
+hasilPencarian.innerHTML = "";
 
-    if (produkCocok.length === 0) {
-        hasilPencarian.innerHTML =
-            "<p>Produk tidak ditemukan.</p>";
-    } else {
-        hasilPencarian.innerHTML = "<div class='produk-grid'></div>";
+if (produkCocok.length === 0) {
+    hasilPencarian.innerHTML =
+        "<p>Produk tidak ditemukan.</p>";
+} else {
+    const gridHasil = document.createElement("div");
+    gridHasil.className = "produk-grid";
 
-        const gridHasil = hasilPencarian.querySelector(".produk-grid");
+    produkCocok.forEach(function(produk) {
+        gridHasil.appendChild(produk.cloneNode(true));
+    });
 
-        produkCocok.forEach(function(produk) {
-            gridHasil.appendChild(produk.cloneNode(true));
-        });
-    }
+    hasilPencarian.appendChild(gridHasil);
+}
+
 }
 
 }
