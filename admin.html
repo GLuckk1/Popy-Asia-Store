@@ -501,13 +501,13 @@ async function editProdukAdmin(id) {
                 >
 
                 <label>Kategori</label>
-                <input
+                <select
                     id="edit-kategori-produk"
-                    type="text"
-                    value="${escapeHTML(produk.kategori || "")}"
                     required
                     style="width:100%;padding:10px;margin:8px 0 16px;box-sizing:border-box;"
-                >
+                    > 
+                    <option value="">Memuat kategori...</option>
+                </select>
 
                 <label>Harga Normal (¥)</label>
                 <input
@@ -611,6 +611,46 @@ async function editProdukAdmin(id) {
         </div>
     `;
 
+    // Muat kategori dari Supabase untuk dropdown edit produk.
+    const dropdownKategori = document.getElementById("edit-kategori-produk");
+
+    const { data: daftarKategori, error: errorKategori } = await supabaseClient
+        .from("kategori_produk")
+        .select("nama_kategori, nilai_kategori")
+        .order("nama_kategori", { ascending: true });
+
+    if (errorKategori) {
+        console.error("Gagal memuat kategori:", errorKategori);
+        dropdownKategori.innerHTML =
+            '<option value="">Gagal memuat kategori</option>';
+    } else {
+        dropdownKategori.innerHTML = "";
+
+        (daftarKategori || []).forEach(function (item) {
+            const opsi = document.createElement("option");
+            opsi.value = item.nilai_kategori;
+            opsi.textContent = item.nama_kategori;
+
+            dropdownKategori.appendChild(opsi);
+        });
+
+        // Pilih kategori yang saat ini digunakan oleh produk.
+        dropdownKategori.value = produk.kategori || "";
+
+        // Jika kategori lama tidak ditemukan, tampilkan sebagai pilihan.
+        if (
+            produk.kategori &&
+            dropdownKategori.value !== produk.kategori
+        ) {
+            const opsiLama = document.createElement("option");
+            opsiLama.value = produk.kategori;
+            opsiLama.textContent = produk.kategori;
+            opsiLama.selected = true;
+
+            dropdownKategori.appendChild(opsiLama);
+        }
+    }
+    
     // Pilihan foto dilakukan langsung oleh pengguna.
     document
         .getElementById("edit-foto-produk")
