@@ -116,10 +116,64 @@ function tampilkanMenuAdmin(menu) {
     const isi = document.querySelector("#isi-menu-admin");
 
     if (menu === "dashboard") {
-        isi.innerHTML = `
-            <h2>🏠 Dashboard</h2>
-            <p>Selamat datang di Popy Asia Store.</p>
-        `;
+    isi.innerHTML = `
+        <h2>🏠 Dashboard</h2>
+        <p>Selamat datang di Popy Asia Store!</p>
+
+        <div id="statistik-dashboard" style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            gap:15px;
+            margin:20px 0;
+        ">
+            <div style="padding:20px;background:#fff;border-radius:12px;border-left:5px solid #ff9800;">
+                <h3>📦 Pesanan Baru</h3>
+                <p id="stat-pesanan-baru" style="font-size:28px;font-weight:bold;">...</p>
+            </div>
+
+            <div style="padding:20px;background:#fff;border-radius:12px;border-left:5px solid #2196f3;">
+                <h3>🔄 Diproses</h3>
+                <p id="stat-pesanan-proses" style="font-size:28px;font-weight:bold;">...</p>
+            </div>
+
+            <div style="padding:20px;background:#fff;border-radius:12px;border-left:5px solid #16a34a;">
+                <h3>✅ Selesai</h3>
+                <p id="stat-pesanan-selesai" style="font-size:28px;font-weight:bold;">...</p>
+            </div>
+
+            <div style="padding:20px;background:#fff;border-radius:12px;border-left:5px solid #8b5cf6;">
+                <h3>💴 Total Penjualan</h3>
+                <p id="stat-total-penjualan" style="font-size:24px;font-weight:bold;">...</p>
+            </div>
+        </div>
+
+        <h3>🛍️ Ringkasan Produk</h3>
+
+        <div style="display:flex;gap:15px;flex-wrap:wrap;margin:15px 0;">
+            <div style="padding:18px;background:#fff;border-radius:10px;flex:1;min-width:150px;">
+                Produk Aktif
+                <p id="stat-produk-aktif" style="font-size:24px;font-weight:bold;">...</p>
+            </div>
+
+            <div style="padding:18px;background:#fff;border-radius:10px;flex:1;min-width:150px;">
+                Stok Habis
+                <p id="stat-stok-habis" style="font-size:24px;font-weight:bold;">...</p>
+            </div>
+
+            <div style="padding:18px;background:#fff;border-radius:10px;flex:1;min-width:150px;">
+                Produk Promo
+                <p id="stat-produk-promo" style="font-size:24px;font-weight:bold;">...</p>
+            </div>
+        </div>
+
+        <h3>🧾 Pesanan Terbaru</h3>
+        <div id="pesanan-terbaru-dashboard">Memuat pesanan...</div>
+
+        <p id="pesan-dashboard" role="status"></p>
+    `;
+
+    muatDashboardAdmin();
+}
 
     } else if (menu === "pesanan") {
         isi.innerHTML = `
@@ -901,6 +955,131 @@ async function hapusProdukAdmin(id) {
     await muatDaftarProdukAdmin();
 }
 
+    async function muatDashboardAdmin() {
+    const pesan = document.querySelector("#pesan-dashboard");
+
+    try {
+        // 1. Ambil data pesanan
+        const { data: pesanan, error: errorPesanan } =
+            await supabaseClient
+                .from("pesanan")
+                .select("nomor_pesanan, total, status, created_at")
+                .order("created_at", { ascending: false });
+
+        if (errorPesanan) throw errorPesanan;
+
+        const daftarPesanan = pesanan || [];
+
+        // 2. Hitung statistik berdasarkan status
+        const statusNormal = status =>
+            String(status || "").trim().toLowerCase();
+
+        const jumlahBaru = daftarPesanan.filter(p =>
+            ["baru", "menunggu", "pending"].includes(statusNormal(p.status))
+        ).length;
+
+        const jumlahProses = daftarPesanan.filter(p =>
+            statusNormal(p.status) === "diproses"
+        ).length;
+
+        const jumlahSelesai = daftarPesanan.filter(p =>
+            statusNormal(p.status) === "selesai"
+        ).length;
+
+        // Total penjualan dihitung dari pesanan selesai
+        const totalPenjualan = daftarPesanan
+            .filter(p => statusNormal(p.status) === "selesai")
+            .reduce((total, p) => total + Number(p.total || 0), 0);
+
+        document.querySelector("#stat-pesanan-baru").textContent = jumlahBaru;
+        document.querySelector("#stat-pesanan-proses").textContent = jumlahProses;
+        document.querySelector("#stat-pesanan-selesai").textContent = jumlahSelesai;
+        document.querySelector("#stat-total-penjualan").textContent =
+            "¥" + totalPenjualan.toLocaleString("ja-JP");
+
+        // 3. Ambil data produk
+        const { data: produk, error: errorProduk } =
+            await supabaseClient
+                .from("produk")
+                .select("stok, aktif, harga_promo");
+
+        if (errorProduk) throw errorProduk;
+
+        const daftarProduk = produk || [];
+
+        const produkAktif = daftarProduk.filter(p => p.aktif === true).length;
+
+        const stokHabis = daftarProduk.filter(
+            p => p.aktif === true && Number(p.stok || 0) <= 0
+        ).length;
+
+        const produkPromo = daftarProduk.filter(p =>
+            p.aktif === true &&
+            Number(p.harga_promo || 0) > 0
+        ).length;
+
+        document.querySelector("#stat-produk-aktif").textContent = produkAktif;
+        document.querySelector("#stat-stok-habis").textContent = stokHabis;
+        document.querySelector("#stat-produk-promo").textContent = produkPromo;
+
+        // 4. Tampilkan lima pesanan terbaru
+        const areaTerbaru = document.querySelector(
+            "#pesanan-terbaru-dashboard"
+        );
+
+        if (daftarPesanan.length === 0) {
+            areaTerbaru.innerHTML = "<p>Belum ada pesanan.</p>";
+        } else {
+            const limaTerbaru = daftarPesanan.slice(0, 5);
+
+            areaTerbaru.innerHTML = `
+                <div style="overflow-x:auto;">
+                    <table style="width:100%;border-collapse:collapse;background:white;">
+                        <thead>
+                            <tr>
+                                <th style="padding:10px;text-align:left;border-bottom:1px solid #ddd;">Nomor Pesanan</th>
+                                <th style="padding:10px;text-align:left;border-bottom:1px solid #ddd;">Tanggal</th>
+                                <th style="padding:10px;text-align:right;border-bottom:1px solid #ddd;">Total</th>
+                                <th style="padding:10px;text-align:left;border-bottom:1px solid #ddd;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${limaTerbaru.map(p => `
+                                <tr>
+                                    <td style="padding:10px;border-bottom:1px solid #eee;">
+                                        ${escapeHTML(p.nomor_pesanan || "-")}
+                                    </td>
+                                    <td style="padding:10px;border-bottom:1px solid #eee;">
+                                        ${p.created_at
+                                            ? new Date(p.created_at).toLocaleDateString("id-ID")
+                                            : "-"}
+                                    </td>
+                                    <td style="padding:10px;text-align:right;border-bottom:1px solid #eee;">
+                                        ¥${Number(p.total || 0).toLocaleString("ja-JP")}
+                                    </td>
+                                    <td style="padding:10px;border-bottom:1px solid #eee;">
+                                        ${escapeHTML(p.status || "-")}
+                                    </td>
+                                </tr>
+                            `).join("")}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        if (pesan) pesan.textContent = "";
+
+    } catch (error) {
+        console.error("Gagal memuat dashboard:", error);
+
+        if (pesan) {
+            pesan.textContent =
+                "Sebagian data dashboard gagal dimuat. Periksa koneksi atau izin Supabase.";
+            pesan.style.color = "red";
+        }
+    }
+}
     
 async function muatPesananAdmin() {
     const status = document.querySelector("#status-pesanan");
