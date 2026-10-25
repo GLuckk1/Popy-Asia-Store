@@ -894,3 +894,15 @@ box-sizing: border-box;
 visibility: visible !important;
 opacity: 1 !important;
 }
+
+/* INDIKATOR MENU AKTIF */
+nav a {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a.active {
+    background-color: #ff9800;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
