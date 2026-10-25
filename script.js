@@ -820,6 +820,9 @@ function bukaProduk() {
 
     filterProduk();
 
+    // Aktifkan indikator menu Produk
+    ubahMenuAktif("produk");
+
     document.querySelector("#produk").scrollIntoView({
         behavior: "smooth"
     });
