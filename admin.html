@@ -1237,6 +1237,59 @@ async function muatDaftarKategoriAdmin() {
         tombolEdit.style.cssText =
             "margin-top:8px;padding:6px 12px;cursor:pointer;";
 
+                const tombolHapus = document.createElement("button");
+        tombolHapus.type = "button";
+        tombolHapus.textContent = "🗑️ Hapus";
+        tombolHapus.style.cssText =
+            "margin-top:8px;margin-left:8px;padding:6px 12px;cursor:pointer;background:#dc2626;color:white;border:none;border-radius:4px;";
+
+        tombolHapus.addEventListener("click", async function() {
+            const konfirmasi = confirm(
+                "Apakah kamu yakin ingin menghapus kategori '" +
+                kategori.nama_kategori + "'?"
+            );
+
+            if (!konfirmasi) return;
+
+            // Periksa apakah kategori masih digunakan oleh produk.
+            const { data: produkTerkait, error: errorProduk } =
+                await supabaseClient
+                    .from("produk")
+                    .select("id")
+                    .eq("kategori", kategori.nilai_kategori)
+                    .limit(1);
+
+            if (errorProduk) {
+                console.error("Gagal memeriksa produk:", errorProduk);
+                alert("Tidak dapat memeriksa produk. Kategori tidak jadi dihapus.");
+                return;
+            }
+
+            if (produkTerkait && produkTerkait.length > 0) {
+                alert(
+                    "Kategori ini masih digunakan oleh produk. " +
+                    "Ubah kategori produk tersebut terlebih dahulu."
+                );
+                return;
+            }
+
+            const { error: errorHapus } = await supabaseClient
+                .from("kategori_produk")
+                .delete()
+                .eq("id", kategori.id);
+
+            if (errorHapus) {
+                console.error("Gagal menghapus kategori:", errorHapus);
+                alert("Gagal menghapus kategori. Periksa izin Supabase.");
+                return;
+            }
+
+            alert("Kategori berhasil dihapus!");
+
+            await muatDaftarKategoriAdmin();
+            await muatKategoriAdmin();
+        });
+
         
 tombolEdit.addEventListener("click", async function() {
     const namaBaru = prompt(
@@ -1285,6 +1338,7 @@ tombolEdit.addEventListener("click", async function() {
         baris.appendChild(nama);
         baris.appendChild(nilai);
         baris.appendChild(tombolEdit);
+        baris.appendChild(tombolHapus);
         daftar.appendChild(baris);
     });
 
