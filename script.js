@@ -783,6 +783,9 @@ function bukaKeranjang() {
 
     document.querySelector("#kategori-beranda").style.display = "none";
     document.querySelector("#produk").style.display = "none";
+
+    // Aktifkan indikator menu Keranjang
+    ubahMenuAktif("keranjang");
 }
 
 function bukaCheckout() {
@@ -830,7 +833,13 @@ function bukaProduk() {
 
 function bukaKategori() {
     bukaBeranda();
-    document.querySelector("#kategori").scrollIntoView({ behavior: "smooth" });
+
+    // Aktifkan indikator menu Kategori
+    ubahMenuAktif("kategori");
+
+    document.querySelector("#kategori").scrollIntoView({
+        behavior: "smooth"
+    });
 }
 
 // KATEGORI BERANDA
