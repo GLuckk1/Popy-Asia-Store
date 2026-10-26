@@ -1143,6 +1143,7 @@ async function muatProdukHome() {
             const hargaPromo = Number(produk.harga_promo) || 0;
             const hargaLama = Number(produk.harga_lama) || harga;
             const stok = Number(produk.stok) || 0;
+            stokProduk[nama] = stok;
             const gambar = produk.gambar_url || "";
             const sedangPromo =
                 hargaPromo > 0 && hargaPromo < harga;
