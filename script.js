@@ -44,8 +44,13 @@ document.addEventListener("click", function(event) {
 
     const nama = kartu.querySelector("h3").textContent.trim();
 
-    const hargaText = kartu.querySelector(".harga").textContent;
-    const harga = parseInt(hargaText.replace(/\D/g, ""), 10) || 0;
+    const areaHargaPromo = kartu.querySelector(".harga-promo");
+
+const hargaText = areaHargaPromo
+    ? areaHargaPromo.textContent
+    : kartu.querySelector(".harga").textContent;
+
+const harga = parseInt(hargaText.replace(/\D/g, ""), 10) || 0;
 
     // Cek stok
     if (stokProduk[nama] <= 0) {
