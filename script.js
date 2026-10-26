@@ -1005,6 +1005,8 @@ document.querySelector("#produk").style.display = "none";
 document.querySelector("#kategori-beranda").style.display = "none";
 document.querySelector("#kategori").style.display = "block";
 
+document.body.classList.remove("kategori-dipilih");        
+        
 tombolKembali.style.display = "none";
 
 kategoriAktif = "semua";
