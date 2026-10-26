@@ -846,25 +846,41 @@ document.querySelector("#produk").scrollIntoView({
 
 }
 
-function bukaKategori() {
+async function bukaKategori() {
 document.body.classList.remove("halaman-keranjang", "halaman-checkout");
-
 
 document.querySelector("#keranjang").classList.remove("halaman-aktif");
 document.querySelector("#checkout").classList.remove("halaman-aktif");
 
-// Sembunyikan Home dan halaman Produk
 document.querySelector("#kategori-beranda").style.display = "none";
 document.querySelector("#produk").style.display = "none";
 
-// Tampilkan bagian Kategori
 const bagianKategori = document.querySelector("#kategori");
 
 if (bagianKategori) {
     bagianKategori.style.display = "block";
+}
+
+ubahMenuAktif("kategori");
+
+if (!semuaProdukSudahDimuat) {
+    const areaKategori = document.querySelector("#daftar-kategori");
+
+    if (areaKategori) {
+        areaKategori.innerHTML = "<p>Memuat kategori dan produk...</p>";
+    }
+
+    await muatProdukSupabase();
+}
+
+await tampilkanKategoriBeranda();
+
+if (bagianKategori) {
     bagianKategori.scrollIntoView({
         behavior: "smooth"
     });
+}
+
 }
 
 // Aktifkan indikator menu Kategori
