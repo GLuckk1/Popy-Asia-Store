@@ -917,3 +917,9 @@ header nav a.active {
 body.halaman-keranjang .container:has(#input-pencarian) {
 display: none;
 }
+
+/* Tombol Belanja Sekarang di banner Home */
+.banner .btn {
+background: #ffffff;
+color: #16a34a;
+}
