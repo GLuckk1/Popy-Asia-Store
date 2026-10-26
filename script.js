@@ -886,7 +886,6 @@ if (bagianKategori) {
 // Aktifkan indikator menu Kategori
 ubahMenuAktif("kategori");
 
-}
 
 
 // KATEGORI BERANDA
