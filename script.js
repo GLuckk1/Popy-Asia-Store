@@ -808,26 +808,37 @@ function bukaBeranda() {
     ubahMenuAktif("home");
 }
 
-function bukaProduk() {
-    kategoriAktif = "semua";
+async function bukaProduk() {
+kategoriAktif = "semua";
 
-    if (inputPencarian) {
-        inputPencarian.value = "";
+if (inputPencarian) {
+    inputPencarian.value = "";
+}
+
+bukaBeranda();
+
+document.querySelector("#kategori-beranda").style.display = "none";
+document.querySelector("#produk").style.display = "block";
+
+// Tampilkan indikator menu Produk
+ubahMenuAktif("produk");
+
+const grid = document.querySelector("#produk .produk-grid");
+
+if (!semuaProdukSudahDimuat) {
+    if (grid) {
+        grid.innerHTML = "<p>Memuat semua produk...</p>";
     }
 
-    bukaBeranda();
+    await muatProdukSupabase();
+}
 
-    document.querySelector("#kategori-beranda").style.display = "none";
-    document.querySelector("#produk").style.display = "block";
+filterProduk();
 
-    filterProduk();
+document.querySelector("#produk").scrollIntoView({
+    behavior: "smooth"
+});
 
-    // Aktifkan indikator menu Produk
-    ubahMenuAktif("produk");
-
-    document.querySelector("#produk").scrollIntoView({
-        behavior: "smooth"
-    });
 }
 
 function bukaKategori() {
