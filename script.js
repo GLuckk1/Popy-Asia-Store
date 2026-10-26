@@ -1046,9 +1046,11 @@ async function muatProdukSupabase() {
                       data-kategori="${kategori}"
                       data-nama="${nama}">
                   <div class="produk-gambar">
-                  <img src="${gambar}" alt="${nama}"
+                      <img src="${gambar}" alt="${nama}"
+                      loading="lazy"
+                      decoding="async"
                       onerror="this.style.display='none'">
-                   </div>
+                  </div>
 
 
                     <h3>${nama}</h3>
