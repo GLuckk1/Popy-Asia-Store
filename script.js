@@ -1085,8 +1085,6 @@ async function muatProdukSupabase() {
     }
 }
 
-muatProdukSupabase();
-
 // ==========================================
 // PRODUK PROMO DAN PILIHAN DI HOME
 // ==========================================
