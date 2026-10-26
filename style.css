@@ -912,3 +912,8 @@ header nav a.active {
     background-color: #ff9800 !important;
     color: white !important;
 }
+
+/* Sembunyikan pencarian di halaman Keranjang */
+body.halaman-keranjang .container:has(#input-pencarian) {
+display: none;
+}
