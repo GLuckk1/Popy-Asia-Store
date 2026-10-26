@@ -779,17 +779,19 @@ tombolKategori.forEach(function(tombol) {
 // NAVIGASI BERANDA, KERANJANG, DAN CHECKOUT
 
 function bukaKeranjang() {
-    document.body.classList.remove("halaman-checkout");
-    document.body.classList.add("halaman-keranjang");
+document.body.classList.remove("halaman-checkout");
+document.body.classList.add("halaman-keranjang");
 
-    document.querySelector("#keranjang").classList.add("halaman-aktif");
-    document.querySelector("#checkout").classList.remove("halaman-aktif");
+document.querySelector("#kategori").style.display = "none";
+document.querySelector("#kategori-beranda").style.display = "none";
+document.querySelector("#produk").style.display = "none";
 
-    document.querySelector("#kategori-beranda").style.display = "none";
-    document.querySelector("#produk").style.display = "none";
+document.querySelector("#keranjang").classList.add("halaman-aktif");
+document.querySelector("#checkout").classList.remove("halaman-aktif");
 
-    // Aktifkan indikator menu Keranjang
-    ubahMenuAktif("keranjang");
+// Aktifkan indikator menu Keranjang
+ubahMenuAktif("keranjang");
+
 }
 
 function bukaCheckout() {
