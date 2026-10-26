@@ -1002,7 +1002,14 @@ filterProduk();
 
 
 async function muatProdukSupabase() {
-    const grid = document.querySelector("#produk .produk-grid");
+// Jangan memuat ulang jika produk sudah tersedia
+if (semuaProdukSudahDimuat || produkSedangDimuat) {
+return;
+}
+
+produkSedangDimuat = true;
+
+const grid = document.querySelector("#produk .produk-grid");
 
     if (!grid) {
         console.error("Elemen .produk-grid tidak ditemukan.");
