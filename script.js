@@ -1012,10 +1012,10 @@ async function muatProdukSupabase() {
 
     try {
         const { data, error } = await supabaseClient
-            .from("produk")
-            .select("*")
-            .eq("aktif", true)
-            .order("nama_produk", { ascending: true });
+    .from("produk")
+    .select("nama_produk, kategori, harga, harga_promo, harga_lama, stok, gambar_url")
+    .eq("aktif", true)
+    .order("nama_produk", { ascending: true });
 
         if (error) {
             console.error("Gagal memuat produk:", error);
