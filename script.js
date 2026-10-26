@@ -883,11 +883,6 @@ if (bagianKategori) {
 
 }
 
-// Aktifkan indikator menu Kategori
-ubahMenuAktif("kategori");
-
-
-
 // KATEGORI BERANDA
 async function tampilkanKategoriBeranda() {
     const areaKategori = document.querySelector("#daftar-kategori");
