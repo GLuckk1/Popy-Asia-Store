@@ -1048,6 +1048,7 @@ async function muatProdukSupabase() {
                   <div class="produk-gambar">
                       <img src="${gambar}" alt="${nama}"
                       loading="lazy"
+                      fetchpriority="auto"
                       decoding="async"
                       onerror="this.style.display='none'">
                   </div>
