@@ -661,16 +661,15 @@ tampilkanKeranjang();
 // PENCARIAN + FILTER KATEGORI
 // ==========================================
 
-const inputPencarian =
-    document.querySelector("#input-pencarian");
-
-const tombolKategori =
-    document.querySelectorAll(".kategori-list button");
-
-const semuaProduk =
-    document.querySelectorAll("#produk .produk-card");
-
+const inputPencarian = document.querySelector("#input-pencarian");
+const tombolKategori = document.querySelectorAll(".kategori-list button");
+const semuaProduk = document.querySelectorAll("#produk .produk-card");
 let kategoriAktif = "semua";
+
+// Status pemuatan produk
+let produkSedangDimuat = false;
+let semuaProdukSudahDimuat = false;
+
 
 
  // Menyamakan penulisan kategori
