@@ -1087,6 +1087,150 @@ async function muatProdukSupabase() {
 
 muatProdukSupabase();
 
+// ==========================================
+// PRODUK PROMO DAN PILIHAN DI HOME
+// ==========================================
+
+async function muatProdukHome() {
+    const areaPromo = document.getElementById("produk-promo-home");
+    const areaPilihan = document.getElementById("produk-pilihan-home");
+
+    if (!areaPromo || !areaPilihan) return;
+
+    try {
+        const { data, error } = await supabaseClient
+            .from("produk")
+            .select("nama_produk, kategori, harga, harga_promo, harga_lama, stok, gambar_url")
+            .eq("aktif", true)
+            .order("nama_produk", { ascending: true });
+
+        if (error) {
+            throw error;
+        }
+
+        const produkAktif = data || [];
+
+        const produkPromo = produkAktif
+            .filter(produk =>
+                Number(produk.harga_promo) > 0 &&
+                Number(produk.harga_promo) < Number(produk.harga)
+            )
+            .slice(0, 8);
+
+        const produkPilihan = produkAktif.slice(0, 8);
+
+        function buatKartuHome(produk, tampilkanPromo) {
+            const nama = produk.nama_produk || "Produk";
+            const harga = Number(produk.harga) || 0;
+            const hargaPromo = Number(produk.harga_promo) || 0;
+            const hargaLama = Number(produk.harga_lama) || harga;
+            const stok = Number(produk.stok) || 0;
+            const gambar = produk.gambar_url || "";
+            const sedangPromo =
+                hargaPromo > 0 && hargaPromo < harga;
+            const hargaTampil =
+                tampilkanPromo && sedangPromo ? hargaPromo : harga;
+
+            const kartu = document.createElement("div");
+            kartu.className = "produk-card";
+            kartu.dataset.kategori = produk.kategori || "";
+            kartu.dataset.nama = nama;
+
+            const areaGambar = document.createElement("div");
+            areaGambar.className = "produk-gambar";
+
+            const img = document.createElement("img");
+            img.src = gambar;
+            img.alt = nama;
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.onerror = function() {
+                this.style.display = "none";
+            };
+
+            areaGambar.appendChild(img);
+
+            const judul = document.createElement("h3");
+            judul.textContent = nama;
+
+            const areaHarga = document.createElement("div");
+            areaHarga.className = "harga";
+
+            if (tampilkanPromo && sedangPromo) {
+                const hargaSebelum = document.createElement("span");
+                hargaSebelum.className = "harga-lama";
+                hargaSebelum.textContent =
+                    "¥" + hargaLama.toLocaleString("ja-JP");
+
+                const hargaSekarang = document.createElement("span");
+                hargaSekarang.className = "harga-promo";
+                hargaSekarang.textContent =
+                    "¥" + hargaTampil.toLocaleString("ja-JP");
+
+                areaHarga.append(hargaSebelum, hargaSekarang);
+            } else {
+                areaHarga.textContent =
+                    "¥" + hargaTampil.toLocaleString("ja-JP");
+            }
+
+            const infoStok = document.createElement("p");
+            infoStok.className = "stok";
+            infoStok.textContent = "Stok: " + stok;
+
+            const tombol = document.createElement("button");
+            tombol.className = "btn";
+            tombol.dataset.nama = nama;
+            tombol.dataset.harga = String(hargaTampil);
+            tombol.disabled = stok <= 0;
+            tombol.textContent =
+                stok <= 0 ? "Stok Habis" : "Tambah ke Keranjang";
+
+            kartu.append(
+                areaGambar,
+                judul,
+                areaHarga,
+                infoStok,
+                tombol
+            );
+
+            return kartu;
+        }
+
+        areaPromo.replaceChildren();
+        areaPilihan.replaceChildren();
+
+        if (produkPromo.length === 0) {
+            areaPromo.innerHTML = "<p>Belum ada produk promo.</p>";
+        } else {
+            produkPromo.forEach(produk => {
+                areaPromo.appendChild(
+                    buatKartuHome(produk, true)
+                );
+            });
+        }
+
+        if (produkPilihan.length === 0) {
+            areaPilihan.innerHTML = "<p>Belum ada produk tersedia.</p>";
+        } else {
+            produkPilihan.forEach(produk => {
+                areaPilihan.appendChild(
+                    buatKartuHome(produk, false)
+                );
+            });
+        }
+
+        console.log("Produk Home berhasil dimuat.");
+
+    } catch (error) {
+        console.error("Gagal memuat produk Home:", error);
+        areaPromo.innerHTML = "<p>Promo belum dapat dimuat.</p>";
+        areaPilihan.innerHTML =
+            "<p>Produk pilihan belum dapat dimuat.</p>";
+    }
+}
+
+muatProdukHome();
+
 // INDIKATOR MENU AKTIF
 function ubahMenuAktif(menu) {
     document.querySelectorAll("nav a").forEach(function(link) {
