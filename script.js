@@ -1084,12 +1084,15 @@ const grid = document.querySelector("#produk .produk-grid");
 
         console.log("Produk Supabase berhasil ditampilkan:", data.length);
 
-        tampilkanKategoriBeranda();
+semuaProdukSudahDimuat = true;
 
-    } catch (err) {
-        console.error("Terjadi kesalahan saat memuat produk:", err);
-    }
+} catch (err) {
+console.error("Terjadi kesalahan saat memuat produk:", err);
+} finally {
+produkSedangDimuat = false;
 }
+}
+
 
 // ==========================================
 // PRODUK PROMO DAN PILIHAN DI HOME
