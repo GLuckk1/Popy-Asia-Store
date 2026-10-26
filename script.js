@@ -1024,10 +1024,6 @@ ubahMenuAktif("kategori");
 
 });
 
-ubahMenuAktif("kategori");
-
-});
-
     document.body.appendChild(tombolKembali);
 }
 
