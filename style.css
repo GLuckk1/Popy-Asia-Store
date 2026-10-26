@@ -906,3 +906,9 @@ nav a.active {
     border-radius: 8px;
     font-weight: bold;
 }
+
+/* Memastikan indikator menu aktif tetap terlihat di HP */
+header nav a.active {
+    background-color: #ff9800 !important;
+    color: white !important;
+}
