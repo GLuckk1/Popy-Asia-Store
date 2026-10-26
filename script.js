@@ -875,7 +875,7 @@ ubahMenuAktif("kategori");
 
 // KATEGORI BERANDA
 async function tampilkanKategoriBeranda() {
-    const areaKategori = document.querySelector("#daftar-kategori-beranda");
+    const areaKategori = document.querySelector("#daftar-kategori");
 
     const semuaProduk = Array.from(
         document.querySelectorAll("#produk .produk-card")
