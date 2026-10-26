@@ -967,6 +967,7 @@ if (inputPencarian) {
 }
 
 kategoriAktif = item.nilai_kategori;
+document.body.classList.add("kategori-dipilih");
 
 const judulProduk = document.querySelector("#judul-produk");
 
