@@ -983,15 +983,19 @@ if (!tombolKembali) {
     `;
 
     tombolKembali.addEventListener("click", function() {
-        document.querySelector("#produk").style.display = "none";
-        document.querySelector("#kategori-beranda").style.display = "block";
+document.querySelector("#produk").style.display = "none";
+document.querySelector("#kategori-beranda").style.display = "none";
+document.querySelector("#kategori").style.display = "block";
 
-        tombolKembali.style.display = "none";
+tombolKembali.style.display = "none";
 
-        document.querySelector("#kategori-beranda").scrollIntoView({
-            behavior: "smooth"
-        });
-    });
+document.querySelector("#kategori").scrollIntoView({
+    behavior: "smooth"
+});
+
+ubahMenuAktif("kategori");
+
+});
 
     document.body.appendChild(tombolKembali);
 }
