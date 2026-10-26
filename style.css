@@ -923,3 +923,10 @@ display: none;
 background: #ffffff;
 color: #16a34a;
 }
+
+/* HP: 3 produk per baris setelah Lihat Semua kategori */
+@media (max-width: 600px) {
+body.kategori-dipilih #produk .produk-grid {
+grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+}
