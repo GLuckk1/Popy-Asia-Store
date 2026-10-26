@@ -947,18 +947,37 @@ async function tampilkanKategoriBeranda() {
         tombol.className = "btn";
         tombol.textContent = "Lihat Semua";
 
-        tombol.addEventListener("click", function() {
-            document.body.classList.remove(
-                "halaman-keranjang",
-                "halaman-checkout"
-            );
+        tombol.addEventListener("click", async function() {
+document.body.classList.remove(
+"halaman-keranjang",
+"halaman-checkout"
+);
 
-            document.querySelector("#keranjang").classList.remove("halaman-aktif");
-            document.querySelector("#checkout").classList.remove("halaman-aktif");
+document.querySelector("#keranjang").classList.remove("halaman-aktif");
+document.querySelector("#checkout").classList.remove("halaman-aktif");
 
-            document.querySelector("#kategori-beranda").style.display = "none";
-            document.querySelector("#produk").style.display = "block";
+document.querySelector("#kategori-beranda").style.display = "none";
+document.querySelector("#kategori").style.display = "none";
+document.querySelector("#produk").style.display = "block";
 
+if (!semuaProdukSudahDimuat) {
+    await muatProdukSupabase();
+}
+
+if (inputPencarian) {
+    inputPencarian.value = "";
+}
+
+kategoriAktif = item.nilai_kategori;
+
+const judulProduk = document.querySelector("#judul-produk");
+
+if (judulProduk) {
+    judulProduk.textContent = item.nama_kategori;
+}
+
+filterProduk();
+ubahMenuAktif("produk");
             
 let tombolKembali = document.getElementById("tombol-kembali-kategori");
 
@@ -989,8 +1008,26 @@ document.querySelector("#kategori").style.display = "block";
 
 tombolKembali.style.display = "none";
 
+kategoriAktif = "semua";
+
+if (inputPencarian) {
+    inputPencarian.value = "";
+}
+
+const judulProduk = document.querySelector("#judul-produk");
+
+if (judulProduk) {
+    judulProduk.textContent = "Semua Produk";
+}
+
+filterProduk();
+
 document.querySelector("#kategori").scrollIntoView({
     behavior: "smooth"
+});
+
+ubahMenuAktif("kategori");
+
 });
 
 ubahMenuAktif("kategori");
