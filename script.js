@@ -827,7 +827,9 @@ if (inputPencarian) {
 
 bukaBeranda();
 
+document.querySelector("#home").style.display = "none";
 document.querySelector("#kategori-beranda").style.display = "none";
+document.querySelector("#kategori").style.display = "none";
 document.querySelector("#produk").style.display = "block";
 
 // Tampilkan indikator menu Produk
@@ -857,6 +859,7 @@ document.body.classList.remove("halaman-keranjang", "halaman-checkout");
 document.querySelector("#keranjang").classList.remove("halaman-aktif");
 document.querySelector("#checkout").classList.remove("halaman-aktif");
 
+document.querySelector("#home").style.display = "none";
 document.querySelector("#kategori-beranda").style.display = "none";
 document.querySelector("#produk").style.display = "none";
 
