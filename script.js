@@ -786,6 +786,7 @@ document.querySelector("#home").style.display = "none";
 document.querySelector("#kategori-beranda").style.display = "none";
 document.querySelector("#kategori").style.display = "none";
 document.querySelector("#produk").style.display = "none";
+document.querySelector("#alamat-toko").style.display = "none";
 
 document.querySelector("#keranjang").classList.add("halaman-aktif");
 document.querySelector("#checkout").classList.remove("halaman-aktif");
@@ -836,6 +837,7 @@ document.querySelector("#home").style.display = "none";
 document.querySelector("#kategori-beranda").style.display = "none";
 document.querySelector("#kategori").style.display = "none";
 document.querySelector("#produk").style.display = "block";
+document.querySelector("#alamat-toko").style.display = "none";
 
 // Tampilkan indikator menu Produk
 ubahMenuAktif("produk");
@@ -867,6 +869,7 @@ document.querySelector("#checkout").classList.remove("halaman-aktif");
 document.querySelector("#home").style.display = "none";
 document.querySelector("#kategori-beranda").style.display = "none";
 document.querySelector("#produk").style.display = "none";
+document.querySelector("#alamat-toko").style.display = "none";
 
 const bagianKategori = document.querySelector("#kategori");
 
