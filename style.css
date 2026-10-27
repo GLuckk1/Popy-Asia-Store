@@ -937,3 +937,12 @@ gap: 8px;
 #produk {
     display: none;
 }
+
+/* Tampilan khusus saat membuka semua produk dalam kategori */
+body.kategori-dipilih header {
+    display: none !important;
+}
+
+body.kategori-dipilih #bagian-pencarian {
+    display: none !important;
+}
