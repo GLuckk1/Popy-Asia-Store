@@ -760,9 +760,29 @@ if (produkCocok.length === 0) {
 
 }
 
-// Pencarian produk
+// PENCARIAN PRODUK — TERMASUK DARI HOME
 if (inputPencarian) {
-    inputPencarian.addEventListener("input", filterProduk);
+    inputPencarian.addEventListener("input", async function() {
+
+        // Pastikan seluruh produk sudah dimuat sebelum mencari
+        if (!semuaProdukSudahDimuat) {
+
+            if (!produkSedangDimuat) {
+                await muatProdukSupabase();
+            }
+
+            // Tunggu jika produk sedang dimuat oleh proses lain
+            while (produkSedangDimuat) {
+                await new Promise(function(resolve) {
+                    setTimeout(resolve, 100);
+                });
+            }
+        }
+
+        // Jalankan pencarian setelah produk tersedia
+        filterProduk();
+
+    });
 }
 
 // Klik kategori
