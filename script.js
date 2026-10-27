@@ -807,6 +807,7 @@ function bukaBeranda() {
     document.body.classList.remove(
         "halaman-keranjang",
         "halaman-checkout"
+        "kategori-dipilih"
     );
 
     document.querySelector("#keranjang")
