@@ -977,7 +977,7 @@ if (judulProduk) {
 }
 
 filterProduk();
-ubahMenuAktif("produk");
+ubahMenuAktif("kategori");
             
 let tombolKembali = document.getElementById("tombol-kembali-kategori");
 
