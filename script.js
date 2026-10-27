@@ -995,19 +995,25 @@ if (!tombolKembali) {
     tombolKembali.textContent = "← Kembali ke Kategori";
     tombolKembali.type = "button";
 
-    tombolKembali.style.cssText = `
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 9999;
-        padding: 10px 16px;
-        background: #ffffff;
-        color: #333333;
-        border: 1px solid #dddddd;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        cursor: pointer;
-    `;
+    
+tombolKembali.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    padding: 12px 24px;
+    background: #ffffff;
+    color: #16a34a;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    cursor: pointer;
+    min-height: 42px;
+`;
+
 
     tombolKembali.addEventListener("click", function() {
 document.querySelector("#produk").style.display = "none";
