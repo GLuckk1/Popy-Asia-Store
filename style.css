@@ -933,3 +933,7 @@ gap: 8px;
 }
 }
 
+/* Sembunyikan bagian Produk saat halaman pertama kali dibuka */
+#produk {
+    display: none;
+}
