@@ -816,6 +816,7 @@ function bukaBeranda() {
     document.querySelector("#kategori").style.display = "none";
     document.querySelector("#produk").style.display = "none";
     document.querySelector("#kategori-beranda").style.display = "block";
+    document.querySelector("#alamat-toko").style.display = "block";
 
     document.querySelector("#keranjang").classList.remove("halaman-aktif");
     document.querySelector("#checkout").classList.remove("halaman-aktif");
