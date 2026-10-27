@@ -804,19 +804,25 @@ function bukaCheckout() {
 }
 
 function bukaBeranda() {
-document.body.classList.remove("halaman-keranjang", "halaman-checkout");
+    document.body.classList.remove(
+        "halaman-keranjang",
+        "halaman-checkout"
+    );
 
+    document.querySelector("#keranjang")
+        .classList.remove("halaman-aktif");
 
-document.querySelector("#keranjang").classList.remove("halaman-aktif");
-document.querySelector("#checkout").classList.remove("halaman-aktif");
+    document.querySelector("#checkout")
+        .classList.remove("halaman-aktif");
 
-document.querySelector("#kategori").style.display = "none";
-document.querySelector("#produk").style.display = "none";
-document.querySelector("#kategori-beranda").style.display = "block";
+    // Banner hanya tampil di Home
+    document.querySelector("#home").style.display = "block";
 
-// Aktifkan indikator menu Home
-ubahMenuAktif("home");
+    document.querySelector("#kategori").style.display = "none";
+    document.querySelector("#produk").style.display = "none";
+    document.querySelector("#kategori-beranda").style.display = "block";
 
+    ubahMenuAktif("home");
 }
 async function bukaProduk() {
 kategoriAktif = "semua";
