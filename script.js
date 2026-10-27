@@ -996,9 +996,10 @@ if (!tombolKembali) {
     tombolKembali.type = "button";
 
     
+
 tombolKembali.style.cssText = `
     position: fixed;
-    top: 20px;
+    top: 90px;
     left: 20px;
     z-index: 9999;
     padding: 12px 24px;
@@ -1013,6 +1014,7 @@ tombolKembali.style.cssText = `
     cursor: pointer;
     min-height: 42px;
 `;
+
 
 
     tombolKembali.addEventListener("click", function() {
