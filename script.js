@@ -785,7 +785,7 @@ document.body.classList.add("halaman-keranjang");
 document.querySelector("#home").style.display = "none";
 document.querySelector("#kategori-beranda").style.display = "none";
 document.querySelector("#kategori").style.display = "none";
-document.querySelector("#produk").style.display = "block";
+document.querySelector("#produk").style.display = "none";
 
 document.querySelector("#keranjang").classList.add("halaman-aktif");
 document.querySelector("#checkout").classList.remove("halaman-aktif");
