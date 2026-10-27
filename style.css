@@ -946,3 +946,38 @@ body.kategori-dipilih header {
 body.kategori-dipilih #bagian-pencarian {
     display: none !important;
 }
+
+
+/* ALAMAT TOKO */
+.alamat-toko-home {
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.alamat-toko-home h2 {
+    color: #16a34a;
+    margin-bottom: 12px;
+}
+
+.alamat-toko-home p {
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.alamat-toko-home .btn {
+    display: inline-block;
+    text-decoration: none;
+    background: #16a34a;
+    color: #ffffff;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.alamat-toko-home .btn:hover {
+    background: #15803d;
+}
