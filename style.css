@@ -60,16 +60,47 @@ nav a:hover {
     color: #15803d;
 }
 
+
 /* BANNER */
 .banner {
     background-color: #16a34a;
     background-image: url("./banner-popy-asia-store.jpg");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: auto 100%;
+    background-size: cover;
+
     color: white;
-    padding: 70px 0;
+    padding: 70px 15px;
     text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.banner h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.banner p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+/* BANNER UNTUK HP */
+@media (max-width: 600px) {
+    .banner {
+        padding: 50px 15px;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    .banner h2 {
+        font-size: 28px;
+    }
+
+    .banner p {
+        font-size: 16px;
+    }
 }
 
 
