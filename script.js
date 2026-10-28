@@ -137,13 +137,20 @@ function tampilkanKeranjang() {
 
                 <div class="item-keranjang">
 
-                    <div>
+    <img
+        src="${produk.gambar_url || produk.gambar || produk.gambar_produk || ""}"
+        alt="${produk.nama}"
+        class="foto-produk-keranjang"
+        onerror="this.style.display='none'"
+    >
 
-                        <strong>
-                           ${produk.promo
-                           ? "🔥 " + produk.nama
-                           : produk.nama}
-                        </strong>
+    <div>
+
+        <strong>
+           ${produk.promo
+           ? "🔥 " + produk.nama
+           : produk.nama}
+        </strong>
 
                         <p>
                             \u00A5${produk.harga.toLocaleString("ja-JP")}
