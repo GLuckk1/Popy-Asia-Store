@@ -1241,16 +1241,6 @@ async function lihatDetailPesanan(nomorPesanan) {
     <strong>${aman(pesanan.status || "-")}</strong>
 </p>
 
-<label for="status-pesanan-baru">Ubah Status:</label>
-
-<select id="status-pesanan-baru"
-    style="padding:8px;margin:8px 0;">
-    <option value="Menunggu">Menunggu</option>
-    <option value="Diproses">Diproses</option>
-    <option value="Selesai">Selesai</option>
-    <option value="Dibatalkan">Dibatalkan</option>
-</select>
-
 <button type="button" class="btn"
     onclick="simpanStatusPesanan('${aman(pesanan.nomor_pesanan)}')">
     Simpan Status
