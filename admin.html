@@ -1109,6 +1109,7 @@ async function hapusProdukAdmin(id) {
     }
 }
     
+
 async function muatPesananAdmin() {
     const status = document.querySelector("#status-pesanan");
     const daftar = document.querySelector("#daftar-pesanan");
@@ -1118,16 +1119,17 @@ async function muatPesananAdmin() {
 
     const pilihanStatus = filterStatus?.value || "semua";
 
-let queryPesanan = supabaseClient
-    .from("pesanan")
-    .select("nomor_pesanan, subtotal, ongkir, total, status, created_at")
-    .order("created_at", { ascending: false });
+    let queryPesanan = supabaseClient
+        .from("pesanan")
+        .select("nomor_pesanan, subtotal, ongkir, total, status, created_at")
+        .order("created_at", { ascending: false });
 
-if (pilihanStatus !== "semua") {
-    queryPesanan = queryPesanan.eq("status", pilihanStatus);
-}
+    if (pilihanStatus !== "semua") {
+        queryPesanan = queryPesanan.eq("status", pilihanStatus);
+    }
 
-const { data, error } = await queryPesanan;
+    const { data, error } = await queryPesanan;
+
     if (error) {
         status.textContent = "Gagal memuat pesanan: " + error.message;
         return;
@@ -1135,40 +1137,130 @@ const { data, error } = await queryPesanan;
 
     if (!data || data.length === 0) {
         status.textContent = "Belum ada pesanan.";
+        daftar.innerHTML = "";
         return;
     }
 
     status.textContent = "Jumlah pesanan: " + data.length;
 
-    daftar.innerHTML = data.map(pesanan => `
-        <tr>
-            <td style="padding:10px;border-bottom:1px solid #ddd;">
-                ${escapeHTML(pesanan.nomor_pesanan || "-")}
-            </td>
-            
-            <td style="padding:10px;border-bottom:1px solid #ddd;">
-                ${escapeHTML(
-                    pesanan.created_at
-                        ? new Date(pesanan.created_at).toLocaleString("id-ID")
-                        : "-"
-                )}
-            </td>
-            <td style="padding:10px;border-bottom:1px solid #ddd;">
-                ¥${Number(pesanan.total || 0).toLocaleString("ja-JP")}
-            </td>
-            <td style="padding:10px;border-bottom:1px solid #ddd;">
-                ${escapeHTML(pesanan.status || "-")}
-            </td>
-            <td style="padding:10px;border-bottom:1px solid #ddd;">
-    <button
-        type="button"
-        class="btn"
-        onclick="lihatDetailPesanan('${escapeHTML(pesanan.nomor_pesanan)}')">
-        Lihat Detail
-    </button>
-</td>
-        </tr>
-    `).join("");
+    daftar.innerHTML = data.map(pesanan => {
+        const nomor = String(pesanan.nomor_pesanan || "");
+        const nomorAman = escapeHTML(nomor);
+        const statusSaatIni = pesanan.status || "Pesanan Baru";
+        const statusLamaAman = escapeHTML(statusSaatIni);
+
+        return `
+            <tr>
+                <td style="padding:10px;border-bottom:1px solid #ddd;">
+                    ${nomorAman || "-"}
+                </td>
+
+                <td style="padding:10px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(
+                        pesanan.created_at
+                            ? new Date(pesanan.created_at).toLocaleString("id-ID")
+                            : "-"
+                    )}
+                </td>
+
+                <td style="padding:10px;border-bottom:1px solid #ddd;">
+                    ¥${Number(pesanan.total || 0).toLocaleString("ja-JP")}
+                </td>
+
+                <td style="padding:10px;border-bottom:1px solid #ddd;">
+                    <select
+                        class="pilihan-status-admin"
+                        data-nomor="${nomorAman}"
+                        data-status-lama="${statusLamaAman}"
+                        aria-label="Status pesanan ${nomorAman}"
+                        style="padding:8px;border:1px solid #ccc;border-radius:6px;max-width:180px;">
+                        <option value="Pesanan Baru"
+                            ${statusSaatIni === "Pesanan Baru" ? "selected" : ""}>
+                            🆕 Pesanan Baru
+                        </option>
+                        <option value="Diproses"
+                            ${statusSaatIni === "Diproses" ? "selected" : ""}>
+                            🔄 Diproses
+                        </option>
+                        <option value="Selesai"
+                            ${statusSaatIni === "Selesai" ? "selected" : ""}>
+                            ✅ Selesai
+                        </option>
+                        <option value="Dibatalkan"
+                            ${statusSaatIni === "Dibatalkan" ? "selected" : ""}>
+                            ❌ Dibatalkan
+                        </option>
+                    </select>
+
+                    <button
+                        type="button"
+                        class="btn"
+                        style="margin-top:5px;"
+                        onclick="simpanStatusPesananAdmin(this, '${nomorAman}')">
+                        Simpan
+                    </button>
+                </td>
+
+                <td style="padding:10px;border-bottom:1px solid #ddd;">
+                    <button
+                        type="button"
+                        class="btn"
+                        onclick="lihatDetailPesanan('${nomorAman}')">
+                        Lihat Detail
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join("");
+}
+
+    
+async function simpanStatusPesananAdmin(tombol, nomorPesanan) {
+    const baris = tombol.closest("tr");
+    const pilihan = baris?.querySelector(".pilihan-status-admin");
+
+    if (!pilihan || !nomorPesanan) {
+        alert("Pilihan status atau nomor pesanan tidak ditemukan.");
+        return;
+    }
+
+    const statusBaru = pilihan.value;
+    const statusLama = pilihan.dataset.statusLama || pilihan.value;
+
+    if (!confirm(
+        `Ubah status pesanan ${nomorPesanan} menjadi "${statusBaru}"?`
+    )) {
+        pilihan.value = statusLama;
+        return;
+    }
+
+    tombol.disabled = true;
+    tombol.textContent = "Menyimpan...";
+
+    const { data, error } = await supabaseClient
+        .from("pesanan")
+        .update({ status: statusBaru })
+        .eq("nomor_pesanan", nomorPesanan)
+        .select("nomor_pesanan, status");
+
+    tombol.disabled = false;
+    tombol.textContent = "Simpan";
+
+    if (error) {
+        alert("Gagal menyimpan status: " + error.message);
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        alert(
+            "Status belum berubah. Pesanan tidak ditemukan atau akses database ditolak."
+        );
+        return;
+    }
+
+    alert(`Status pesanan ${nomorPesanan} berhasil diubah menjadi ${statusBaru}.`);
+
+    muatPesananAdmin();
 }
 
 function escapeHTML(nilai) {
