@@ -44,6 +44,8 @@ document.addEventListener("click", function(event) {
 
     const nama = kartu.querySelector("h3").textContent.trim();
 
+    const gambar = kartu.querySelector("img")?.src || "";
+
     const areaHargaPromo = kartu.querySelector(".harga-promo");
 
 const hargaText = areaHargaPromo
