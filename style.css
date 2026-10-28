@@ -1046,3 +1046,19 @@ body.kategori-dipilih #bagian-pencarian {
         white-space: normal;
     }
 }
+
+.foto-produk-keranjang {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.item-keranjang {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
