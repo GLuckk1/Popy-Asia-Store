@@ -65,8 +65,12 @@ const harga = parseInt(hargaText.replace(/\D/g, ""), 10) || 0;
     });
 
     if (produkAda) {
-        produkAda.jumlah++;
-    } else {
+    produkAda.jumlah++;
+
+    if (!produkAda.gambar_url) {
+        produkAda.gambar_url = gambar;
+    }
+} else {
         const areaPromo = kartu.querySelector(".harga-promo");
 
         const promo = areaPromo
