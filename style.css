@@ -210,16 +210,20 @@ footer {
 
 .item-keranjang {
     display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 20px;
-
+    grid-template-columns: 80px minmax(0, 1fr) auto auto;
+    gap: 15px;
     align-items: center;
-
     padding: 15px 0;
-
     border-bottom: 1px solid #ddd;
 }
 
+.foto-produk-keranjang {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #fff;
+}
 
 .item-keranjang button {
     width: 32px;
