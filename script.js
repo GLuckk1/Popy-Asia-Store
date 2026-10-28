@@ -78,12 +78,12 @@ const harga = parseInt(hargaText.replace(/\D/g, ""), 10) || 0;
             : 0;
 
         keranjang.push({
-            nama: nama,
-            harga: harga,
-            jumlah: 1,
-            promo: promo > 0
-            gambar_url: gambar
-        });
+    nama: nama,
+    harga: harga,
+    jumlah: 1,
+    promo: promo > 0,
+    gambar_url: gambar
+});
     }
 
     // Kurangi stok
