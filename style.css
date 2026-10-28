@@ -1132,3 +1132,10 @@ body.kategori-dipilih #bagian-pencarian {
         text-align: left;
     }
 }
+
+/* Menu navigasi tetap di atas saat halaman di-scroll */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
