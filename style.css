@@ -1409,6 +1409,13 @@ header {
     line-height: 1.4;
 }
 
+/* Judul Promo mengikuti lebar area produk */
+.home-section:has(#produk-promo-home) > h2 {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
 /* Kolom keterangan di bawah judul */
 .home-section > p {
     background: white;
