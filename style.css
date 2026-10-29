@@ -591,6 +591,19 @@ footer {
     }
 }
 
+/* MERAPIKAN POSISI KOLOM PENCARIAN */
+#bagian-pencarian {
+    margin-top: -10px;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    #bagian-pencarian {
+        margin-top: -8px;
+    }
+}
+
+
 
 /* TOMBOL MENU KHUSUS HP */
 @media (max-width: 600px) {
