@@ -1501,3 +1501,31 @@ header {
         scroll-snap-align: start;
     }
 }
+
+
+/* KOLOM SELAMAT DATANG */
+.judul-selamat-datang {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    color: white;
+    text-align: center;
+
+    padding: 25px 20px;
+    margin: 25px 0;
+
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .judul-selamat-datang {
+        padding: 20px 12px;
+        margin: 20px 0;
+        border-radius: 12px;
+        font-size: 22px;
+        line-height: 1.4;
+    }
+}
