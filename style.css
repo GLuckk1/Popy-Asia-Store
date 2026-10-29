@@ -1624,3 +1624,18 @@ header {
         font-size: 20px;
     }
 }
+
+/* PERBAIKAN JUDUL PROMO DI HP */
+@media screen and (max-width: 600px) {
+    .promo-container > h2 {
+        background: linear-gradient(135deg, #16a34a, #15803d) !important;
+        color: #ffffff !important;
+        padding: 12px 10px !important;
+        margin: 0 0 12px !important;
+        border-radius: 8px !important;
+        text-align: center !important;
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+    }
+}
