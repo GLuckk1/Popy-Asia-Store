@@ -1548,3 +1548,18 @@ header {
         line-height: 1.4;
     }
 }
+
+
+/* Judul Promo sejajar dengan area kartu produk */
+.home-section:has(#produk-promo-home) > h2 {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .home-section:has(#produk-promo-home) > h2 {
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+}
