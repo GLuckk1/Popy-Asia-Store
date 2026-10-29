@@ -1563,3 +1563,37 @@ header {
         margin-right: 4px;
     }
 }
+
+
+/* SATU KOTAK UNTUK JUDUL DAN PRODUK PROMO */
+.promo-container {
+    width: 100%;
+    box-sizing: border-box;
+    background: #f0fdf4;
+    border: 2px solid #16a34a;
+    border-radius: 16px;
+    padding: 12px;
+    overflow: hidden;
+}
+
+.promo-container > h2 {
+    margin: 0 0 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.promo-container #produk-promo-home {
+    margin: 0;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .promo-container {
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    .promo-container > h2 {
+        margin-bottom: 8px;
+    }
+}
