@@ -1597,3 +1597,30 @@ header {
         margin-bottom: 8px;
     }
 }
+
+
+/* BACKGROUND HIJAU UNTUK JUDUL PROMO */
+.promo-container > h2 {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    color: white;
+    text-align: center;
+
+    padding: 14px 12px;
+    margin: 0 0 16px;
+
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+
+    line-height: 1.4;
+    box-sizing: border-box;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .promo-container > h2 {
+        padding: 12px 10px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        font-size: 20px;
+    }
+}
