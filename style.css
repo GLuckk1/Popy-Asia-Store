@@ -1327,23 +1327,52 @@ header {
     max-width: 100%;
 }
 
-/* Tampilan HP */
+
+/* SLIDE PRODUK KHUSUS HP */
 @media (max-width: 600px) {
+
+    #produk-promo-home,
+    #produk-pilihan-home {
+        gap: 12px;
+        padding: 8px 4px 16px;
+    }
+
+    /* Kartu lebih kecil agar produk berikutnya terlihat */
     #produk-promo-home .produk-card,
     #produk-pilihan-home .produk-card {
-        flex: 0 0 72%;
-        width: 72%;
+        flex: 0 0 78%;
+        width: 78%;
+        padding: 12px;
+        border-radius: 18px;
     }
-}
 
-/* Scrollbar horizontal */
-#produk-promo-home::-webkit-scrollbar,
-#produk-pilihan-home::-webkit-scrollbar {
-    height: 6px;
-}
+    /* Foto produk tidak terlalu besar */
+    #produk-promo-home .produk-card img,
+    #produk-pilihan-home .produk-card img {
+        width: 100%;
+        height: 170px;
+        object-fit: contain;
+        border-radius: 12px;
+    }
 
-#produk-promo-home::-webkit-scrollbar-thumb,
-#produk-pilihan-home::-webkit-scrollbar-thumb {
-    background: #16a34a;
-    border-radius: 10px;
+    /* Nama produk */
+    #produk-promo-home .produk-card h3,
+    #produk-pilihan-home .produk-card h3 {
+        font-size: 17px;
+        line-height: 1.4;
+    }
+
+    /* Harga dan stok */
+    #produk-promo-home .produk-card p,
+    #produk-pilihan-home .produk-card p {
+        font-size: 15px;
+    }
+
+    /* Tombol tambah ke keranjang */
+    #produk-promo-home .produk-card .btn,
+    #produk-pilihan-home .produk-card .btn {
+        font-size: 14px;
+        padding: 10px;
+        min-height: 44px;
+    }
 }
