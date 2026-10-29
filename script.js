@@ -812,23 +812,31 @@ tombolKategori.forEach(function(tombol) {
 
 // NAVIGASI BERANDA, KERANJANG, DAN CHECKOUT
 
+
 function bukaKeranjang() {
-document.body.classList.remove("halaman-checkout");
-document.body.classList.add("halaman-keranjang");
+    document.body.classList.remove("halaman-checkout");
+    document.body.classList.add("halaman-keranjang");
 
-document.querySelector("#home").style.display = "none";
-document.querySelector("#kategori-beranda").style.display = "none";
-document.querySelector("#kategori").style.display = "none";
-document.querySelector("#produk").style.display = "none";
-document.querySelector("#alamat-toko").style.display = "none";
+    const home = document.querySelector("#home");
+    const kategoriBeranda = document.querySelector("#kategori-beranda");
+    const kategori = document.querySelector("#kategori");
+    const produk = document.querySelector("#produk");
+    const alamatToko = document.querySelector("#alamat-toko");
+    const keranjang = document.querySelector("#keranjang");
+    const checkout = document.querySelector("#checkout");
 
-document.querySelector("#keranjang").classList.add("halaman-aktif");
-document.querySelector("#checkout").classList.remove("halaman-aktif");
+    if (home) home.style.display = "none";
+    if (kategoriBeranda) kategoriBeranda.style.display = "none";
+    if (kategori) kategori.style.display = "none";
+    if (produk) produk.style.display = "none";
+    if (alamatToko) alamatToko.style.display = "none";
 
-// Aktifkan indikator menu Keranjang
-ubahMenuAktif("keranjang");
+    if (keranjang) keranjang.classList.add("halaman-aktif");
+    if (checkout) checkout.classList.remove("halaman-aktif");
 
+    ubahMenuAktif("keranjang");
 }
+
 
 function bukaCheckout() {
     document.body.classList.remove("halaman-keranjang");
@@ -839,6 +847,7 @@ function bukaCheckout() {
 }
 
 
+
 function bukaBeranda() {
     document.body.classList.remove(
         "halaman-keranjang",
@@ -846,93 +855,128 @@ function bukaBeranda() {
         "kategori-dipilih"
     );
 
-    document.querySelector("#home").style.display = "block";
-    document.querySelector("#kategori").style.display = "none";
-    document.querySelector("#produk").style.display = "none";
-    document.querySelector("#kategori-beranda").style.display = "block";
-    document.querySelector("#alamat-toko").style.display = "block";
+    const home = document.querySelector("#home");
+    const kategori = document.querySelector("#kategori");
+    const produk = document.querySelector("#produk");
+    const kategoriBeranda = document.querySelector("#kategori-beranda");
+    const alamatToko = document.querySelector("#alamat-toko");
+    const keranjang = document.querySelector("#keranjang");
+    const checkout = document.querySelector("#checkout");
+    const pencarian = document.querySelector("#bagian-pencarian");
 
-    document.querySelector("#keranjang").classList.remove("halaman-aktif");
-    document.querySelector("#checkout").classList.remove("halaman-aktif");
+    if (home) home.style.display = "block";
+    if (kategori) kategori.style.display = "none";
+    if (produk) produk.style.display = "none";
+    if (kategoriBeranda) kategoriBeranda.style.display = "block";
+    if (alamatToko) alamatToko.style.display = "block";
+    if (pencarian) pencarian.style.display = "block";
 
-    // Aktifkan indikator Home
+    if (keranjang) keranjang.classList.remove("halaman-aktif");
+    if (checkout) checkout.classList.remove("halaman-aktif");
+
     ubahMenuAktif("home");
 }
 
+
+
 async function bukaProduk() {
-kategoriAktif = "semua";
+    kategoriAktif = "semua";
 
-if (inputPencarian) {
-    inputPencarian.value = "";
-}
-
-bukaBeranda();
-
-document.querySelector("#home").style.display = "none";
-document.querySelector("#kategori-beranda").style.display = "none";
-document.querySelector("#kategori").style.display = "none";
-document.querySelector("#produk").style.display = "block";
-document.querySelector("#alamat-toko").style.display = "none";
-
-// Tampilkan indikator menu Produk
-ubahMenuAktif("produk");
-
-const grid = document.querySelector("#produk .produk-grid");
-
-if (!semuaProdukSudahDimuat) {
-    if (grid) {
-        grid.innerHTML = "<p>Memuat semua produk...</p>";
+    if (inputPencarian) {
+        inputPencarian.value = "";
     }
 
-    await muatProdukSupabase();
+    document.body.classList.remove(
+        "halaman-keranjang",
+        "halaman-checkout",
+        "kategori-dipilih"
+    );
+
+    const home = document.querySelector("#home");
+    const kategoriBeranda = document.querySelector("#kategori-beranda");
+    const kategori = document.querySelector("#kategori");
+    const produk = document.querySelector("#produk");
+    const alamatToko = document.querySelector("#alamat-toko");
+    const keranjang = document.querySelector("#keranjang");
+    const checkout = document.querySelector("#checkout");
+    const pencarian = document.querySelector("#bagian-pencarian");
+
+    if (home) home.style.display = "none";
+    if (kategoriBeranda) kategoriBeranda.style.display = "none";
+    if (kategori) kategori.style.display = "none";
+    if (produk) produk.style.display = "block";
+    if (alamatToko) alamatToko.style.display = "none";
+    if (pencarian) pencarian.style.display = "block";
+
+    if (keranjang) keranjang.classList.remove("halaman-aktif");
+    if (checkout) checkout.classList.remove("halaman-aktif");
+
+    ubahMenuAktif("produk");
+
+    const grid = document.querySelector("#produk .produk-grid");
+
+    if (!semuaProdukSudahDimuat) {
+        if (grid) {
+            grid.innerHTML = "<p>Memuat semua produk...</p>";
+        }
+
+        await muatProdukSupabase();
+    }
+
+    filterProduk();
+
+    if (produk) {
+        produk.scrollIntoView({ behavior: "smooth" });
+    }
 }
 
-filterProduk();
-
-document.querySelector("#produk").scrollIntoView({
-    behavior: "smooth"
-});
-
-}
 
 async function bukaKategori() {
-document.body.classList.remove("halaman-keranjang", "halaman-checkout");
+    document.body.classList.remove(
+        "halaman-keranjang",
+        "halaman-checkout"
+    );
 
-document.querySelector("#keranjang").classList.remove("halaman-aktif");
-document.querySelector("#checkout").classList.remove("halaman-aktif");
+    const home = document.querySelector("#home");
+    const kategoriBeranda = document.querySelector("#kategori-beranda");
+    const produk = document.querySelector("#produk");
+    const alamatToko = document.querySelector("#alamat-toko");
+    const bagianKategori = document.querySelector("#kategori");
+    const keranjang = document.querySelector("#keranjang");
+    const checkout = document.querySelector("#checkout");
+    const pencarian = document.querySelector("#bagian-pencarian");
 
-document.querySelector("#home").style.display = "none";
-document.querySelector("#kategori-beranda").style.display = "none";
-document.querySelector("#produk").style.display = "none";
-document.querySelector("#alamat-toko").style.display = "none";
+    if (home) home.style.display = "none";
+    if (kategoriBeranda) kategoriBeranda.style.display = "none";
+    if (produk) produk.style.display = "none";
+    if (alamatToko) alamatToko.style.display = "none";
+    if (bagianKategori) bagianKategori.style.display = "block";
+    if (pencarian) pencarian.style.display = "none";
 
-const bagianKategori = document.querySelector("#kategori");
+    if (keranjang) keranjang.classList.remove("halaman-aktif");
+    if (checkout) checkout.classList.remove("halaman-aktif");
 
-if (bagianKategori) {
-    bagianKategori.style.display = "block";
-}
+    ubahMenuAktif("kategori");
 
-ubahMenuAktif("kategori");
+    if (!semuaProdukSudahDimuat) {
+        const areaKategori = document.querySelector("#daftar-kategori");
 
-if (!semuaProdukSudahDimuat) {
-    const areaKategori = document.querySelector("#daftar-kategori");
+        if (areaKategori) {
+            areaKategori.innerHTML = "<p>Memuat kategori dan produk...</p>";
+        }
 
-    if (areaKategori) {
-        areaKategori.innerHTML = "<p>Memuat kategori dan produk...</p>";
+        await muatProdukSupabase();
     }
 
-    await muatProdukSupabase();
+    await tampilkanKategoriBeranda();
+
+    if (bagianKategori) {
+        bagianKategori.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
 }
 
-await tampilkanKategoriBeranda();
-
-if (bagianKategori) {
-    bagianKategori.scrollIntoView({
-        behavior: "smooth"
-    });
-}
-
-}
 
 // KATEGORI BERANDA
 async function tampilkanKategoriBeranda() {
