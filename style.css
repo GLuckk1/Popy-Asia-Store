@@ -1639,3 +1639,23 @@ header {
         width: 100%;
     }
 }
+
+
+/* BACKGROUND HIJAU UNTUK SEMUA JUDUL BAGIAN HOME */
+.home-section > h2 {
+    background: linear-gradient(135deg, #16a34a, #15803d) !important;
+    color: #ffffff !important;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Tampilan HP */
+@media screen and (max-width: 600px) {
+    .home-section > h2 {
+        background: linear-gradient(135deg, #16a34a, #15803d) !important;
+        color: #ffffff !important;
+        text-align: center;
+        box-sizing: border-box;
+        width: 100%;
+    }
+}
