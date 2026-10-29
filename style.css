@@ -1290,3 +1290,60 @@ header {
     background: #16a34a;
     border-radius: 10px;
 }
+
+
+/* =================================
+   SLIDE PRODUK DI HALAMAN HOME
+================================= */
+
+#produk-promo-home,
+#produk-pilihan-home {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    padding: 10px 4px 20px;
+}
+
+/* Ukuran setiap kartu produk */
+#produk-promo-home .produk-card,
+#produk-pilihan-home .produk-card {
+    flex: 0 0 260px;
+    width: 260px;
+    min-width: 0;
+
+    scroll-snap-align: start;
+}
+
+/* Foto produk */
+#produk-promo-home .produk-card img,
+#produk-pilihan-home .produk-card img {
+    max-width: 100%;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    #produk-promo-home .produk-card,
+    #produk-pilihan-home .produk-card {
+        flex: 0 0 72%;
+        width: 72%;
+    }
+}
+
+/* Scrollbar horizontal */
+#produk-promo-home::-webkit-scrollbar,
+#produk-pilihan-home::-webkit-scrollbar {
+    height: 6px;
+}
+
+#produk-promo-home::-webkit-scrollbar-thumb,
+#produk-pilihan-home::-webkit-scrollbar-thumb {
+    background: #16a34a;
+    border-radius: 10px;
+}
