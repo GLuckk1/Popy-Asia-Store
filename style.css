@@ -1236,3 +1236,57 @@ header {
         font-size: 16px;
     }
 }
+
+
+/* SLIDER PRODUK PROMO DI HALAMAN HOME */
+#produk-promo-home {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+
+    padding: 12px 4px 24px;
+}
+
+/* Ukuran kartu produk promo */
+#produk-promo-home .produk-card {
+    flex: 0 0 260px;
+    width: 260px;
+    min-width: 0;
+
+    scroll-snap-align: start;
+}
+
+/* Foto produk promo */
+#produk-promo-home .produk-card img {
+    max-width: 100%;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    #produk-promo-home {
+        gap: 12px;
+        padding-bottom: 20px;
+    }
+
+    #produk-promo-home .produk-card {
+        flex-basis: 75%;
+        width: 75%;
+    }
+}
+
+/* Tampilan scrollbar */
+#produk-promo-home::-webkit-scrollbar {
+    height: 6px;
+}
+
+#produk-promo-home::-webkit-scrollbar-thumb {
+    background: #16a34a;
+    border-radius: 10px;
+}
