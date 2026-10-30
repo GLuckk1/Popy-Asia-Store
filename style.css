@@ -594,6 +594,7 @@ footer {
 /* MERAPIKAN POSISI KOLOM PENCARIAN */
 #bagian-pencarian {
     margin-top: -10px;
+    margin-bottom: 0;
 }
 
 /* Tampilan HP */
@@ -1529,7 +1530,7 @@ header {
     text-align: center;
 
     padding: 25px 20px;
-    margin: 10px 0;
+    margin: 0 0 10px;
 
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -1542,12 +1543,13 @@ header {
 @media (max-width: 600px) {
     .judul-selamat-datang {
         padding: 20px 12px;
-        margin: 10px 0;
+        margin: 0 0 10px;
         border-radius: 12px;
         font-size: 22px;
         line-height: 1.4;
     }
 }
+
 
 
 /* Judul Promo sejajar dengan area kartu produk */
