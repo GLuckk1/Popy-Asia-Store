@@ -1523,6 +1523,7 @@ header {
     }
 }
 
+
 /* KOLOM SELAMAT DATANG */
 .judul-selamat-datang {
     background: linear-gradient(135deg, #16a34a, #15803d);
@@ -1530,7 +1531,7 @@ header {
     text-align: center;
 
     padding: 25px 20px;
-    margin: 0 0 10px;
+    margin: -40px 0 10px;
 
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -1543,13 +1544,12 @@ header {
 @media (max-width: 600px) {
     .judul-selamat-datang {
         padding: 20px 12px;
-        margin: 0 0 10px;
+        margin: -110px 0 10px;
         border-radius: 12px;
         font-size: 22px;
         line-height: 1.4;
     }
 }
-
 
 
 /* Judul Promo sejajar dengan area kartu produk */
