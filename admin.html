@@ -375,13 +375,87 @@ async function logoutAdmin() {
     document.querySelector("#konten-admin").style.display = "none";
     document.querySelector("#login-admin").style.display = "block";
 }
+// KOMPRESI FOTO PRODUK OTOMATIS
+async function kompresFotoProduk(file) {
+    const gambar = await createImageBitmap(file);
 
+    const ukuranMaksimal = 1200;
+
+    const skala = Math.min(
+        1,
+        ukuranMaksimal / Math.max(gambar.width, gambar.height)
+    );
+
+    const canvas = document.createElement("canvas");
+
+    canvas.width = Math.round(gambar.width * skala);
+    canvas.height = Math.round(gambar.height * skala);
+
+    const context = canvas.getContext("2d");
+
+    context.drawImage(
+        gambar,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    gambar.close();
+
+    // Coba WebP terlebih dahulu
+    let blob = await new Promise(resolve => {
+        canvas.toBlob(resolve, "image/webp", 0.82);
+    });
+
+    // Jika WebP tidak didukung, gunakan JPEG
+    if (!blob || blob.type !== "image/webp") {
+        blob = await new Promise(resolve => {
+            canvas.toBlob(resolve, "image/jpeg", 0.82);
+        });
+    }
+
+    if (!blob) {
+        throw new Error("Gagal mengompres foto.");
+    }
+
+    // Turunkan kualitas jika ukuran masih lebih dari 300 KB
+    const format = blob.type;
+
+    for (const kualitas of [0.72, 0.62, 0.52]) {
+        if (blob.size <= 300 * 1024) break;
+
+        blob = await new Promise(resolve => {
+            canvas.toBlob(resolve, format, kualitas);
+        });
+
+        if (!blob) {
+            throw new Error("Gagal mengompres foto.");
+        }
+    }
+
+    const ekstensi = blob.type === "image/webp"
+        ? "webp"
+        : "jpg";
+
+    const fotoBaru = new File(
+        [blob],
+        `produk-${Date.now()}.${ekstensi}`,
+        { type: blob.type }
+    );
+
+    console.log("Ukuran foto asli:", file.size);
+    console.log("Ukuran foto setelah kompresi:", fotoBaru.size);
+
+    return fotoBaru;
+}
 
 async function simpanProdukAdmin(event) {
     event.preventDefault();
 
     const form = document.querySelector("#form-produk-admin");
     const pesan = document.querySelector("#pesan-produk-admin");
+    const tombol = form.querySelector('button[type="submit"]');
 
     const nama = document.querySelector("#nama-produk-admin").value.trim();
     const kategori = document.querySelector("#kategori-produk-admin").value;
@@ -407,7 +481,7 @@ async function simpanProdukAdmin(event) {
     }
 
     if (fileFoto.size > 5 * 1024 * 1024) {
-        pesan.textContent = "Ukuran foto maksimal 5 MB.";
+        pesan.textContent = "Ukuran foto asli maksimal 5 MB.";
         return;
     }
 
@@ -424,59 +498,87 @@ async function simpanProdukAdmin(event) {
         ? Math.round((hargaAcuan - hargaPromo) / hargaAcuan * 100)
         : 0;
 
-    pesan.textContent = "Sedang mengunggah foto...";
+    try {
+        tombol.disabled = true;
 
-    const ekstensi = fileFoto.name.split(".").pop().toLowerCase();
-    const namaFile = `${crypto.randomUUID()}.${ekstensi}`;
+        // KOMPRESI FOTO
+        pesan.textContent = "Sedang mengompres foto...";
 
-    const { data: hasilUpload, error: errorUpload } = await supabaseClient
-        .storage
-        .from("produk")
-        .upload(namaFile, fileFoto, {
-            cacheControl: "3600",
-            upsert: false
-        });
+        const fotoKompres = await kompresFotoProduk(fileFoto);
 
-    if (errorUpload) {
-        console.error("Gagal upload foto:", errorUpload);
-        pesan.textContent = "Upload foto gagal. Periksa izin Storage.";
-        return;
+        const ukuranKB = (fotoKompres.size / 1024).toFixed(0);
+
+        pesan.textContent = `Foto berhasil dikompres (${ukuranKB} KB). Sedang mengunggah...`;
+
+        // UPLOAD FOTO KE SUPABASE
+        const ekstensi = fotoKompres.type === "image/webp"
+            ? "webp"
+            : "jpg";
+
+        const namaFile = `${crypto.randomUUID()}.${ekstensi}`;
+
+        const { data: hasilUpload, error: errorUpload } = await supabaseClient
+            .storage
+            .from("produk")
+            .upload(namaFile, fotoKompres, {
+                cacheControl: "3600",
+                upsert: false,
+                contentType: fotoKompres.type
+            });
+
+        if (errorUpload) {
+            console.error("Gagal upload foto:", errorUpload);
+            pesan.textContent = "Upload foto gagal. Periksa izin Storage.";
+            return;
+        }
+
+        // AMBIL URL FOTO
+        const { data: urlFoto } = supabaseClient
+            .storage
+            .from("produk")
+            .getPublicUrl(hasilUpload.path);
+
+        pesan.textContent = "Foto berhasil diunggah. Menyimpan produk...";
+
+        // SIMPAN DATA PRODUK
+        const { error } = await supabaseClient
+            .from("produk")
+            .insert([{
+                nama_produk: nama,
+                kategori: kategori,
+                harga: harga,
+                harga_lama: hargaLama,
+                harga_promo: hargaPromo,
+                promo_persen: promoPersen,
+                deskripsi: deskripsi,
+                gambar_url: urlFoto.publicUrl,
+                stok: stok,
+                aktif: aktif
+            }]);
+
+        if (error) {
+            console.error("Gagal menyimpan produk:", error);
+            pesan.textContent = "Foto sudah diunggah, tetapi data produk gagal disimpan. Periksa izin database.";
+            return;
+        }
+
+        pesan.textContent = `Produk berhasil disimpan! Ukuran foto: ${ukuranKB} KB.`;
+
+        form.reset();
+
+        document.querySelector("#stok-produk-admin").value = "0";
+        document.querySelector("#aktif-produk-admin").checked = true;
+
+        muatDaftarProdukAdmin();
+
+    } catch (error) {
+        console.error("Kesalahan menyimpan produk:", error);
+        pesan.textContent = "Terjadi kesalahan saat memproses foto. Silakan coba lagi.";
+
+    } finally {
+        tombol.disabled = false;
     }
-
-    const { data: urlFoto } = supabaseClient
-        .storage
-        .from("produk")
-        .getPublicUrl(hasilUpload.path);
-
-    pesan.textContent = "Foto berhasil diunggah. Menyimpan produk...";
-
-    const { error } = await supabaseClient
-        .from("produk")
-        .insert([{
-            nama_produk: nama,
-            kategori: kategori,
-            harga: harga,
-            harga_lama: hargaLama,
-            harga_promo: hargaPromo,
-            promo_persen: promoPersen,
-            deskripsi: deskripsi,
-            gambar_url: urlFoto.publicUrl,
-            stok: stok,
-            aktif: aktif
-        }]);
-
-    if (error) {
-        console.error("Gagal menyimpan produk:", error);
-        pesan.textContent = "Foto sudah diunggah, tetapi data produk gagal disimpan. Periksa izin database.";
-        return;
-    }
-
-    pesan.textContent = "Produk dan foto berhasil disimpan!";
-    form.reset();
-    document.querySelector("#stok-produk-admin").value = "0";
-    document.querySelector("#aktif-produk-admin").checked = true;
 }
-
     
 async function muatDaftarProdukAdmin() {
     const daftar = document.querySelector("#daftar-produk-admin");
