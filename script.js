@@ -1371,8 +1371,18 @@ async function muatProdukHome() {
             }
 
             const infoStok = document.createElement("p");
-            infoStok.className = "stok";
-            infoStok.textContent = "Stok: " + stok;
+infoStok.className = "stok";
+
+if (stok <= 0) {
+    infoStok.textContent = "🔴 Stok Habis";
+    infoStok.classList.add("stok-habis");
+} else if (stok <= 20) {
+    infoStok.textContent = "🟠 Stok Menipis";
+    infoStok.classList.add("stok-menipis");
+} else {
+    infoStok.textContent = "🟢 Stok Aman";
+    infoStok.classList.add("stok-aman");
+}
 
             const tombol = document.createElement("button");
             tombol.className = "btn";
