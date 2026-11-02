@@ -1871,3 +1871,66 @@ header {
     margin-top: auto;
     align-self: stretch;
 }
+
+/* =================================
+   PERAPIAN KARTU PRODUK HOME
+================================= */
+
+/* Tinggi kartu dibuat konsisten */
+#produk-promo-home .produk-card,
+#produk-pilihan-home .produk-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Nama produk memiliki tinggi seragam */
+#produk-promo-home .produk-card h3,
+#produk-pilihan-home .produk-card h3 {
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+/* Harga selalu berada di tengah */
+#produk-promo-home .produk-card .harga,
+#produk-pilihan-home .produk-card .harga {
+    width: 100%;
+    min-height: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Harga lama dan harga promo */
+#produk-promo-home .harga-lama,
+#produk-pilihan-home .harga-lama,
+#produk-promo-home .harga-promo,
+#produk-pilihan-home .harga-promo {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+/* Posisi indikator stok */
+#produk-promo-home .produk-card .stok,
+#produk-pilihan-home .produk-card .stok {
+    margin-top: auto;
+    margin-bottom: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Tombol selalu berada di bawah */
+#produk-promo-home .produk-card .btn,
+#produk-pilihan-home .produk-card .btn {
+    margin-top: 0;
+    align-self: stretch;
+}
