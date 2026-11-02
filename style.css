@@ -1661,3 +1661,21 @@ header {
         width: 100%;
     }
 }
+
+/* SAMAKAN TAMPILAN PRODUK PILIHAN DENGAN PROMO */
+.promo-container #produk-pilihan-home {
+    margin: 0;
+}
+
+/* Tombol Lihat Semua Produk */
+.promo-container .home-tombol-produk {
+    text-align: center;
+    margin-top: 18px;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .promo-container .home-tombol-produk {
+        margin-top: 12px;
+    }
+}
