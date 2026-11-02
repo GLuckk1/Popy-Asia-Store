@@ -1858,12 +1858,6 @@ header {
     justify-content: center;
 }
 
-/* Sembunyikan jumlah stok pada kartu produk Home */
-#produk-promo-home .produk-card .stok,
-#produk-pilihan-home .produk-card .stok {
-    display: none !important;
-}
-
 /* Rapikan posisi harga dan tombol di Home */
 #produk-promo-home .produk-card .harga,
 #produk-pilihan-home .produk-card .harga {
