@@ -1857,3 +1857,9 @@ header {
     align-items: center;
     justify-content: center;
 }
+
+/* Sembunyikan jumlah stok pada kartu produk Home */
+#produk-promo-home .produk-card .stok,
+#produk-pilihan-home .produk-card .stok {
+    display: none !important;
+}
