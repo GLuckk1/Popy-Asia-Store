@@ -1258,7 +1258,21 @@ const grid = document.querySelector("#produk .produk-grid");
                         }
                     </div>
 
-                    <p class="stok">Stok: ${stok}</p>
+                    <p class="stok ${
+    stok <= 0
+        ? "stok-habis"
+        : stok <= 20
+            ? "stok-menipis"
+            : "stok-aman"
+}">
+    ${
+        stok <= 0
+            ? "Stok Habis"
+            : stok <= 21
+                ? "Stok Menipis"
+                : "Stok Aman"
+    }
+</p>
 
                     <button class="btn"
                             data-nama="${nama}"
