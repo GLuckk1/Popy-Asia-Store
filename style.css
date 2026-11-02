@@ -1820,3 +1820,15 @@ header {
     color: #dc2626;
     background: #fee2e2;
 }
+
+/* Meratakan posisi tombol Tambah ke Keranjang */
+.kategori-beranda-card .produk-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.kategori-beranda-card .produk-card .btn {
+    margin-top: auto;
+    align-self: center;
+}
