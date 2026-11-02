@@ -682,7 +682,7 @@ let semuaProdukSudahDimuat = false;
 function normalisasiKategori(teks) {
     return (teks || "")
         .toLowerCase()
-        .replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, "")
+        .replace(/[^a-z0-9\s]/g, "")
         .replace(/\s+/g, " ")
         .trim();
 }
