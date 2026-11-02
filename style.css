@@ -1679,3 +1679,98 @@ header {
         margin-top: 12px;
     }
 }
+
+
+/* =================================
+   KENANGAN DARI INDONESIA
+================================= */
+
+.souvenir-section {
+    margin-top: 20px;
+}
+
+.souvenir-section .promo-container {
+    background: #f0fff5;
+    border: 2px solid #16a34a;
+    border-radius: 16px;
+    padding: 15px;
+}
+
+.souvenir-home {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.souvenir-item {
+    background: white;
+    border-radius: 14px;
+    padding: 25px 15px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.souvenir-placeholder {
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.souvenir-item h3 {
+    margin: 0;
+    color: #333;
+    font-size: 17px;
+}
+
+
+/* =================================
+   TENTANG POPY ASIA STORE
+================================= */
+
+.tentang-toko-home {
+    margin-top: 20px;
+}
+
+.tentang-toko-home .promo-container {
+    background: #f0fff5;
+    border: 2px solid #16a34a;
+    border-radius: 16px;
+    padding: 15px;
+}
+
+.tentang-toko-content {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    margin-top: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tentang-toko-content p {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* RESPONSIVE HP */
+
+@media (max-width: 600px) {
+    .souvenir-home {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .souvenir-item {
+        padding: 20px 12px;
+    }
+
+    .souvenir-placeholder {
+        font-size: 38px;
+    }
+
+    .tentang-toko-content {
+        padding: 16px;
+    }
+}
