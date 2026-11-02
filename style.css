@@ -1835,7 +1835,7 @@ header {
 
 /* Meratakan tombol Tambah ke Keranjang */
 .produk-card {
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     height: 100%;
     box-sizing: border-box;
