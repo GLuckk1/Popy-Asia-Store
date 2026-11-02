@@ -371,14 +371,218 @@ function tampilkanMenuAdmin(menu) {
             <p>Menu pelanggan siap dibuat.</p>
         `;
 
-    } else if (menu === "nota") {
+        } else if (menu === "nota") {
         isi.innerHTML = `
             <h2>📄 Nota</h2>
             <p>Menu nota siap dibuat.</p>
         `;
+
+    } else if (menu === "promo") {
+        isi.innerHTML = `
+            <h2>🏷️ Daftar Produk Promo</h2>
+            <p>Kelola produk yang sedang mendapatkan harga promo.</p>
+
+            <div id="daftar-produk-promo">
+                Memuat daftar produk promo...
+            </div>
+
+            <div id="form-edit-produk-admin"
+                 style="display:none;margin-top:25px;">
+            </div>
+
+            <button type="button" class="btn"
+                onclick="tampilkanMenuAdmin('dashboard')">
+                ← Kembali ke Dashboard
+            </button>
+        `;
+
+        muatDaftarProdukPromoAdmin();
     }
 }
 
+    async function muatDaftarProdukPromoAdmin() {
+    const daftar = document.getElementById("daftar-produk-promo");
+
+    if (!daftar) return;
+
+    daftar.textContent = "Memuat daftar produk promo...";
+
+    const { data: produk, error } = await supabaseClient
+        .from("produk")
+        .select("id, nama_produk, kategori, harga, harga_lama, harga_promo, stok, aktif, gambar_url")
+        .eq("aktif", true)
+        .gt("harga_promo", 0)
+        .order("nama_produk", { ascending: true });
+
+    if (error) {
+        console.error(error);
+        daftar.textContent = "Gagal memuat produk promo: " + error.message;
+        return;
+    }
+
+    if (!produk || produk.length === 0) {
+        daftar.innerHTML = "<p>Belum ada produk yang sedang promo.</p>";
+        return;
+    }
+
+    daftar.innerHTML = produk.map(item => `
+        <div style="
+            display:flex;
+            align-items:center;
+            gap:15px;
+            flex-wrap:wrap;
+            padding:15px;
+            margin:12px 0;
+            background:white;
+            border-radius:10px;
+            border:1px solid #ddd;
+        ">
+            <img
+                src="${escapeHTML(item.gambar_url || "")}"
+                alt="${escapeHTML(item.nama_produk)}"
+                style="width:75px;height:75px;object-fit:contain;border-radius:8px;"
+            >
+
+            <div style="flex:1;min-width:160px;">
+                <strong>${escapeHTML(item.nama_produk)}</strong>
+                <p style="margin:5px 0;">
+                    Harga normal: ¥${Number(item.harga).toLocaleString("ja-JP")}
+                </p>
+                <p style="margin:5px 0;color:#16a34a;font-weight:bold;">
+                    Harga promo: ¥${Number(item.harga_promo).toLocaleString("ja-JP")}
+                </p>
+                <small>Stok: ${Number(item.stok || 0)}</small>
+            </div>
+
+            <button type="button" class="btn"
+                onclick="editProdukAdmin(${Number(item.id)})">
+                ✏️ Edit Promo
+            </button>
+
+            <button type="button" class="btn"
+                onclick="hentikanPromoAdmin(${Number(item.id)})">
+                🚫 Hentikan Promo
+            </button>
+        </div>
+    `).join("");
+}
+
+
+async function hentikanPromoAdmin(id) {
+    const yakin = confirm(
+        "Yakin ingin menghentikan promo produk ini?"
+    );
+
+    if (!yakin) return;
+
+    const { error } = await supabaseClient
+        .from("produk")
+        .update({
+            harga_promo: null,
+            promo_persen: 0
+        })
+        .eq("id", id);
+
+    if (error) {
+        alert("Gagal menghentikan promo: " + error.message);
+        console.error(error);
+        return;
+    }
+
+    alert("Promo berhasil dihentikan!");
+
+    await muatDaftarProdukPromoAdmin();
+}
+
+    async function muatDaftarProdukPromoAdmin() {
+    const daftar = document.getElementById("daftar-produk-promo");
+
+    if (!daftar) return;
+
+    daftar.textContent = "Memuat daftar produk promo...";
+
+    const { data: produk, error } = await supabaseClient
+        .from("produk")
+        .select("id, nama_produk, harga, harga_promo, stok, aktif, gambar_url")
+        .eq("aktif", true)
+        .gt("harga_promo", 0)
+        .order("nama_produk", { ascending: true });
+
+    if (error) {
+        daftar.textContent = "Gagal memuat produk promo: " + error.message;
+        return;
+    }
+
+    if (!produk || produk.length === 0) {
+        daftar.innerHTML = "<p>Belum ada produk yang sedang promo.</p>";
+        return;
+    }
+
+    daftar.innerHTML = produk.map(item => `
+        <div style="
+            display:flex;
+            align-items:center;
+            gap:15px;
+            flex-wrap:wrap;
+            padding:15px;
+            margin:12px 0;
+            background:white;
+            border-radius:10px;
+            border:1px solid #ddd;
+        ">
+            <img
+                src="${escapeHTML(item.gambar_url || "")}"
+                alt="${escapeHTML(item.nama_produk)}"
+                style="width:75px;height:75px;object-fit:contain;"
+            >
+
+            <div style="flex:1;min-width:160px;">
+                <strong>${escapeHTML(item.nama_produk)}</strong>
+                <p>Harga normal: ¥${Number(item.harga).toLocaleString("ja-JP")}</p>
+                <p style="color:#16a34a;font-weight:bold;">
+                    Harga promo: ¥${Number(item.harga_promo).toLocaleString("ja-JP")}
+                </p>
+                <small>Stok: ${Number(item.stok || 0)}</small>
+            </div>
+
+            <button type="button" class="btn"
+                onclick="editProdukAdmin(${Number(item.id)})">
+                ✏️ Edit Promo
+            </button>
+
+            <button type="button" class="btn"
+                onclick="hentikanPromoAdmin(${Number(item.id)})">
+                🚫 Hentikan Promo
+            </button>
+        </div>
+    `).join("");
+}
+
+
+async function hentikanPromoAdmin(id) {
+    if (!confirm("Yakin ingin menghentikan promo produk ini?")) {
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("produk")
+        .update({
+            harga_promo: null,
+            promo_persen: 0
+        })
+        .eq("id", id);
+
+    if (error) {
+        alert("Gagal menghentikan promo: " + error.message);
+        return;
+    }
+
+    alert("Promo berhasil dihentikan!");
+
+    await muatDaftarProdukPromoAdmin();
+    await muatDashboardAdmin();
+}
+    
 async function logoutAdmin() {
     const { error } = await supabaseClient.auth.signOut();
 
@@ -1031,14 +1235,25 @@ async function simpanPerubahanProdukAdmin(event) {
 
         alert("Produk berhasil diperbarui!");
 
-        document.getElementById("form-edit-produk-admin").style.display = "none";
-        document.getElementById("form-edit-produk-admin").innerHTML = "";
+                const formEditSelesai = document.getElementById("form-edit-produk-admin");
 
+        if (formEditSelesai) {
+            formEditSelesai.style.display = "none";
+            formEditSelesai.innerHTML = "";
+        }
         fotoEditProdukBaru = null;
         dataEditProdukAktif = null;
 
-        await muatDaftarProdukAdmin();
+                if (document.getElementById("daftar-produk-promo")) {
+    await muatDaftarProdukPromoAdmin();
+} else if (document.getElementById("daftar-produk-admin")) {
+    await muatDaftarProdukAdmin();
+}
 
+        if (document.getElementById("daftar-produk-promo")) {
+            await muatDaftarProdukPromoAdmin();
+            await muatDashboardAdmin();
+        }
     } catch (error) {
         console.error(error);
 
