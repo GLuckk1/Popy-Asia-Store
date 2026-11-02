@@ -1774,3 +1774,24 @@ header {
         padding: 16px;
     }
 }
+
+/* FOTO KENANGAN DARI INDONESIA */
+.souvenir-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.souvenir-item {
+    overflow: hidden;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .souvenir-image {
+        height: 120px;
+    }
+}
