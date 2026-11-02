@@ -1850,3 +1850,10 @@ header {
     margin-top: 0;
     align-self: stretch;
 }
+/* Meratakan nama dan stok produk di kolom kategori beranda */
+.kategori-beranda-card .produk-card h3 {
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
