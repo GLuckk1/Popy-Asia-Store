@@ -160,10 +160,25 @@ function tampilkanMenuAdmin(menu) {
                 <p id="stat-stok-habis" style="font-size:24px;font-weight:bold;">...</p>
             </div>
 
-            <div style="padding:18px;background:#fff;border-radius:10px;flex:1;min-width:150px;">
-                Produk Promo
-                <p id="stat-produk-promo" style="font-size:24px;font-weight:bold;">...</p>
-            </div>
+            <div
+    onclick="tampilkanMenuAdmin('promo')"
+    role="button"
+    tabindex="0"
+    onkeydown="if(event.key === 'Enter' || event.key === ' ') tampilkanMenuAdmin('promo')"
+    style="
+        padding:18px;
+        background:#fff;
+        border-radius:10px;
+        flex:1;
+        min-width:150px;
+        cursor:pointer;
+        border:1px solid #e5e7eb;
+    "
+>
+    <strong>🏷️ Produk Promo</strong>
+    <p id="stat-produk-promo" style="font-size:24px;font-weight:bold;">...</p>
+    <small style="color:#16a34a;">Klik untuk melihat daftar promo →</small>
+</div>
         </div>
 
         <h3>🧾 Pesanan Terbaru</h3>
