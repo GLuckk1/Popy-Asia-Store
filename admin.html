@@ -1443,35 +1443,7 @@ const { data: riwayat, error: errorRiwayat } = await supabaseClient
 </p>
 
 <p id="pesan-status-pesanan"></p>
-<div style="margin:20px 0;padding:16px;background:#f8fafc;border-radius:10px;">
-    <h3>🕒 Riwayat Status Pesanan</h3>
 
-    ${
-        errorRiwayat
-        ? `<p>Gagal memuat riwayat: ${aman(errorRiwayat.message)}</p>`
-        : (riwayat || []).length === 0
-            ? `<p>Belum ada riwayat status.</p>`
-            : `
-                <div style="border-left:3px solid #16a34a;padding-left:15px;">
-                    ${(riwayat || []).map(item => `
-                        <div style="margin-bottom:16px;">
-                            <strong>${aman(item.status_baru)}</strong>
-                            <p style="margin:4px 0;color:#666;">
-                                ${
-                                    item.status_lama
-                                    ? aman(item.status_lama) + " → " + aman(item.status_baru)
-                                    : "Pesanan dibuat"
-                                }
-                            </p>
-                            <small style="color:#777;">
-                                ${aman(new Date(item.diubah_pada).toLocaleString("id-ID"))}
-                            </small>
-                        </div>
-                    `).join("")}
-                </div>
-            `
-    }
-</div>
 
             <hr>
 
@@ -1509,6 +1481,37 @@ const { data: riwayat, error: errorRiwayat } = await supabaseClient
             <p style="text-align:right;">Subtotal: ${uang(pesanan.subtotal)}</p>
             <p style="text-align:right;">Ongkir: ${uang(pesanan.ongkir)}</p>
             <h3 style="text-align:right;">Total: ${uang(pesanan.total)}</h3>
+               </div>
+
+        <!-- RIWAYAT STATUS DI LUAR NOTA -->
+        <div style="margin:20px 0;padding:16px;background:#f8fafc;border-radius:10px;max-width:800px;">
+            <h3>🕒 Riwayat Status Pesanan</h3>
+
+            ${
+                errorRiwayat
+                ? `<p>Gagal memuat riwayat: ${aman(errorRiwayat.message)}</p>`
+                : (riwayat || []).length === 0
+                    ? `<p>Belum ada riwayat status.</p>`
+                    : `
+                        <div style="border-left:3px solid #16a34a;padding-left:15px;">
+                            ${(riwayat || []).map(item => `
+                                <div style="margin-bottom:16px;">
+                                    <strong>${aman(item.status_baru)}</strong>
+                                    <p style="margin:4px 0;color:#666;">
+                                        ${
+                                            item.status_lama
+                                            ? aman(item.status_lama) + " → " + aman(item.status_baru)
+                                            : "Pesanan dibuat"
+                                        }
+                                    </p>
+                                    <small style="color:#777;">
+                                        ${aman(new Date(item.diubah_pada).toLocaleString("id-ID"))}
+                                    </small>
+                                </div>
+                            `).join("")}
+                        </div>
+                    `
+            }
         </div>
 
         <button type="button" class="btn" onclick="cetakNotaPesanan()">
