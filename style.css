@@ -1863,3 +1863,17 @@ header {
 #produk-pilihan-home .produk-card .stok {
     display: none !important;
 }
+
+/* Rapikan posisi harga dan tombol di Home */
+#produk-promo-home .produk-card .harga,
+#produk-pilihan-home .produk-card .harga {
+    width: 100%;
+    text-align: center;
+    align-self: center;
+}
+
+#produk-promo-home .produk-card .btn,
+#produk-pilihan-home .produk-card .btn {
+    margin-top: auto;
+    align-self: stretch;
+}
