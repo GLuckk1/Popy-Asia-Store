@@ -1832,3 +1832,16 @@ header {
     margin-top: auto;
     align-self: center;
 }
+
+/* Meratakan tombol Tambah ke Keranjang */
+.produk-card {
+    display: flex !important;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.produk-card .btn {
+    margin-top: auto;
+    align-self: stretch;
+}
