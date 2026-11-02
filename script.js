@@ -258,42 +258,29 @@ function tampilkanStok() {
 
         if (stokElement && stokProduk[nama] !== undefined) {
 
-            const stok =
-                stokProduk[nama];
+            const stok = stokProduk[nama];
 
-
-            // ==================================
             // STOK HABIS
-            // ==================================
-
             if (stok <= 0) {
 
-                stokElement.textContent =
-                    "🔴 Stok habis";
+                stokElement.textContent = "🔴 Stok Habis";
+                stokElement.className = "stok stok-habis";
 
             }
 
+            // STOK MENIPIS
+            else if (stok <= 20) {
 
-            // ==================================
-            // STOK SEDIKIT
-            // ==================================
-
-            else if (stok <= 3) {
-
-                stokElement.textContent =
-                    "🟠 Stok sedikit: " + stok;
+                stokElement.textContent = "🟠 Stok Menipis";
+                stokElement.className = "stok stok-menipis";
 
             }
 
-
-            // ==================================
             // STOK AMAN
-            // ==================================
-
             else {
 
-                stokElement.textContent =
-                    "🟢 Stok: " + stok;
+                stokElement.textContent = "🟢 Stok Aman";
+                stokElement.className = "stok stok-aman";
 
             }
 
