@@ -1841,7 +1841,12 @@ header {
     box-sizing: border-box;
 }
 
-.produk-card .btn {
+.produk-card .stok {
     margin-top: auto;
+    margin-bottom: 12px;
+}
+
+.produk-card .btn {
+    margin-top: 0;
     align-self: stretch;
 }
