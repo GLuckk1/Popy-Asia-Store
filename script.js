@@ -824,12 +824,14 @@ function bukaKeranjang() {
     const alamatToko = document.querySelector("#alamat-toko");
     const keranjang = document.querySelector("#keranjang");
     const checkout = document.querySelector("#checkout");
+    const pencarian = document.querySelector("#bagian-pencarian");
 
     if (home) home.style.display = "none";
     if (kategoriBeranda) kategoriBeranda.style.display = "none";
     if (kategori) kategori.style.display = "none";
     if (produk) produk.style.display = "none";
     if (alamatToko) alamatToko.style.display = "none";
+    if (pencarian) pencarian.style.display = "none";
 
     if (keranjang) keranjang.classList.add("halaman-aktif");
     if (checkout) checkout.classList.remove("halaman-aktif");
