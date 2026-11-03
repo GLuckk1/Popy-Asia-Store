@@ -47,15 +47,47 @@
 
     <p>Selamat datang di panel admin!</p>
 
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:20px 0;">
-        <button type="button" class="btn" onclick="tampilkanMenuAdmin('dashboard')">🏠 Dashboard</button>
-        <button type="button" class="btn" onclick="tampilkanMenuAdmin('pesanan')">📦 Pesanan</button>
-        <button type="button" class="btn" onclick="tampilkanMenuAdmin('produk')">🛍️ Produk</button>
-        <button type="button" class="btn" onclick="tampilkanMenuAdmin('kategori')">🏷️ Kategori</button>
-        <button type="button" class="btn" onclick="tampilkanMenuAdmin('pelanggan')">👥 Pelanggan</button>
-        <button type="button" class="btn" onclick="tampilkanMenuAdmin('nota')">📄 Nota</button>
-        <button type="button" class="btn" onclick="logoutAdmin()">Keluar</button>
-    </div>
+    <div class="admin-nav">
+    <button type="button" class="btn admin-nav-btn active"
+        data-menu="dashboard"
+        onclick="tampilkanMenuAdmin('dashboard')">
+        🏠 Dashboard
+    </button>
+
+    <button type="button" class="btn admin-nav-btn"
+        data-menu="pesanan"
+        onclick="tampilkanMenuAdmin('pesanan')">
+        📦 Pesanan
+    </button>
+
+    <button type="button" class="btn admin-nav-btn"
+        data-menu="produk"
+        onclick="tampilkanMenuAdmin('produk')">
+        🛍️ Produk
+    </button>
+
+    <button type="button" class="btn admin-nav-btn"
+        data-menu="kategori"
+        onclick="tampilkanMenuAdmin('kategori')">
+        🏷️ Kategori
+    </button>
+
+    <button type="button" class="btn admin-nav-btn"
+        data-menu="pelanggan"
+        onclick="tampilkanMenuAdmin('pelanggan')">
+        👥 Pelanggan
+    </button>
+
+    <button type="button" class="btn admin-nav-btn"
+        data-menu="nota"
+        onclick="tampilkanMenuAdmin('nota')">
+        📄 Nota
+    </button>
+
+    <button type="button" class="btn" onclick="logoutAdmin()">
+        Keluar
+    </button>
+</div>
 
     <hr>
 
