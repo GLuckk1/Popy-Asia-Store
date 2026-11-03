@@ -410,10 +410,32 @@ function tampilkanMenuAdmin(menu) {
         muatDaftarKategoriAdmin();
 
     } else if (menu === "pelanggan") {
-        isi.innerHTML = `
-            <h2>👥 Pelanggan</h2>
-            <p>Menu pelanggan siap dibuat.</p>
-        `;
+    isi.innerHTML = `
+        <h2>👥 Daftar Pelanggan</h2>
+        <p>Data pelanggan Popy Asia Store.</p>
+
+        <input
+            type="text"
+            id="cari-pelanggan-admin"
+            placeholder="🔍 Cari nama atau nomor WhatsApp..."
+            oninput="cariPelangganAdmin(this.value)"
+            style="
+                width:100%;
+                max-width:500px;
+                padding:12px;
+                margin:15px 0;
+                border:1px solid #ccc;
+                border-radius:8px;
+                box-sizing:border-box;
+            "
+        >
+
+        <div id="daftar-pelanggan-admin">
+            Memuat data pelanggan...
+        </div>
+    `;
+
+    muatDaftarPelangganAdmin();
 
         } else if (menu === "nota") {
         isi.innerHTML = `
@@ -937,6 +959,63 @@ async function muatDaftarProdukAdmin() {
     tampilkanHasilProduk();
 }
 
+    let dataPelangganAdmin = [];
+
+async function muatDaftarPelangganAdmin() {
+    const daftar = document.querySelector("#daftar-pelanggan-admin");
+    if (!daftar) return;
+
+    daftar.textContent = "Memuat data pelanggan...";
+
+    const { data, error } = await supabaseClient
+        .from("pelanggan")
+        .select("id, nama, whatsapp, alamat")
+        .order("id", { ascending: false });
+
+    if (error) {
+        console.error("Gagal memuat pelanggan:", error);
+        daftar.textContent = "Gagal memuat data pelanggan.";
+        return;
+    }
+
+    dataPelangganAdmin = data || [];
+    tampilkanDaftarPelangganAdmin(dataPelangganAdmin);
+}
+
+function tampilkanDaftarPelangganAdmin(data) {
+    const daftar = document.querySelector("#daftar-pelanggan-admin");
+    if (!daftar) return;
+
+    if (!data.length) {
+        daftar.innerHTML = "<p>Belum ada pelanggan.</p>";
+        return;
+    }
+
+    daftar.innerHTML = data.map(item => `
+        <div style="
+            background:#fff;
+            padding:15px;
+            margin:10px 0;
+            border-radius:10px;
+            border:1px solid #ddd;
+        ">
+            <strong>👤 ${escapeHTML(item.nama || "Tanpa nama")}</strong>
+            <p>📱 WhatsApp: ${escapeHTML(item.whatsapp || "-")}</p>
+            <p>📍 Alamat: ${escapeHTML(item.alamat || "-")}</p>
+        </div>
+    `).join("");
+}
+
+function cariPelangganAdmin(kataKunci) {
+    const kata = kataKunci.toLowerCase().trim();
+
+    const hasil = dataPelangganAdmin.filter(item =>
+        (item.nama || "").toLowerCase().includes(kata) ||
+        (item.whatsapp || "").toLowerCase().includes(kata)
+    );
+
+    tampilkanDaftarPelangganAdmin(hasil);
+}
     
 let fotoEditProdukBaru = null;
 let dataEditProdukAktif = null;
