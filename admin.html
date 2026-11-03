@@ -1258,12 +1258,14 @@ const intervalGrafik = Math.max(
             },
             scales: {
                 y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: value =>
-                            "¥" + Number(value).toLocaleString("ja-JP")
-                    }
-                }
+    beginAtZero: true,
+    suggestedMax: intervalGrafik * 5,
+    ticks: {
+        stepSize: intervalGrafik,
+        callback: value =>
+            "¥" + Number(value).toLocaleString("ja-JP")
+    }
+}
             }
         }
     });
