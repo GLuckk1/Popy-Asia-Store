@@ -865,26 +865,76 @@ async function muatDaftarProdukAdmin() {
         return;
     }
 
-    daftar.innerHTML = produk.map(item => `
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid #ddd;">
-            <img
-                src="${escapeHTML(item.gambar_url || "")}"
-                alt="${escapeHTML(item.nama_produk || "Produk")}"
-                style="width:65px;height:65px;object-fit:cover;border-radius:8px;"
-            >
-            <div style="flex:1;min-width:150px;">
-                <strong>${escapeHTML(item.nama_produk || "")}</strong>
-                <div>Harga: ¥${Number(item.harga || 0).toLocaleString("ja-JP")}</div>
-                <div>Stok: ${Number(item.stok || 0)}</div>
-                <div>Status: ${item.aktif ? "Aktif" : "Nonaktif"}</div>
-                <div>Kategori: ${escapeHTML(item.kategori || "Belum ada kategori")}</div>
+    daftar.innerHTML = `
+        <h3>🔎 Cari Produk</h3>
+
+        <input
+            type="text"
+            id="cari-produk-admin"
+            placeholder="Masukkan nama produk..."
+            style="
+                width:100%;
+                padding:12px;
+                margin:10px 0 20px;
+                border:1px solid #ccc;
+                border-radius:8px;
+                box-sizing:border-box;
+                font-size:16px;
+            "
+        >
+
+        <div id="hasil-cari-produk-admin"></div>
+    `;
+
+    const kolomCari = document.querySelector("#cari-produk-admin");
+    const hasil = document.querySelector("#hasil-cari-produk-admin");
+
+    function tampilkanHasilProduk(kataKunci = "") {
+        const hasilFilter = produk.filter(item =>
+            (item.nama_produk || "")
+                .toLowerCase()
+                .includes(kataKunci.toLowerCase().trim())
+        );
+
+        if (hasilFilter.length === 0) {
+            hasil.innerHTML = "<p>Produk tidak ditemukan.</p>";
+            return;
+        }
+
+        hasil.innerHTML = hasilFilter.map(item => `
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid #ddd;">
+                <img
+                    src="${escapeHTML(item.gambar_url || "")}"
+                    alt="${escapeHTML(item.nama_produk || "Produk")}"
+                    style="width:65px;height:65px;object-fit:cover;border-radius:8px;"
+                >
+
+                <div style="flex:1;min-width:150px;">
+                    <strong>${escapeHTML(item.nama_produk || "")}</strong>
+                    <div>Harga: ¥${Number(item.harga || 0).toLocaleString("ja-JP")}</div>
+                    <div>Stok: ${Number(item.stok || 0)}</div>
+                    <div>Status: ${item.aktif ? "Aktif" : "Nonaktif"}</div>
+                    <div>Kategori: ${escapeHTML(item.kategori || "Belum ada kategori")}</div>
+                </div>
+
+                <button type="button" class="btn"
+                    onclick="editProdukAdmin(${Number(item.id)})">
+                    ✏️ Edit
+                </button>
+
+                <button type="button" class="btn"
+                    onclick="hapusProdukAdmin(${Number(item.id)})">
+                    🗑️ Hapus
+                </button>
             </div>
-            <button type="button" class="btn"
-                onclick="editProdukAdmin(${Number(item.id)})">✏️ Edit</button>
-            <button type="button" class="btn"
-                onclick="hapusProdukAdmin(${Number(item.id)})">🗑️ Hapus</button>
-        </div>
-    `).join("");
+        `).join("");
+    }
+
+    kolomCari.addEventListener("input", function () {
+        tampilkanHasilProduk(this.value);
+    });
+
+    tampilkanHasilProduk();
 }
 
     
