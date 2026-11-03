@@ -2025,3 +2025,19 @@ header {
         margin-top: 0;
     }
 }
+
+
+/* Tampilan 3 kartu produk dalam satu baris di HP */
+@media (max-width: 600px) {
+    #produk .produk-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 12px;
+    }
+
+    #produk .produk-card {
+        width: auto;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+}
