@@ -2085,3 +2085,8 @@ header {
     color: white !important;
     border-color: #ff9800 !important;
 }
+
+/* Huruf kapital di awal setiap kata nama produk */
+.produk-card h3 {
+    text-transform: capitalize;
+}
