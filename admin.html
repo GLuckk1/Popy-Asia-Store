@@ -145,6 +145,17 @@ console.log("Admin berhasil login:", data.user.id);
 
     
 function tampilkanMenuAdmin(menu) {
+        document.querySelectorAll(".admin-nav-btn").forEach(tombol => {
+        tombol.classList.remove("active");
+    });
+
+    const tombolAktif = document.querySelector(
+        `.admin-nav-btn[data-menu="${menu}"]`
+    );
+
+    if (tombolAktif) {
+        tombolAktif.classList.add("active");
+    }
     const isi = document.querySelector("#isi-menu-admin");
 
     if (menu === "dashboard") {
