@@ -1995,12 +1995,12 @@ header {
 }
 
 /* Sejajarkan posisi harga di halaman Produk */
+/* Sejajarkan nama produk di halaman Produk */
 #produk .produk-card h3 {
     min-height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     text-align: center;
     width: 100%;
     box-sizing: border-box;
+    line-height: 1.3;
 }
