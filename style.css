@@ -2057,3 +2057,17 @@ header {
         box-sizing: border-box;
     }
 }
+
+/* NAVIGASI ADMIN */
+.admin-nav {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.admin-nav-btn.active {
+    background: #ff9800 !important;
+    color: white !important;
+    border-color: #ff9800 !important;
+}
