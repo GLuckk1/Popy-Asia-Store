@@ -1992,6 +1992,22 @@ header {
         padding: 10px 15px;
         font-size: 13px;
     }
+    
+/* Logo asli media sosial */
+.sosmed-link img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.sosmed-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+}
+
 }
 
 /* Sejajarkan posisi harga di halaman Produk */
