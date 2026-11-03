@@ -437,11 +437,35 @@ function tampilkanMenuAdmin(menu) {
 
     muatDaftarPelangganAdmin();
 
-        } else if (menu === "nota") {
-        isi.innerHTML = `
-            <h2>📄 Nota</h2>
-            <p>Menu nota siap dibuat.</p>
-        `;
+        
+} else if (menu === "nota") {
+    isi.innerHTML = `
+        <h2>📄 Daftar Nota</h2>
+        <p>Daftar nota dari pesanan pelanggan.</p>
+
+        <input
+            type="text"
+            id="cari-nota-admin"
+            placeholder="🔎 Cari nomor pesanan..."
+            oninput="cariNotaAdmin(this.value)"
+            style="
+                width:100%;
+                max-width:500px;
+                padding:12px;
+                margin:15px 0;
+                border:1px solid #ccc;
+                border-radius:8px;
+                box-sizing:border-box;
+            "
+        >
+
+        <div id="daftar-nota-admin">
+            Memuat daftar nota...
+        </div>
+    `;
+
+    muatDaftarNotaAdmin();
+
 
     } else if (menu === "promo") {
         isi.innerHTML = `
@@ -959,7 +983,138 @@ async function muatDaftarProdukAdmin() {
     tampilkanHasilProduk();
 }
 
+    let dataNotaAdmin = [];
+
+async function muatDaftarNotaAdmin() {
+    const daftar = document.querySelector("#daftar-nota-admin");
+    if (!daftar) return;
+
+    daftar.textContent = "Memuat daftar nota...";
+
+    const { data: pesanan, error } = await supabaseClient
+        .from("pesanan")
+        .select("id, nomor_pesanan, subtotal, ongkir, total, status, created_at, pelanggan_id")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error("Gagal memuat nota:", error);
+        daftar.textContent = "Gagal memuat daftar nota: " + error.message;
+        return;
+    }
+
+    if (!pesanan || pesanan.length === 0) {
+        dataNotaAdmin = [];
+        daftar.innerHTML = "<p>Belum ada nota.</p>";
+        return;
+    }
+
+    const idPelanggan = [
+        ...new Set(pesanan.map(item => item.pelanggan_id).filter(Boolean))
+    ];
+
+    let daftarPelanggan = [];
+
+    if (idPelanggan.length > 0) {
+        const { data, error: errorPelanggan } = await supabaseClient
+            .from("pelanggan")
+            .select("id, nama")
+            .in("id", idPelanggan);
+
+        if (errorPelanggan) {
+            console.error("Gagal memuat nama pelanggan:", errorPelanggan);
+        } else {
+            daftarPelanggan = data || [];
+        }
+    }
+
+    dataNotaAdmin = pesanan.map(item => {
+        const pelanggan = daftarPelanggan.find(
+            orang => orang.id === item.pelanggan_id
+        );
+
+        return {
+            ...item,
+            nama_pelanggan: pelanggan?.nama || "-"
+        };
+    });
+
+    tampilkanDaftarNotaAdmin(dataNotaAdmin);
+}
+    
     let dataPelangganAdmin = [];
+
+    function tampilkanDaftarNotaAdmin(data) {
+    const daftar = document.querySelector("#daftar-nota-admin");
+    if (!daftar) return;
+
+    if (!data || data.length === 0) {
+        daftar.innerHTML = "<p>Nota tidak ditemukan.</p>";
+        return;
+    }
+
+    const uang = nilai =>
+        "¥" + Number(nilai || 0).toLocaleString("ja-JP");
+
+    daftar.innerHTML = `
+        <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;min-width:650px;">
+                <thead>
+                    <tr style="background:#f3f4f6;">
+                        <th style="padding:12px;text-align:left;">Nomor Pesanan</th>
+                        <th style="padding:12px;text-align:left;">Tanggal</th>
+                        <th style="padding:12px;text-align:left;">Pelanggan</th>
+                        <th style="padding:12px;text-align:right;">Total</th>
+                        <th style="padding:12px;text-align:center;">Status</th>
+                        <th style="padding:12px;text-align:center;">Nota</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.map(item => `
+                        <tr>
+                            <td style="padding:10px;border-bottom:1px solid #ddd;">
+                                ${escapeHTML(item.nomor_pesanan || "-")}
+                            </td>
+                            <td style="padding:10px;border-bottom:1px solid #ddd;">
+                                ${escapeHTML(
+                                    item.created_at
+                                        ? new Date(item.created_at).toLocaleString("id-ID")
+                                        : "-"
+                                )}
+                            </td>
+                            <td style="padding:10px;border-bottom:1px solid #ddd;">
+                                ${escapeHTML(item.nama_pelanggan)}
+                            </td>
+                            <td style="padding:10px;text-align:right;border-bottom:1px solid #ddd;">
+                                ${uang(item.total)}
+                            </td>
+                            <td style="padding:10px;text-align:center;border-bottom:1px solid #ddd;">
+                                ${escapeHTML(item.status || "-")}
+                            </td>
+                            <td style="padding:10px;text-align:center;border-bottom:1px solid #ddd;">
+                                <button
+                                    type="button"
+                                    class="btn"
+                                    onclick="lihatDetailPesanan('${escapeHTML(item.nomor_pesanan || "")}')">
+                                    📄 Lihat Nota
+                                </button>
+                            </td>
+                        </tr>
+                    `).join("")}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+    function cariNotaAdmin(kataKunci) {
+    const kata = kataKunci.toLowerCase().trim();
+
+    const hasil = dataNotaAdmin.filter(item =>
+        (item.nomor_pesanan || "").toLowerCase().includes(kata) ||
+        (item.nama_pelanggan || "").toLowerCase().includes(kata)
+    );
+
+    tampilkanDaftarNotaAdmin(hasil);
+}
 
 async function muatDaftarPelangganAdmin() {
     const daftar = document.querySelector("#daftar-pelanggan-admin");
