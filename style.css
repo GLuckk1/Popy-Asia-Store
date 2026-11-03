@@ -1993,3 +1993,14 @@ header {
         font-size: 13px;
     }
 }
+
+/* Sejajarkan posisi harga di halaman Produk */
+#produk .produk-card h3 {
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
