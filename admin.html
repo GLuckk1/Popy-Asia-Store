@@ -629,6 +629,8 @@ function tampilkanMenuAdmin(menu) {
 
     document.querySelector("#pencarian-produk-kasir")
         .addEventListener("input", tampilkanProdukKasir);
+    document.querySelector("#uang-bayar-kasir")
+        .addEventListener("input", hitungKembalianKasir);
 
     } else if (menu === "promo") {
         isi.innerHTML = `
@@ -3092,6 +3094,21 @@ function hapusProdukKasir(id) {
     );
 
     tampilkanKeranjangKasir();
+}
+    function hitungKembalianKasir() {
+    const total = keranjangKasir.reduce(
+        (jumlah, item) => jumlah + (item.harga * item.jumlah),
+        0
+    );
+
+    const uangBayar = Number(
+        document.querySelector("#uang-bayar-kasir").value || 0
+    );
+
+    const kembalian = uangBayar - total;
+
+    document.querySelector("#kembalian-kasir").textContent =
+        "¥" + Math.max(0, kembalian).toLocaleString("ja-JP");
 }
 
 </script>
