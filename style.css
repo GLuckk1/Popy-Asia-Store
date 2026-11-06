@@ -2090,3 +2090,22 @@ header {
 .produk-card h3 {
     text-transform: capitalize;
 }
+
+/* Pusatkan harga produk yang sedang diskon */
+#produk .produk-card .harga {
+    width: 100%;
+    min-height: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#produk .produk-card .harga-lama,
+#produk .produk-card .harga-promo {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
