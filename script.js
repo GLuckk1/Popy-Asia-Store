@@ -901,6 +901,10 @@ async function bukaProduk() {
     if (checkout) checkout.classList.remove("halaman-aktif");
 
     ubahMenuAktif("produk");
+    const judulProduk = document.getElementById("judul-produk");
+if (judulProduk) {
+    judulProduk.textContent = "Produk Kami";
+}
 
     const grid = document.querySelector("#produk .produk-grid");
 
@@ -918,7 +922,34 @@ async function bukaProduk() {
         produk.scrollIntoView({ behavior: "smooth" });
     }
 }
+// MENAMPILKAN SEMUA PRODUK PROMO
+async function bukaSemuaPromo() {
+    await bukaProduk();
 
+    const semuaKartu = document.querySelectorAll(
+        "#produk .produk-card"
+    );
+
+    let jumlahPromo = 0;
+
+    semuaKartu.forEach(function(kartu) {
+        const memilikiPromo = kartu.querySelector(".harga-promo");
+
+        kartu.style.display = memilikiPromo ? "" : "none";
+
+        if (memilikiPromo) {
+            jumlahPromo++;
+        }
+    });
+
+    const judulProduk = document.getElementById("judul-produk");
+
+    if (judulProduk) {
+        judulProduk.textContent = "🔥 Semua Promo dan Diskon";
+    }
+
+    console.log("Jumlah produk promo:", jumlahPromo);
+}
 
 async function bukaKategori() {
     document.body.classList.remove(
