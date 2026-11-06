@@ -933,11 +933,13 @@ async function bukaSemuaPromo() {
     let jumlahPromo = 0;
 
     semuaKartu.forEach(function(kartu) {
-        const memilikiPromo = kartu.querySelector(".harga-promo");
+        const hargaPromo = kartu.querySelector(".harga-promo");
 
-        kartu.style.display = memilikiPromo ? "" : "none";
+        const sedangPromo = hargaPromo !== null;
 
-        if (memilikiPromo) {
+        kartu.style.display = sedangPromo ? "" : "none";
+
+        if (sedangPromo) {
             jumlahPromo++;
         }
     });
