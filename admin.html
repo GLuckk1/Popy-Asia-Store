@@ -630,9 +630,13 @@ function tampilkanMenuAdmin(menu) {
     document.querySelector("#pencarian-produk-kasir")
         .addEventListener("input", tampilkanProdukKasir);
     document.querySelector("#uang-bayar-kasir")
-        .addEventListener("input", hitungKembalianKasir);
-    document.querySelector("#tombol-selesaikan-kasir")
-        .addEventListener("click", selesaikanTransaksiKasir);
+    .addEventListener("input", () => {
+        hitungKembalianKasir();
+        perbaruiTombolSelesaikanKasir();
+    });
+
+document.querySelector("#tombol-selesaikan-kasir")
+    .addEventListener("click", selesaikanTransaksiKasir);
 
     } else if (menu === "promo") {
         isi.innerHTML = `
