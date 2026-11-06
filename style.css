@@ -2132,23 +2132,39 @@ header {
     position: static !important;
 }
 
-/* Sejajarkan tombol tambah ke keranjang di halaman Produk */
+
+/* PERAPIAN KARTU PRODUK DAN TOMBOL */
+#produk .produk-grid {
+    align-items: stretch;
+    grid-auto-rows: 1fr;
+}
+
 #produk .produk-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
     box-sizing: border-box;
 }
 
+#produk .produk-card h3 {
+    min-height: 52px;
+}
+
+#produk .produk-card .harga {
+    min-height: 52px;
+}
+
 #produk .produk-card .stok {
-    margin-top: auto;
     min-height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: auto !important;
+    margin-bottom: 12px;
 }
 
 #produk .produk-card .btn {
-    margin-top: 10px;
+    width: 100%;
+    margin-top: auto !important;
     align-self: stretch;
 }
