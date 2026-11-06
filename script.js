@@ -935,7 +935,11 @@ async function bukaSemuaPromo() {
     semuaKartu.forEach(function(kartu) {
         const sedangPromo = kartu.dataset.promo === "true";
 
-        kartu.style.display = sedangPromo ? "" : "none";
+       if (sedangPromo) {
+    kartu.style.removeProperty("display");
+} else {
+    kartu.style.setProperty("display", "none", "important");
+}
 
         if (sedangPromo) {
             jumlahPromo++;
