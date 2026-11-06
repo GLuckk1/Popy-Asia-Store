@@ -1257,8 +1257,9 @@ const grid = document.querySelector("#produk .produk-grid");
             return `
                 
                   <div class="produk-card"
-                      data-kategori="${kategori}"
-                      data-nama="${nama}">
+    data-promo="${sedangPromo ? "true" : "false"}"
+    data-kategori="${kategori}"
+    data-nama="${nama}">
                   <div class="produk-gambar">
                       <img src="${gambar}" alt="${nama}"
                       loading="lazy"
