@@ -1312,7 +1312,9 @@ async function muatProdukHome() {
             )
             .slice(0, 8);
 
-        const produkPilihan = produkAktif.slice(0, 8);
+        const produkPilihan = produkAktif
+    .filter(produk => produk.tampilkan_di_pilihan === true)
+    .slice(0, 8);
 
         function buatKartuHome(produk, tampilkanPromo) {
             const nama = produk.nama_produk || "Produk";
