@@ -452,9 +452,9 @@ footer {
    ========================================== */
 
 .harga-promo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: block;
+    width: 100%;
+    text-align: center;
     margin-bottom: 4px;
 }
 
