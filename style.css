@@ -2133,9 +2133,10 @@ header {
 }
 
 
-/* PERAPIAN KARTU PRODUK DAN TOMBOL */
+
+/* PERAPIAN POSISI TOMBOL HALAMAN PRODUK */
 #produk .produk-grid {
-    align-items: stretch;
+    align-items: stretch !important;
     grid-auto-rows: 1fr;
 }
 
@@ -2159,7 +2160,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: auto !important;
+    margin-top: 0 !important;
     margin-bottom: 12px;
 }
 
