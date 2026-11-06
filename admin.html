@@ -2967,40 +2967,47 @@ function tampilkanProdukKasir() {
         `;
     }).join("");
 }
+
     let keranjangKasir = [];
 
 function tambahProdukKasir(id) {
     const produk = daftarProdukKasir.find(
-        item => Number(item.id) === Number(id)
+        item => String(item.id) === String(id)
     );
 
     if (!produk) return;
 
-    const hargaPromo = Number(produk.harga_promo || 0);
-    const hargaNormal = Number(produk.harga || 0);
+    const stok = Number(produk.stok || 0);
 
-    const harga =
-        hargaPromo > 0 && hargaPromo < hargaNormal
-            ? hargaPromo
-            : hargaNormal;
+    if (stok <= 0) {
+        alert("Stok produk habis.");
+        return;
+    }
 
-    const itemKeranjang = keranjangKasir.find(
-        item => Number(item.id) === Number(id)
+    const itemAda = keranjangKasir.find(
+        item => String(item.id) === String(id)
     );
 
-    if (itemKeranjang) {
-        if (itemKeranjang.jumlah >= Number(produk.stok || 0)) {
-            alert("Jumlah melebihi stok yang tersedia.");
+    if (itemAda) {
+        if (itemAda.jumlah >= stok) {
+            alert("Jumlah melebihi stok tersedia.");
             return;
         }
 
-        itemKeranjang.jumlah++;
+        itemAda.jumlah++;
     } else {
+        const harga = Number(
+            produk.harga_promo > 0
+                ? produk.harga_promo
+                : produk.harga
+        );
+
         keranjangKasir.push({
             id: produk.id,
             nama_produk: produk.nama_produk,
             harga: harga,
-            stok: Number(produk.stok || 0),
+            gambar_url: produk.gambar_url,
+            stok: stok,
             jumlah: 1
         });
     }
@@ -3017,52 +3024,10 @@ function tampilkanKeranjangKasir() {
     if (keranjangKasir.length === 0) {
         keranjang.textContent = "Belum ada produk dipilih.";
         totalElement.textContent = "¥0";
-    const tombol = document.querySelector("#tombol-selesaikan-kasir");
-    const inputBayar = document.querySelector("#uang-bayar-kasir");
 
-    if (!tombol || !inputBayar) return;
-
-    const total = keranjangKasir.reduce(
-        (jumlah, item) => jumlah + (item.harga * item.jumlah),
-        0
-    );
-
-    const uangBayar = Number(inputBayar.value || 0);
-
-    tombol.disabled =
-        keranjangKasir.length === 0 || uangBayar < total;
-function perbaruiTombolSelesaikanKasir() {
-    const tombol = document.querySelector("#tombol-selesaikan-kasir");
-    const inputBayar = document.querySelector("#uang-bayar-kasir");
-
-    if (!tombol || !inputBayar) return;
-
-    const total = keranjangKasir.reduce(
-        (jumlah, item) => jumlah + (item.harga * item.jumlah),
-        0
-    );
-
-    const uangBayar = Number(inputBayar.value || 0);
-
-    tombol.disabled =
-        keranjangKasir.length === 0 || uangBayar < total;
-}
+        hitungKembalianKasir();
+        perbaruiTombolSelesaikanKasir();
         return;
-function perbaruiTombolSelesaikanKasir() {
-    const tombol = document.querySelector("#tombol-selesaikan-kasir");
-    const inputBayar = document.querySelector("#uang-bayar-kasir");
-
-    if (!tombol || !inputBayar) return;
-
-    const total = keranjangKasir.reduce(
-        (jumlah, item) => jumlah + (item.harga * item.jumlah),
-        0
-    );
-
-    const uangBayar = Number(inputBayar.value || 0);
-
-    tombol.disabled =
-        keranjangKasir.length === 0 || uangBayar < total;
     }
 
     let total = 0;
@@ -3073,63 +3038,70 @@ function perbaruiTombolSelesaikanKasir() {
 
         return `
             <div style="
+                display:flex;
+                align-items:center;
+                gap:10px;
                 padding:12px 0;
-                border-bottom:1px solid #ddd;
+                border-bottom:1px solid #eee;
             ">
-                <strong>${escapeHTML(item.nama_produk)}</strong>
+                <img src="${escapeHTML(item.gambar_url || "")}"
+                    alt=""
+                    style="
+                        width:55px;
+                        height:55px;
+                        object-fit:cover;
+                        border-radius:8px;
+                    "
+                    onerror="this.style.display='none'">
 
-                <p style="margin:5px 0;">
-                    ¥${item.harga.toLocaleString("ja-JP")}
-                </p>
+                <div style="flex:1;min-width:0;">
+                    <strong>${escapeHTML(item.nama_produk)}</strong>
+                    <div>¥${item.harga.toLocaleString("ja-JP")}</div>
+                    <div>
+                        Subtotal: ¥${subtotal.toLocaleString("ja-JP")}
+                    </div>
+                </div>
 
-                <button type="button"
-                    onclick="ubahJumlahKasir(${item.id}, -1)">
-                    −
-                </button>
+                <div style="display:flex;align-items:center;gap:5px;">
+                    <button type="button"
+                        onclick="ubahJumlahKasir('${item.id}', -1)">−</button>
 
-                <strong style="margin:0 12px;">
-                    ${item.jumlah}
-                </strong>
+                    <strong>${item.jumlah}</strong>
 
-                <button type="button"
-                    onclick="ubahJumlahKasir(${item.id}, 1)">
-                    +
-                </button>
+                    <button type="button"
+                        onclick="ubahJumlahKasir('${item.id}', 1)">+</button>
 
-                <button type="button"
-                    onclick="hapusProdukKasir(${item.id})"
-                    style="margin-left:10px;">
-                    Hapus
-                </button>
-
-                <p style="font-weight:bold;">
-                    Subtotal: ¥${subtotal.toLocaleString("ja-JP")}
-                </p>
+                    <button type="button"
+                        onclick="hapusProdukKasir('${item.id}')"
+                        style="color:red;">✕</button>
+                </div>
             </div>
         `;
     }).join("");
 
-    totalElement.textContent = "¥" + total.toLocaleString("ja-JP");
-   
+    totalElement.textContent =
+        "¥" + total.toLocaleString("ja-JP");
+
     hitungKembalianKasir();
+    perbaruiTombolSelesaikanKasir();
 }
 
 function ubahJumlahKasir(id, perubahan) {
     const item = keranjangKasir.find(
-        produk => Number(produk.id) === Number(id)
+        produk => String(produk.id) === String(id)
     );
 
     if (!item) return;
 
     const jumlahBaru = item.jumlah + perubahan;
 
-    if (jumlahBaru > item.stok) {
-        alert("Jumlah melebihi stok yang tersedia.");
+    if (jumlahBaru <= 0) {
+        hapusProdukKasir(id);
         return;
     }
 
-    if (jumlahBaru <= 0) {
-        hapusProdukKasir(id);
+    if (jumlahBaru > item.stok) {
+        alert("Jumlah melebihi stok tersedia.");
         return;
     }
 
@@ -3139,56 +3111,63 @@ function ubahJumlahKasir(id, perubahan) {
 
 function hapusProdukKasir(id) {
     keranjangKasir = keranjangKasir.filter(
-        item => Number(item.id) !== Number(id)
+        item => String(item.id) !== String(id)
     );
 
     tampilkanKeranjangKasir();
 }
- function hitungKembalianKasir() {
+
+function hitungKembalianKasir() {
+    const inputBayar = document.querySelector("#uang-bayar-kasir");
+    const hasilKembalian = document.querySelector("#kembalian-kasir");
+
+    if (!inputBayar || !hasilKembalian) return;
+
     const total = keranjangKasir.reduce(
-        (jumlah, item) => jumlah + (item.harga * item.jumlah),
+        (jumlah, item) => jumlah + item.harga * item.jumlah,
         0
     );
 
-    const uangBayar = Number(
-        document.querySelector("#uang-bayar-kasir").value || 0
-    );
+    const uangBayar = Number(inputBayar.value || 0);
+    const kembalian = Math.max(0, uangBayar - total);
 
-    const kembalian = uangBayar - total;
+    hasilKembalian.textContent =
+        "¥" + kembalian.toLocaleString("ja-JP");
+}
 
-    document.querySelector("#kembalian-kasir").textContent =
-        "¥" + Math.max(0, kembalian).toLocaleString("ja-JP");
-
- async function selesaikanTransaksiKasir() {
-    const tombol = document.querySelector("#tombol-selesaikan-kasir");
-    const pesan = document.querySelector("#pesan-kasir");
-    const inputBayar = document.querySelector("#uang-bayar-kasir");
-
-    if (keranjangKasir.length === 0) {
-        alert("Keranjang masih kosong.");
-        return;
-  function perbaruiTombolSelesaikanKasir() {
+function perbaruiTombolSelesaikanKasir() {
     const tombol = document.querySelector("#tombol-selesaikan-kasir");
     const inputBayar = document.querySelector("#uang-bayar-kasir");
 
     if (!tombol || !inputBayar) return;
 
     const total = keranjangKasir.reduce(
-        (jumlah, item) => jumlah + (item.harga * item.jumlah),
+        (jumlah, item) => jumlah + item.harga * item.jumlah,
         0
     );
 
     const uangBayar = Number(inputBayar.value || 0);
 
     tombol.disabled =
-        keranjangKasir.length === 0 || uangBayar < total;
+        keranjangKasir.length === 0 ||
+        uangBayar < total ||
+        total <= 0;
 }
+
+async function selesaikanTransaksiKasir() {
+    if (keranjangKasir.length === 0) {
+        alert("Keranjang masih kosong.");
+        return;
     }
 
     const total = keranjangKasir.reduce(
-        (jumlah, item) => jumlah + (item.harga * item.jumlah),
+        (jumlah, item) => jumlah + item.harga * item.jumlah,
         0
     );
+
+    const inputBayar = document.querySelector("#uang-bayar-kasir");
+    const tombol = document.querySelector("#tombol-selesaikan-kasir");
+    const pesan = document.querySelector("#pesan-kasir");
 
     const uangBayar = Number(inputBayar.value || 0);
 
@@ -3197,58 +3176,49 @@ function hapusProdukKasir(id) {
         return;
     }
 
-    const items = keranjangKasir.map(item => ({
-        produk_id: item.id,
-        jumlah: item.jumlah
-    }));
+    if (!confirm("Selesaikan transaksi ini?")) return;
 
     tombol.disabled = true;
-    tombol.textContent = "Memproses transaksi...";
-    pesan.textContent = "Sedang menyimpan transaksi...";
+    tombol.textContent = "Memproses...";
 
     try {
+        const items = keranjangKasir.map(item => ({
+            produk_id: item.id,
+            jumlah: item.jumlah
+        }));
+
         const { data, error } = await supabaseClient.rpc(
             "buat_transaksi_kasir",
-            {
-                p_items: items
-            }
+            { p_items: items }
         );
 
         if (error) throw error;
 
-        alert("Transaksi berhasil!\nNomor transaksi: " + data);
+        const kembalian = uangBayar - total;
 
         keranjangKasir = [];
         inputBayar.value = "";
 
         tampilkanKeranjangKasir();
+
+        pesan.style.color = "green";
+        pesan.textContent =
+            "Transaksi berhasil! Kembalian: ¥" +
+            kembalian.toLocaleString("ja-JP");
+
         await muatProdukKasirAdmin();
 
-        pesan.textContent = "Transaksi " + data + " berhasil disimpan.";
-
     } catch (error) {
-        console.error("Gagal menyimpan transaksi:", error);
-        pesan.textContent = "Gagal menyimpan transaksi: " + error.message;
+        console.error("Gagal transaksi kasir:", error);
+
+        pesan.style.color = "red";
+        pesan.textContent =
+            "Transaksi gagal: " + error.message;
 
     } finally {
         tombol.textContent = "Selesaikan Transaksi";
         perbaruiTombolSelesaikanKasir();
     }
-        function perbaruiTombolSelesaikanKasir() {
-    const tombol = document.querySelector("#tombol-selesaikan-kasir");
-    const inputBayar = document.querySelector("#uang-bayar-kasir");
-
-    if (!tombol || !inputBayar) return;
-
-    const total = keranjangKasir.reduce(
-        (jumlah, item) => jumlah + (item.harga * item.jumlah),
-        0
-    );
-
-    const uangBayar = Number(inputBayar.value || 0);
-
-    tombol.disabled =
-        keranjangKasir.length === 0 || uangBayar < total;
 }
 
 </script>
