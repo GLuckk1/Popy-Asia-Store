@@ -956,6 +956,7 @@ async function simpanProdukAdmin(event) {
     }
 }
     
+
 async function muatDaftarProdukAdmin() {
     const daftar = document.querySelector("#daftar-produk-admin");
     if (!daftar) return;
@@ -964,7 +965,7 @@ async function muatDaftarProdukAdmin() {
 
     const { data: produk, error } = await supabaseClient
         .from("produk")
-        .select("id, nama_produk, kategori, harga, harga_lama, harga_promo, stok, aktif, gambar_url")
+        .select("id, nama_produk, kategori, harga, harga_lama, harga_promo, stok, aktif, gambar_url, tampilkan_di_pilihan")
         .order("id", { ascending: false });
 
     if (error) {
@@ -980,6 +981,10 @@ async function muatDaftarProdukAdmin() {
 
     daftar.innerHTML = `
         <h3>🔎 Cari Produk</h3>
+
+        <p style="font-size:14px;color:#666;">
+            Pilih maksimal 8 produk untuk ditampilkan di Produk Pilihan pada halaman Home.
+        </p>
 
         <input
             type="text"
@@ -1016,6 +1021,7 @@ async function muatDaftarProdukAdmin() {
 
         hasil.innerHTML = hasilFilter.map(item => `
             <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid #ddd;">
+
                 <img
                     src="${escapeHTML(item.gambar_url || "")}"
                     alt="${escapeHTML(item.nama_produk || "Produk")}"
@@ -1028,6 +1034,23 @@ async function muatDaftarProdukAdmin() {
                     <div>Stok: ${Number(item.stok || 0)}</div>
                     <div>Status: ${item.aktif ? "Aktif" : "Nonaktif"}</div>
                     <div>Kategori: ${escapeHTML(item.kategori || "Belum ada kategori")}</div>
+
+                    <label style="display:block;margin-top:8px;font-size:14px;">
+                        <input
+                            type="checkbox"
+                            class="pilihan-produk-home-admin"
+                            data-id="${Number(item.id)}"
+                            ${item.tampilkan_di_pilihan ? "checked" : ""}
+                            ${!item.aktif ? "disabled" : ""}
+                        >
+                        ⭐ Tampilkan di Produk Pilihan
+                    </label>
+
+                    ${!item.aktif ? `
+                        <small style="color:#999;">
+                            Aktifkan produk terlebih dahulu.
+                        </small>
+                    ` : ""}
                 </div>
 
                 <button type="button" class="btn"
@@ -1045,6 +1068,47 @@ async function muatDaftarProdukAdmin() {
 
     kolomCari.addEventListener("input", function () {
         tampilkanHasilProduk(this.value);
+    });
+
+    hasil.addEventListener("change", async function (event) {
+        const checkbox = event.target.closest(".pilihan-produk-home-admin");
+        if (!checkbox) return;
+
+        const id = Number(checkbox.dataset.id);
+        const dipilih = checkbox.checked;
+        const jumlahTerpilih = produk.filter(item =>
+            item.tampilkan_di_pilihan === true && item.aktif
+        ).length;
+
+        if (dipilih && jumlahTerpilih >= 8) {
+            alert("Maksimal hanya 8 produk yang bisa dipilih.");
+            checkbox.checked = false;
+            return;
+        }
+
+        checkbox.disabled = true;
+
+        const { error: errorUpdate } = await supabaseClient
+            .from("produk")
+            .update({ tampilkan_di_pilihan: dipilih })
+            .eq("id", id);
+
+        if (errorUpdate) {
+            console.error("Gagal mengubah Produk Pilihan:", errorUpdate);
+            alert("Gagal menyimpan pilihan produk. Silakan coba lagi.");
+            checkbox.checked = !dipilih;
+            checkbox.disabled = false;
+            return;
+        }
+
+        const item = produk.find(item => Number(item.id) === id);
+        if (item) {
+            item.tampilkan_di_pilihan = dipilih;
+        }
+
+        tampilkanHasilProduk(kolomCari.value);
+
+        console.log("Pilihan Produk Home berhasil diperbarui.");
     });
 
     tampilkanHasilProduk();
