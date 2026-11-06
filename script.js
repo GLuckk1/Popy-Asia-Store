@@ -1295,11 +1295,10 @@ async function muatProdukHome() {
 
     try {
         const { data, error } = await supabaseClient
-            .from("produk")
-            .select("nama_produk, kategori, harga, harga_promo, harga_lama, stok, gambar_url")
-            .eq("aktif", true)
-            .order("nama_produk", { ascending: true });
-
+    .from("produk")
+    .select("nama_produk, kategori, harga, harga_promo, harga_lama, stok, gambar_url, tampilkan_di_pilihan")
+    .eq("aktif", true)
+    .order("nama_produk", { ascending: true });
         if (error) {
             throw error;
         }
