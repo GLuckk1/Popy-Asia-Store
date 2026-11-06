@@ -631,6 +631,8 @@ function tampilkanMenuAdmin(menu) {
         .addEventListener("input", tampilkanProdukKasir);
     document.querySelector("#uang-bayar-kasir")
         .addEventListener("input", hitungKembalianKasir);
+    document.querySelector("#tombol-selesaikan-kasir")
+        .addEventListener("click", selesaikanTransaksiKasir);
 
     } else if (menu === "promo") {
         isi.innerHTML = `
@@ -3111,6 +3113,82 @@ function hapusProdukKasir(id) {
 
     document.querySelector("#kembalian-kasir").textContent =
         "¥" + Math.max(0, kembalian).toLocaleString("ja-JP");
+
+    async function selesaikanTransaksiKasir() {
+    const tombol = document.querySelector("#tombol-selesaikan-kasir");
+    const pesan = document.querySelector("#pesan-kasir");
+    const inputBayar = document.querySelector("#uang-bayar-kasir");
+
+    if (keranjangKasir.length === 0) {
+        alert("Keranjang masih kosong.");
+        return;
+    }
+
+    const total = keranjangKasir.reduce(
+        (jumlah, item) => jumlah + (item.harga * item.jumlah),
+        0
+    );
+
+    const uangBayar = Number(inputBayar.value || 0);
+
+    if (uangBayar < total) {
+        alert("Uang pembayaran masih kurang.");
+        return;
+    }
+
+    const items = keranjangKasir.map(item => ({
+        produk_id: item.id,
+        jumlah: item.jumlah
+    }));
+
+    tombol.disabled = true;
+    tombol.textContent = "Memproses transaksi...";
+    pesan.textContent = "Sedang menyimpan transaksi...";
+
+    try {
+        const { data, error } = await supabaseClient.rpc(
+            "buat_transaksi_kasir",
+            {
+                p_items: items
+            }
+        );
+
+        if (error) throw error;
+
+        alert("Transaksi berhasil!\nNomor transaksi: " + data);
+
+        keranjangKasir = [];
+        inputBayar.value = "";
+
+        tampilkanKeranjangKasir();
+        await muatProdukKasirAdmin();
+
+        pesan.textContent = "Transaksi " + data + " berhasil disimpan.";
+
+    } catch (error) {
+        console.error("Gagal menyimpan transaksi:", error);
+        pesan.textContent = "Gagal menyimpan transaksi: " + error.message;
+
+    } finally {
+        tombol.textContent = "Selesaikan Transaksi";
+        perbaruiTombolSelesaikanKasir();
+    }
+        function perbaruiTombolSelesaikanKasir() {
+    const tombol = document.querySelector("#tombol-selesaikan-kasir");
+    const inputBayar = document.querySelector("#uang-bayar-kasir");
+
+    if (!tombol || !inputBayar) return;
+
+    const total = keranjangKasir.reduce(
+        (jumlah, item) => jumlah + (item.harga * item.jumlah),
+        0
+    );
+
+    const uangBayar = Number(inputBayar.value || 0);
+
+    tombol.disabled =
+        keranjangKasir.length === 0 || uangBayar < total;
+}
 }
 
 </script>
