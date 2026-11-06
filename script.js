@@ -933,9 +933,7 @@ async function bukaSemuaPromo() {
     let jumlahPromo = 0;
 
     semuaKartu.forEach(function(kartu) {
-        const hargaPromo = kartu.querySelector(".harga-promo");
-
-        const sedangPromo = hargaPromo !== null;
+        const sedangPromo = kartu.dataset.promo === "true";
 
         kartu.style.display = sedangPromo ? "" : "none";
 
