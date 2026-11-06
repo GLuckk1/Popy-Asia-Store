@@ -2121,7 +2121,42 @@ async function hapusProdukAdmin(id) {
         }
     }
 }
-    
+
+    // REALTIME PESANAN ADMIN
+let channelPesananAdmin = null;
+
+function aktifkanRealtimePesananAdmin() {
+
+    // Mencegah subscription ganda
+    if (channelPesananAdmin) {
+        return;
+    }
+
+    channelPesananAdmin = supabaseClient
+        .channel("realtime-pesanan-admin")
+        .on(
+            "postgres_changes",
+            {
+                event: "*",
+                schema: "public",
+                table: "pesanan"
+            },
+            (payload) => {
+                console.log(
+                    "Ada perubahan pesanan:",
+                    payload
+                );
+
+                muatPesananAdmin();
+            }
+        )
+        .subscribe((status) => {
+            console.log(
+                "Status Realtime Pesanan:",
+                status
+            );
+        });
+}
 
 async function muatPesananAdmin() {
     const status = document.querySelector("#status-pesanan");
