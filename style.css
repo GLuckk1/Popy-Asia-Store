@@ -2109,3 +2109,25 @@ header {
     width: 100%;
     text-align: center;
 }
+
+/* PERBAIKAN POSISI HARGA DISKON DI HALAMAN PRODUK */
+#produk .produk-card .harga {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+#produk .produk-card .harga .harga-lama,
+#produk .produk-card .harga .harga-promo {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    align-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: none !important;
+    position: static !important;
+}
