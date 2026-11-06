@@ -2131,3 +2131,24 @@ header {
     float: none !important;
     position: static !important;
 }
+
+/* Sejajarkan tombol tambah ke keranjang di halaman Produk */
+#produk .produk-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#produk .produk-card .stok {
+    margin-top: auto;
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#produk .produk-card .btn {
+    margin-top: 10px;
+    align-self: stretch;
+}
