@@ -2143,13 +2143,23 @@ function aktifkanRealtimePesananAdmin() {
                 table: "pesanan"
             },
             (payload) => {
-                console.log(
-                    "Ada perubahan pesanan:",
-                    payload
-                );
+    console.log(
+        "Ada perubahan pesanan:",
+        payload
+    );
 
-                muatPesananAdmin();
-            }
+    const menuAktif = document.querySelector(
+        ".admin-nav-btn.active"
+    )?.dataset.menu;
+
+    if (menuAktif === "pesanan") {
+        muatPesananAdmin();
+    }
+
+    if (menuAktif === "dashboard") {
+        muatDashboardAdmin();
+    }
+}
         )
         .subscribe((status) => {
             console.log(
