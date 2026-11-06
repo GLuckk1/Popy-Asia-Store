@@ -2963,6 +2963,136 @@ function tampilkanProdukKasir() {
         `;
     }).join("");
 }
+    let keranjangKasir = [];
+
+function tambahProdukKasir(id) {
+    const produk = daftarProdukKasir.find(
+        item => Number(item.id) === Number(id)
+    );
+
+    if (!produk) return;
+
+    const hargaPromo = Number(produk.harga_promo || 0);
+    const hargaNormal = Number(produk.harga || 0);
+
+    const harga =
+        hargaPromo > 0 && hargaPromo < hargaNormal
+            ? hargaPromo
+            : hargaNormal;
+
+    const itemKeranjang = keranjangKasir.find(
+        item => Number(item.id) === Number(id)
+    );
+
+    if (itemKeranjang) {
+        if (itemKeranjang.jumlah >= Number(produk.stok || 0)) {
+            alert("Jumlah melebihi stok yang tersedia.");
+            return;
+        }
+
+        itemKeranjang.jumlah++;
+    } else {
+        keranjangKasir.push({
+            id: produk.id,
+            nama_produk: produk.nama_produk,
+            harga: harga,
+            stok: Number(produk.stok || 0),
+            jumlah: 1
+        });
+    }
+
+    tampilkanKeranjangKasir();
+}
+
+function tampilkanKeranjangKasir() {
+    const keranjang = document.querySelector("#keranjang-kasir");
+    const totalElement = document.querySelector("#total-kasir");
+
+    if (!keranjang || !totalElement) return;
+
+    if (keranjangKasir.length === 0) {
+        keranjang.textContent = "Belum ada produk dipilih.";
+        totalElement.textContent = "¥0";
+        return;
+    }
+
+    let total = 0;
+
+    keranjang.innerHTML = keranjangKasir.map(item => {
+        const subtotal = item.harga * item.jumlah;
+        total += subtotal;
+
+        return `
+            <div style="
+                padding:12px 0;
+                border-bottom:1px solid #ddd;
+            ">
+                <strong>${escapeHTML(item.nama_produk)}</strong>
+
+                <p style="margin:5px 0;">
+                    ¥${item.harga.toLocaleString("ja-JP")}
+                </p>
+
+                <button type="button"
+                    onclick="ubahJumlahKasir(${item.id}, -1)">
+                    −
+                </button>
+
+                <strong style="margin:0 12px;">
+                    ${item.jumlah}
+                </strong>
+
+                <button type="button"
+                    onclick="ubahJumlahKasir(${item.id}, 1)">
+                    +
+                </button>
+
+                <button type="button"
+                    onclick="hapusProdukKasir(${item.id})"
+                    style="margin-left:10px;">
+                    Hapus
+                </button>
+
+                <p style="font-weight:bold;">
+                    Subtotal: ¥${subtotal.toLocaleString("ja-JP")}
+                </p>
+            </div>
+        `;
+    }).join("");
+
+    totalElement.textContent = "¥" + total.toLocaleString("ja-JP");
+}
+
+function ubahJumlahKasir(id, perubahan) {
+    const item = keranjangKasir.find(
+        produk => Number(produk.id) === Number(id)
+    );
+
+    if (!item) return;
+
+    const jumlahBaru = item.jumlah + perubahan;
+
+    if (jumlahBaru > item.stok) {
+        alert("Jumlah melebihi stok yang tersedia.");
+        return;
+    }
+
+    if (jumlahBaru <= 0) {
+        hapusProdukKasir(id);
+        return;
+    }
+
+    item.jumlah = jumlahBaru;
+    tampilkanKeranjangKasir();
+}
+
+function hapusProdukKasir(id) {
+    keranjangKasir = keranjangKasir.filter(
+        item => Number(item.id) !== Number(id)
+    );
+
+    tampilkanKeranjangKasir();
+}
 
 </script>
 
