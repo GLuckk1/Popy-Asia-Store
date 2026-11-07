@@ -2611,28 +2611,28 @@ const { data: riwayat, error: errorRiwayat } = await supabaseClient
 <hr>
 
 <h3>Daftar Produk</h3>
-            <div style="overflow-x:auto;">
-                <table style="width:100%;border-collapse:collapse;">
-                    <thead>
-                        <tr>
-                            <th style="text-align:left;padding:8px;border-bottom:1px solid #ccc;">Produk</th>
-                            <th style="text-align:right;padding:8px;border-bottom:1px solid #ccc;">Harga</th>
-                            <th style="text-align:right;padding:8px;border-bottom:1px solid #ccc;">Jumlah</th>
-                            <th style="text-align:right;padding:8px;border-bottom:1px solid #ccc;">Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${(produk || []).map(item => `
-                            <tr>
-                                <td style="padding:8px;border-bottom:1px solid #eee;">${aman(item.nama_produk)}</td>
-                                <td style="text-align:right;padding:8px;border-bottom:1px solid #eee;">${uang(item.harga)}</td>
-                                <td style="text-align:right;padding:8px;border-bottom:1px solid #eee;">${Number(item.jumlah || 0)}</td>
-                                <td style="text-align:right;padding:8px;border-bottom:1px solid #eee;">${uang(item.subtotal)}</td>
-                            </tr>
-                        `).join("")}
-                    </tbody>
-                </table>
-            </div>
+<div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left;padding:8px;border-bottom:1px solid #ccc;border-right:1px solid #ccc;">Produk</th>
+                <th style="text-align:right;padding:8px;border-bottom:1px solid #ccc;border-right:1px solid #ccc;">Harga</th>
+                <th style="text-align:right;padding:8px;border-bottom:1px solid #ccc;border-right:1px solid #ccc;">Jumlah</th>
+                <th style="text-align:right;padding:8px;border-bottom:1px solid #ccc;">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${(produk || []).map(item => `
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid #eee;border-right:1px solid #ccc;">${aman(item.nama_produk)}</td>
+                    <td style="text-align:right;padding:8px;border-bottom:1px solid #eee;border-right:1px solid #ccc;">${uang(item.harga)}</td>
+                    <td style="text-align:right;padding:8px;border-bottom:1px solid #eee;border-right:1px solid #ccc;">${Number(item.jumlah || 0)}</td>
+                    <td style="text-align:right;padding:8px;border-bottom:1px solid #eee;">${uang(item.subtotal)}</td>
+                </tr>
+            `).join("")}
+        </tbody>
+    </table>
+</div>
 
             <p style="text-align:right;">Subtotal: ${uang(pesanan.subtotal)}</p>
             <p style="text-align:right;">Ongkir: ${uang(pesanan.ongkir)}</p>
