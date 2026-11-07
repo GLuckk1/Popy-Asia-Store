@@ -722,6 +722,12 @@ console.log("Kategori produk:", semuaProduk.map(p => p.dataset.kategori));
             kategoriProduk === kategoriDipilih;
 
         produk.style.display = cocokKategori ? "" : "none";
+
+        console.log(
+    produk.querySelector("h3")?.textContent,
+    "| Kategori:", produk.dataset.kategori,
+    "| Cocok:", cocokKategori
+);
     });
 
     return;
