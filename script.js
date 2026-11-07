@@ -1501,3 +1501,53 @@ function ubahMenuAktif(menu) {
         menuAktif.classList.add("active");
     }
 }
+
+
+// =====================================
+// PENCARIAN ALAMAT OTOMATIS KODE POS JEPANG
+// =====================================
+
+const inputKodePos = document.getElementById("kode-pos");
+const inputAlamat = document.getElementById("alamat");
+
+if (inputKodePos && inputAlamat) {
+    inputKodePos.addEventListener("input", async function () {
+
+        // Ambil hanya angka, maksimal 7 digit
+        const kodePos = this.value.replace(/\D/g, "").slice(0, 7);
+
+        // Format menjadi 123-4567
+        this.value = kodePos.length > 3
+            ? kodePos.slice(0, 3) + "-" + kodePos.slice(3)
+            : kodePos;
+
+        // Tunggu sampai 7 digit lengkap
+        if (kodePos.length !== 7) return;
+
+        try {
+            const response = await fetch(
+                `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${kodePos}`
+            );
+
+            const data = await response.json();
+
+            if (data.status !== 200 || !data.results) {
+                alert("Kode pos tidak ditemukan. Silakan periksa kembali.");
+                return;
+            }
+
+            const alamat = data.results[0];
+
+            // Isi alamat secara otomatis
+            inputAlamat.value = [
+                alamat.address1,
+                alamat.address2,
+                alamat.address3
+            ].filter(Boolean).join(" ");
+
+        } catch (error) {
+            console.error("Gagal mencari kode pos:", error);
+            alert("Gagal mengambil alamat. Periksa koneksi internet.");
+        }
+    });
+}
