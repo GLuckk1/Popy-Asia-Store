@@ -3199,6 +3199,19 @@ async function selesaikanTransaksiKasir() {
         if (error) throw error;
 
         const kembalian = uangBayar - total;
+        const notaKasirTerakhir = {
+    nomor_pesanan: data,
+    tanggal: new Date(),
+    items: keranjangKasir.map(item => ({
+        nama_produk: item.nama_produk,
+        harga: item.harga,
+        jumlah: item.jumlah,
+        subtotal: item.harga * item.jumlah
+    })),
+    total: total,
+    uang_bayar: uangBayar,
+    kembalian: kembalian
+};
 
         keranjangKasir = [];
         inputBayar.value = "";
