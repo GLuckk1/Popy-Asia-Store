@@ -2229,3 +2229,19 @@ header {
         min-height: 44px;
     }
 }
+
+/* KASIR HP: SEMBUNYIKAN DAFTAR PRODUK */
+@media (max-width: 768px) {
+
+    .panel-kasir #daftar-produk-kasir {
+        display: none;
+    }
+
+    /* Tampilkan hasil ketika kolom pencarian diisi */
+    .panel-kasir:has(
+        #pencarian-produk-kasir:not(:placeholder-shown)
+    ) #daftar-produk-kasir {
+        display: block;
+    }
+
+}
