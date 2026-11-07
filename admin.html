@@ -673,7 +673,27 @@ document.querySelector("#tombol-selesaikan-kasir")
         `;
 
         muatDaftarProdukPromoAdmin();
-    }
+    } else if (menu === "stok-habis") {
+    isi.innerHTML = `
+        <h2>📦 Daftar Produk Stok Habis</h2>
+        <p>Daftar produk aktif yang stoknya habis.</p>
+
+        <div id="daftar-produk-stok-habis">
+            Memuat produk stok habis...
+        </div>
+
+        <div id="form-edit-produk-admin"
+             style="display:none;margin-top:25px;">
+        </div>
+
+        <button type="button" class="btn"
+            onclick="tampilkanMenuAdmin('dashboard')">
+            ← Kembali ke Dashboard
+        </button>
+    `;
+
+    muatDaftarProdukStokHabisAdmin();
+}
 }
 
     async function muatDaftarProdukPromoAdmin() {
