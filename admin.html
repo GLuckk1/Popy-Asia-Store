@@ -1257,6 +1257,57 @@ async function muatDaftarProdukAdmin() {
 
     tampilkanHasilProduk();
 }
+    async function muatDaftarProdukStokHabisAdmin() {
+    const daftar = document.querySelector("#daftar-produk-stok-habis");
+    if (!daftar) return;
+
+    daftar.textContent = "Memuat produk stok habis...";
+
+    const { data: produk, error } = await supabaseClient
+        .from("produk")
+        .select("id, nama_produk, kategori, harga, stok, aktif, gambar_url")
+        .eq("aktif", true)
+        .order("nama_produk", { ascending: true });
+
+    if (error) {
+        console.error("Gagal memuat produk stok habis:", error);
+        daftar.textContent = "Gagal memuat produk. Periksa izin SELECT.";
+        return;
+    }
+
+    const produkStokHabis = (produk || []).filter(item =>
+        Number(item.stok || 0) <= 0
+    );
+
+    if (produkStokHabis.length === 0) {
+        daftar.innerHTML = "<p>Tidak ada produk aktif yang stoknya habis. 🎉</p>";
+        return;
+    }
+
+    daftar.innerHTML = produkStokHabis.map(item => `
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid #ddd;">
+            <img
+                src="${escapeHTML(item.gambar_url || "")}"
+                alt="${escapeHTML(item.nama_produk || "Produk")}"
+                style="width:65px;height:65px;object-fit:cover;border-radius:8px;"
+            >
+
+            <div style="flex:1;min-width:150px;">
+                <strong>${escapeHTML(item.nama_produk || "")}</strong>
+                <div>Harga: ¥${Number(item.harga || 0).toLocaleString("ja-JP")}</div>
+                <div style="color:#dc2626;font-weight:bold;">
+                    Stok: ${Number(item.stok || 0)} (Habis)
+                </div>
+                <div>Kategori: ${escapeHTML(item.kategori || "Belum ada kategori")}</div>
+            </div>
+
+            <button type="button" class="btn"
+                onclick="editProdukAdmin(${Number(item.id)})">
+                ✏️ Edit Produk
+            </button>
+        </div>
+    `).join("");
+}
 
     let dataNotaAdmin = [];
 
