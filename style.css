@@ -2169,3 +2169,63 @@ header {
     margin-top: auto !important;
     align-self: stretch;
 }
+
+/* RESPONSIVE KASIR HP */
+.layout-kasir {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.panel-kasir {
+    background: #fff;
+    padding: 18px;
+    border-radius: 12px;
+    min-width: 0;
+}
+
+.input-kasir {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin: 10px 0;
+}
+
+.total-kasir {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.kembalian-kasir {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Tampilan HP */
+@media (max-width: 768px) {
+    .layout-kasir {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .panel-kasir {
+        padding: 14px;
+    }
+
+    .panel-kasir h3 {
+        font-size: 18px;
+    }
+
+    .total-kasir {
+        font-size: 23px;
+    }
+
+    .kembalian-kasir {
+        font-size: 20px;
+    }
+
+    .panel-kasir button {
+        min-height: 44px;
+    }
+}
