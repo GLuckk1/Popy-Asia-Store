@@ -2525,9 +2525,7 @@ async function lihatDetailPesanan(nomorPesanan) {
         <h2>📄 Detail Pesanan ${escapeHTML(nomorPesanan)}</h2>
         <p id="status-detail">Memuat detail pesanan...</p>
         <div id="konten-detail"></div>
-        <button type="button" class="btn" onclick="tampilkanMenuAdmin('pesanan')">
-            ← Kembali ke Pesanan
-        </button>
+       
     `;
 
     const status = document.querySelector("#status-detail");
@@ -2670,9 +2668,32 @@ const { data: riwayat, error: errorRiwayat } = await supabaseClient
             }
         </div>
 
-        <button type="button" class="btn" onclick="cetakNotaPesanan()">
-            🖨️ Cetak / Simpan PDF
-        </button>
+        
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:12px;
+            max-width:800px;
+            margin:20px 0;
+        ">
+            <button
+                type="button"
+                class="btn"
+                onclick="cetakNotaPesanan()"
+            >
+                🖨️ Cetak Nota
+            </button>
+
+            <button
+                type="button"
+                class="btn"
+                onclick="tampilkanMenuAdmin('pesanan')"
+            >
+                ← Kembali ke Pesanan
+            </button>
+        </div>
+
     `;
 }
 
