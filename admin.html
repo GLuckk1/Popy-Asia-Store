@@ -3223,6 +3223,14 @@ async function selesaikanTransaksiKasir() {
         pesan.textContent =
             "Transaksi berhasil! Kembalian: ¥" +
             kembalian.toLocaleString("ja-JP");
+        pesan.innerHTML += `
+    <br><br>
+    <button type="button"
+        class="btn"
+        onclick="cetakNotaKasir()">
+        🧾 Cetak Nota
+    </button>
+`;
 
         await muatProdukKasirAdmin();
 
@@ -3239,6 +3247,141 @@ async function selesaikanTransaksiKasir() {
     }
 }
 
+    function cetakNotaKasir() {
+    if (!notaKasirTerakhir) {
+        alert("Belum ada transaksi untuk dicetak.");
+        return;
+    }
+
+    const nota = notaKasirTerakhir;
+    const tanggal = new Date(nota.tanggal);
+
+    const formatYen = angka =>
+        "¥" + Number(angka).toLocaleString("ja-JP");
+
+    const isiProduk = nota.items.map(item => `
+        <tr>
+            <td>${escapeHTML(item.nama_produk)}</td>
+            <td class="angka">${item.jumlah}</td>
+            <td class="angka">${formatYen(item.harga)}</td>
+            <td class="angka">${formatYen(item.subtotal)}</td>
+        </tr>
+    `).join("");
+
+    const jendela = window.open("", "_blank", "width=400,height=650");
+
+    if (!jendela) {
+        alert("Izinkan pop-up browser untuk mencetak nota.");
+        return;
+    }
+
+    jendela.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Nota ${escapeHTML(nota.nomor_pesanan)}</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    width: 300px;
+                    margin: 20px auto;
+                    color: #222;
+                    font-size: 12px;
+                }
+                h2, p {
+                    text-align: center;
+                    margin: 5px 0;
+                }
+                hr {
+                    border: none;
+                    border-top: 1px dashed #555;
+                    margin: 12px 0;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    font-size: 11px;
+                }
+                th, td {
+                    padding: 6px 2px;
+                    border-bottom: 1px dashed #ccc;
+                }
+                .angka {
+                    text-align: right;
+                    white-space: nowrap;
+                }
+                .ringkasan {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 7px 0;
+                }
+                .total {
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+                @media print {
+                    body {
+                        margin: 0 auto;
+                        width: 100%;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <h2>POPY ASIA STORE</h2>
+            <p>NOTA TRANSAKSI KASIR</p>
+            <hr>
+
+            <p style="text-align:left">
+                No: ${escapeHTML(nota.nomor_pesanan)}<br>
+                Tanggal: ${tanggal.toLocaleString("ja-JP")}
+            </p>
+
+            <hr>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produk</th>
+                        <th class="angka">Qty</th>
+                        <th class="angka">Harga</th>
+                        <th class="angka">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>${isiProduk}</tbody>
+            </table>
+
+            <hr>
+
+            <div class="ringkasan total">
+                <span>Total</span>
+                <span>${formatYen(nota.total)}</span>
+            </div>
+
+            <div class="ringkasan">
+                <span>Uang Bayar</span>
+                <span>${formatYen(nota.uang_bayar)}</span>
+            </div>
+
+            <div class="ringkasan">
+                <span>Kembalian</span>
+                <span>${formatYen(nota.kembalian)}</span>
+            </div>
+
+            <hr>
+            <p>Terima kasih telah berbelanja!</p>
+
+            <script>
+                window.onload = function() {
+                    window.print();
+                };
+            <\/script>
+        </body>
+        </html>
+    `);
+
+    jendela.document.close();
+}
 </script>
 
 </body>
