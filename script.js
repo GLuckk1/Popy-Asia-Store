@@ -713,6 +713,10 @@ if (!kataKunci) {
 
         const kategoriDipilih = normalisasiKategori(kategoriAktif);
 
+        console.log("Kategori aktif:", kategoriAktif);
+console.log("Kategori setelah normalisasi:", kategoriDipilih);
+console.log("Kategori produk:", semuaProduk.map(p => p.dataset.kategori));
+
         const cocokKategori =
             kategoriDipilih === "semua" ||
             kategoriProduk === kategoriDipilih;
