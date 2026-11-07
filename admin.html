@@ -2588,19 +2588,41 @@ const { data: riwayat, error: errorRiwayat } = await supabaseClient
 
     konten.innerHTML = `
         <div id="nota-pesanan" style="background:white;color:black;padding:24px;max-width:800px;">
-            <h2>Popy Asia Store</h2>
-            <h3>NOTA PESANAN</h3>
-            <p>Nomor: ${aman(pesanan.nomor_pesanan)}</p>
-            <p>Tanggal: ${aman(new Date(pesanan.created_at).toLocaleString("id-ID"))}</p>
-            <p>
-    Status:
-    <strong>${aman(pesanan.status || "-")}</strong>
-</p>
+            <div style="text-align:center; margin:15px 0 25px;">
+    <img
+        src="URL_LOGO_TOKO"
+        alt="Logo Popy Asia Store"
+        style="width:100px;height:auto;object-fit:contain;"
+    >
 
-<p id="pesan-status-pesanan"></p>
+    <h2 style="margin:8px 0 0;">Popy Asia Store</h2>
+    <h3 style="margin:2px 0;">NOTA PESANAN</h3>
+</div>
 
+<div style="
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    align-items:stretch;
+    margin-bottom:15px;
+">
+    <div>
+        <h3 style="margin-top:0;">Informasi Pesanan</h3>
+        <p>Nomor: ${aman(pesanan.nomor_pesanan)}</p>
+        <p>Tanggal: ${aman(new Date(pesanan.created_at).toLocaleString("id-ID"))}</p>
+        <p>Status: <strong>${aman(pesanan.status || "-")}</strong></p>
+        <p id="pesan-status-pesanan"></p>
+    </div>
 
-            <hr>
+    <div>
+        <h3 style="margin-top:0;">Data Pelanggan</h3>
+        <p>Nama: ${aman(pelanggan?.nama || "-")}</p>
+        <p>WhatsApp: ${aman(pelanggan?.whatsapp || "-")}</p>
+        <p>Alamat: ${aman(pelanggan?.alamat || "-")}</p>
+    </div>
+</div>
+
+<hr>
 
             <h3>Data Pelanggan</h3>
             <p>Nama: ${aman(pelanggan?.nama || "-")}</p>
