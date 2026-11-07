@@ -2253,3 +2253,36 @@ header {
         font-size: 16px !important;
     }
 }
+
+
+/* MERATAKAN TOMBOL PADA HASIL PENCARIAN */
+#hasil-pencarian .produk-grid {
+    align-items: stretch !important;
+    grid-auto-rows: 1fr;
+}
+
+#hasil-pencarian .produk-card {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    box-sizing: border-box;
+}
+
+#hasil-pencarian .produk-card h3 {
+    min-height: 52px;
+}
+
+#hasil-pencarian .produk-card .harga {
+    min-height: 52px;
+}
+
+#hasil-pencarian .produk-card .stok {
+    margin-top: auto !important;
+    margin-bottom: 12px;
+}
+
+#hasil-pencarian .produk-card .btn {
+    width: 100%;
+    margin-top: 0 !important;
+    align-self: stretch;
+}
