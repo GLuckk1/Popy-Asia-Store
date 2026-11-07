@@ -212,10 +212,25 @@ function tampilkanMenuAdmin(menu) {
                 <p id="stat-produk-aktif" style="font-size:24px;font-weight:bold;">...</p>
             </div>
 
-            <div style="padding:18px;background:#fff;border-radius:10px;flex:1;min-width:150px;">
-                Stok Habis
-                <p id="stat-stok-habis" style="font-size:24px;font-weight:bold;">...</p>
-            </div>
+            <div
+    onclick="tampilkanMenuAdmin('stok-habis')"
+    role="button"
+    tabindex="0"
+    onkeydown="if(event.key === 'Enter' || event.key === ' ') tampilkanMenuAdmin('stok-habis')"
+    style="
+        padding:18px;
+        background:#fff;
+        border-radius:10px;
+        flex:1;
+        min-width:150px;
+        cursor:pointer;
+        border:1px solid #e5e7eb;
+    "
+>
+    <strong>📦 Stok Habis</strong>
+    <p id="stat-stok-habis" style="font-size:24px;font-weight:bold;">...</p>
+    <small style="color:#dc2626;">Klik untuk melihat produk stok habis →</small>
+</div>
 
             <div
     onclick="tampilkanMenuAdmin('promo')"
