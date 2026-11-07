@@ -2042,6 +2042,11 @@ async function simpanPerubahanProdukAdmin(event) {
         if (document.getElementById("daftar-produk-promo")) {
             await muatDaftarProdukPromoAdmin();
             await muatDashboardAdmin();
+
+            window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
         }
     } catch (error) {
         console.error(error);
