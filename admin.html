@@ -1050,6 +1050,11 @@ async function simpanProdukAdmin(event) {
         document.querySelector("#aktif-produk-admin").checked = true;
 
         muatDaftarProdukAdmin();
+        
+        window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
 
     } catch (error) {
         console.error("Kesalahan menyimpan produk:", error);
