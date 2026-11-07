@@ -2245,3 +2245,11 @@ header {
     }
 
 }
+
+@media (max-width: 768px) {
+    .panel-kasir input,
+    .panel-kasir textarea,
+    .panel-kasir select {
+        font-size: 16px !important;
+    }
+}
