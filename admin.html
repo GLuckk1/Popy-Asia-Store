@@ -2973,6 +2973,7 @@ function tampilkanProdukKasir() {
 }
 
     let keranjangKasir = [];
+    let notaKasirTerakhir = null;
 
 function tambahProdukKasir(id) {
     const produk = daftarProdukKasir.find(
@@ -3199,7 +3200,7 @@ async function selesaikanTransaksiKasir() {
         if (error) throw error;
 
         const kembalian = uangBayar - total;
-        const notaKasirTerakhir = {
+         notaKasirTerakhir = {
     nomor_pesanan: data,
     tanggal: new Date(),
     items: keranjangKasir.map(item => ({
