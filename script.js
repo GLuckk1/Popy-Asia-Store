@@ -544,13 +544,22 @@ if (formCheckout) {
 const itemsPesanan = keranjang.map(function(produk) {
 
     return {
-        nama_produk: produk.nama,
-        harga: produk.harga,
-        jumlah: produk.jumlah,
-        subtotal: produk.harga * produk.jumlah
+        produk_id: Number(produk.id),
+        jumlah: Number(produk.jumlah)
     };
 
 });
+
+// Pastikan semua produk memiliki ID dan jumlah valid
+if (itemsPesanan.some(item =>
+    !Number.isInteger(item.produk_id) ||
+    item.produk_id <= 0 ||
+    !Number.isInteger(item.jumlah) ||
+    item.jumlah <= 0
+)) {
+    alert("Data produk dalam keranjang tidak valid. Silakan muat ulang halaman.");
+    return;
+}
 
 
 const { data: nomorPesanan, error } =
