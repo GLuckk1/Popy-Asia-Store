@@ -1390,9 +1390,10 @@ async function muatProdukHome() {
                 tampilkanPromo && sedangPromo ? hargaPromo : harga;
 
             const kartu = document.createElement("div");
-            kartu.className = "produk-card";
-            kartu.dataset.kategori = produk.kategori || "";
-            kartu.dataset.nama = nama;
+                kartu.className = "produk-card";
+                kartu.dataset.id = produk.id;
+                kartu.dataset.kategori = produk.kategori || "";
+                kartu.dataset.nama = nama;
 
             const areaGambar = document.createElement("div");
             areaGambar.className = "produk-gambar";
