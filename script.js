@@ -44,6 +44,8 @@ document.addEventListener("click", function(event) {
 
     const nama = kartu.querySelector("h3").textContent.trim();
 
+    const id = kartu.dataset.id;
+    
     const gambar = kartu.querySelector("img")?.src || "";
 
     const areaHargaPromo = kartu.querySelector(".harga-promo");
@@ -78,6 +80,7 @@ const harga = parseInt(hargaText.replace(/\D/g, ""), 10) || 0;
             : 0;
 
         keranjang.push({
+    id: id,
     nama: nama,
     harga: harga,
     jumlah: 1,
