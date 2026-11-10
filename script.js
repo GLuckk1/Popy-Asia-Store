@@ -45,6 +45,9 @@ document.addEventListener("click", function(event) {
     const nama = kartu.querySelector("h3").textContent.trim();
 
     const id = kartu.dataset.id;
+
+    console.log("ID PRODUK:", id);
+    console.log("DATA KARTU:", kartu.dataset);
     
     const gambar = kartu.querySelector("img")?.src || "";
 
