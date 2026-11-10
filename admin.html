@@ -2572,23 +2572,64 @@ const { data: riwayat, error: errorRiwayat } = await supabaseClient
 
     konten.innerHTML = `
         <div id="nota-pesanan" style="background:white;color:black;padding:24px;max-width:800px;">
-            <div style="text-align:center; margin:-10px 0 10px;">
-    <img
-        src="./banner-popy-asia-store.jpg"
-        alt="Logo Popy Asia Store"
-        style="width:100px;height:auto;object-fit:contain;"
-    >
-</div>
+            
+<style>
+    #nota-header {
+        display: grid;
+        grid-template-columns: 120px 1fr 1fr;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 15px;
+    }
 
-<div style="
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-    align-items:stretch;
-    margin-bottom:15px;
-">
+    #nota-header .nota-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #nota-header .nota-logo img {
+        width: 110px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    #nota-header h3 {
+        margin-top: 0;
+    }
+
+    #nota-header p {
+        margin: 4px 0;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 600px) {
+        #nota-header {
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        #nota-header .nota-logo {
+            grid-column: 1 / -1;
+        }
+
+        #nota-header .nota-logo img {
+            width: 90px;
+        }
+    }
+</style>
+
+<div id="nota-header">
+
+    <div class="nota-logo">
+        <img
+            src="./banner-popy-asia-store.jpg"
+            alt="Logo Popy Asia Store"
+        >
+    </div>
+
     <div>
-        <h3 style="margin-top:0;">Informasi Pesanan</h3>
+        <h3>Informasi Pesanan</h3>
         <p>Nomor: ${aman(pesanan.nomor_pesanan)}</p>
         <p>Tanggal: ${aman(new Date(pesanan.created_at).toLocaleString("id-ID"))}</p>
         <p>Status: <strong>${aman(pesanan.status || "-")}</strong></p>
@@ -2596,11 +2637,12 @@ const { data: riwayat, error: errorRiwayat } = await supabaseClient
     </div>
 
     <div>
-        <h3 style="margin-top:0;">Data Pelanggan</h3>
+        <h3>Data Pelanggan</h3>
         <p>Nama: ${aman(pelanggan?.nama || "-")}</p>
         <p>WhatsApp: ${aman(pelanggan?.whatsapp || "-")}</p>
         <p>Alamat: ${aman(pelanggan?.alamat || "-")}</p>
     </div>
+
 </div>
 
 <hr>
