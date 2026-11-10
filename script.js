@@ -569,9 +569,6 @@ const { data: nomorPesanan, error } =
             p_nama: nama,
             p_whatsapp: whatsapp,
             p_alamat: alamat,
-            p_subtotal: subtotal,
-            p_ongkir: ongkir,
-            p_total: total,
             p_items: itemsPesanan
         }
     );
