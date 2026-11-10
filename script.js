@@ -80,7 +80,7 @@ const harga = parseInt(hargaText.replace(/\D/g, ""), 10) || 0;
             : 0;
 
         keranjang.push({
-    id: id,
+    id: Number(kartu.dataset.id),
     nama: nama,
     harga: harga,
     jumlah: 1,
