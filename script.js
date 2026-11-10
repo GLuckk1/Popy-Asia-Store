@@ -1273,6 +1273,7 @@ const grid = document.querySelector("#produk .produk-grid");
             return `
                 
                   <div class="produk-card"
+    data-id="${produk.id}"
     data-promo="${sedangPromo ? "true" : "false"}"
     data-kategori="${kategori}"
     data-nama="${nama}">
