@@ -542,12 +542,10 @@ if (formCheckout) {
 // ==================================
 
 const itemsPesanan = keranjang.map(function(produk) {
-
     return {
-        produk_id: Number(produk.id),
-        jumlah: Number(produk.jumlah)
+        produk_id: produk.id,
+        jumlah: produk.jumlah
     };
-
 });
 
 // Pastikan semua produk memiliki ID dan jumlah valid
