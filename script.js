@@ -543,13 +543,12 @@ if (formCheckout) {
 
 const itemsPesanan = keranjang.map(function(produk) {
     return {
-        produk_id: produk.id,
-        jumlah: produk.jumlah
+        produk_id: Number(produk.id),
+        jumlah: Number(produk.jumlah)
     };
 });
 
-// Pastikan semua produk memiliki ID dan jumlah valid
-if (itemsPesanan.some(item =>
+if (itemsPesanan.length === 0 || itemsPesanan.some(item =>
     !Number.isInteger(item.produk_id) ||
     item.produk_id <= 0 ||
     !Number.isInteger(item.jumlah) ||
