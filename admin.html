@@ -1670,6 +1670,7 @@ async function muatDaftarPelangganAdmin() {
     tampilkanDaftarPelangganAdmin(dataPelangganAdmin);
 }
 
+
 function tampilkanDaftarPelangganAdmin(data) {
     const daftar = document.querySelector("#daftar-pelanggan-admin");
     if (!daftar) return;
@@ -1690,6 +1691,21 @@ function tampilkanDaftarPelangganAdmin(data) {
             <strong>👤 ${escapeHTML(item.nama || "Tanpa nama")}</strong>
             <p>📱 WhatsApp: ${escapeHTML(item.whatsapp || "-")}</p>
             <p>📍 Alamat: ${escapeHTML(item.alamat || "-")}</p>
+
+            <button
+                onclick="hapusPelangganAdmin('${item.id}')"
+                style="
+                    background:#dc3545;
+                    color:white;
+                    border:none;
+                    padding:9px 16px;
+                    border-radius:7px;
+                    cursor:pointer;
+                    margin-top:5px;
+                "
+            >
+                🗑️ Hapus
+            </button>
         </div>
     `).join("");
 }
