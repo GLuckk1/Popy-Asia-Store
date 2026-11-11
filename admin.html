@@ -1670,7 +1670,6 @@ async function muatDaftarPelangganAdmin() {
     tampilkanDaftarPelangganAdmin(dataPelangganAdmin);
 }
 
-
 function tampilkanDaftarPelangganAdmin(data) {
     const daftar = document.querySelector("#daftar-pelanggan-admin");
     if (!daftar) return;
@@ -1708,6 +1707,40 @@ function tampilkanDaftarPelangganAdmin(data) {
             </button>
         </div>
     `).join("");
+}
+
+    
+async function hapusPelangganAdmin(pelangganId) {
+    const konfirmasi = confirm(
+        "Yakin ingin menghapus pelanggan ini?\n\n" +
+        "Pelanggan hanya bisa dihapus jika semua pesanannya berstatus Dibatalkan."
+    );
+
+    if (!konfirmasi) return;
+
+    const { data, error } = await supabaseClient.rpc(
+        "hapus_pelanggan_admin",
+        {
+            p_pelanggan_id: pelangganId
+        }
+    );
+
+    if (error) {
+        alert("Gagal menghapus pelanggan:\n" + error.message);
+        return;
+    }
+
+    alert(data || "Pelanggan berhasil dihapus.");
+
+    const kataKunci = document.querySelector(
+        "#cari-pelanggan-admin"
+    )?.value || "";
+
+    await muatDaftarPelangganAdmin();
+
+    if (kataKunci.trim()) {
+        cariPelangganAdmin(kataKunci);
+    }
 }
 
 function cariPelangganAdmin(kataKunci) {
