@@ -2272,6 +2272,14 @@ async function hapusProdukAdmin(id) {
             .reduce((total, p) => total + Number(p.total || 0), 0);
 
         document.querySelector("#stat-pesanan-baru").textContent = jumlahBaru;
+        const notifikasiBaru = document.querySelector(
+    "#notifikasi-pesanan-baru"
+);
+
+if (notifikasiBaru) {
+    notifikasiBaru.style.display =
+        jumlahBaru > 0 ? "inline-block" : "none";
+}
         document.querySelector("#stat-pesanan-proses").textContent = jumlahProses;
         document.querySelector("#stat-pesanan-selesai").textContent = jumlahSelesai;
         document.querySelector("#stat-total-penjualan").textContent =
