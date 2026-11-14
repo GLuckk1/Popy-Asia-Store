@@ -489,6 +489,18 @@ if (formCheckout) {
                 ? "〒" + kodePos + " " + alamat
                 : alamat;
 
+            if (!kodePos) {
+                alert("Kode pos Jepang wajib diisi.");
+                document.querySelector("#kode-pos").focus();
+                return;
+            }
+
+            if (!/^\d{3}-?\d{4}$/.test(kodePos)) {
+                alert("Format kode pos harus 7 angka. Contoh: 890-0053");
+                document.querySelector("#kode-pos").focus();
+                return;
+            }
+
             const ongkir = 0;
 
 
