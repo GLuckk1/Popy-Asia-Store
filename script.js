@@ -479,9 +479,15 @@ if (formCheckout) {
             const whatsapp =
                 document.querySelector("#whatsapp").value.trim();
 
+            const kodePos =
+                document.querySelector("#kode-pos").value.trim();
 
             const alamat =
                 document.querySelector("#alamat").value.trim();
+
+            const alamatDenganKodePos = kodePos
+                ? "〒" + kodePos + " " + alamat
+                : alamat;
 
             const ongkir = 0;
 
@@ -568,7 +574,7 @@ const { data: nomorPesanan, error } =
         {
             p_nama: nama,
             p_whatsapp: whatsapp,
-            p_alamat: alamat,
+            p_alamat: alamatDenganKodePos,
             p_items: itemsPesanan
         }
     );
