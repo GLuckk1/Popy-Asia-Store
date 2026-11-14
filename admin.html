@@ -2566,6 +2566,31 @@ async function simpanStatusPesananAdmin(tombol, nomorPesanan) {
     muatPesananAdmin();
 }
 
+    async function hapusPesananAdmin(nomorPesanan) {
+
+    if (!confirm(
+        `Apakah kamu yakin ingin menghapus pesanan ${nomorPesanan}?\n\nData pesanan yang dihapus tidak dapat dikembalikan.`
+    )) {
+        return;
+    }
+
+    const { data, error } = await supabaseClient.rpc(
+        "hapus_pesanan_admin",
+        {
+            p_nomor_pesanan: nomorPesanan
+        }
+    );
+
+    if (error) {
+        alert("Gagal menghapus pesanan: " + error.message);
+        return;
+    }
+
+    alert(data || "Pesanan berhasil dihapus.");
+
+    muatPesananAdmin();
+}
+    
 function escapeHTML(nilai) {
     return String(nilai).replace(/[&<>"']/g, karakter => ({
         "&": "&amp;",
