@@ -1000,7 +1000,10 @@ gap: 8px;
 
 /* Tampilan khusus saat membuka semua produk dalam kategori */
 body.kategori-dipilih header {
-    display: none !important;
+    display: block !important;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 body.kategori-dipilih #bagian-pencarian {
