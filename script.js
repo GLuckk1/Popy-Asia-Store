@@ -1036,10 +1036,19 @@ async function bukaKategori() {
     await tampilkanKategoriBeranda();
 
     if (bagianKategori) {
-        bagianKategori.scrollIntoView({
-            behavior: "smooth"
-        });
-    }
+    const tinggiHeader =
+        document.querySelector("header")?.offsetHeight || 0;
+
+    const posisiKategori =
+        bagianKategori.getBoundingClientRect().top +
+        window.scrollY -
+        tinggiHeader;
+
+    window.scrollTo({
+        top: posisiKategori,
+        behavior: "smooth"
+    });
+}
 }
 
 
