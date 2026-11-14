@@ -2289,3 +2289,10 @@ header {
     margin-top: 0 !important;
     align-self: stretch;
 }
+
+/* PC: 5 kartu khusus hasil pencarian */
+@media (min-width: 1024px) {
+    #hasil-pencarian .produk-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
