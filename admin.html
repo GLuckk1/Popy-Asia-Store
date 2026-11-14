@@ -2495,13 +2495,23 @@ async function muatPesananAdmin() {
                 </td>
 
                 <td style="padding:10px;border-bottom:1px solid #ddd;">
-                    <button
-                        type="button"
-                        class="btn"
-                        onclick="lihatDetailPesanan('${nomorAman}')">
-                        Lihat Detail
-                    </button>
-                </td>
+    <button
+        type="button"
+        class="btn"
+        onclick="lihatDetailPesanan('${nomorAman}')">
+        Lihat Detail
+    </button>
+
+    ${statusSaatIni === "Dibatalkan" ? `
+        <button
+            type="button"
+            class="btn"
+            style="background:#dc3545;margin-top:5px;"
+            onclick="hapusPesananAdmin('${nomorAman}')">
+            🗑️ Hapus
+        </button>
+    ` : ""}
+</td>
             </tr>
         `;
     }).join("");
