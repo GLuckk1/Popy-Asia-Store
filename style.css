@@ -1995,23 +1995,28 @@ header {
     background: #25D366;
 }
 
+
 /* Tampilan HP */
 @media (max-width: 600px) {
     .sosmed-list {
-        gap: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
-    .sosmed-link {
-        padding: 6px 10px;
-        font-size: 12px;
-        gap: 5px;
+    .sosmed-list .sosmed-link {
+        padding: 5px 8px;
+        font-size: 11px;
+        gap: 4px;
+        border-radius: 8px;
     }
 
-    .sosmed-link img {
-        width: 38px;
-        height: 38px;
+    .sosmed-list .sosmed-link img {
+        width: 24px;
+        height: 24px;
     }
-
 }
 
 /* Sejajarkan posisi harga di halaman Produk */
