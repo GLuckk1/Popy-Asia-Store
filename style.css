@@ -2335,3 +2335,27 @@ header {
         max-width: 95px;
     }
 }
+
+
+/* PERKECIL TOMBOL MEDIA SOSIAL DI HP */
+@media (max-width: 600px) {
+    .sosmed-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .sosmed-list .sosmed-link {
+        padding: 9px 13px;
+        font-size: 13px;
+        gap: 7px;
+        border-radius: 12px;
+    }
+
+    .sosmed-list .sosmed-link img {
+        width: 30px;
+        height: 30px;
+    }
+}
