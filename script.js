@@ -1155,7 +1155,7 @@ if (!tombolKembali) {
 
 tombolKembali.style.cssText = `
     position: fixed;
-    top: 90px;
+    top: 95px;
     left: 20px;
     z-index: 9999;
     padding: 12px 24px;
