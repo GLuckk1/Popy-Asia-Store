@@ -1281,13 +1281,40 @@ const grid = document.querySelector("#produk .produk-grid");
     .from("produk")
     .select("id, nama_produk, kategori, harga, harga_promo, harga_lama, stok, gambar_url")
     .eq("aktif", true)
-    .order("nama_produk", { ascending: true });
 
         if (error) {
             console.error("Gagal memuat produk:", error);
             return;
         }
 
+        // Urutan merek produk
+const urutanMerek = [
+    "indomie",
+    "mie sedaap"
+];
+
+data.sort((a, b) => {
+    const namaA = (a.nama_produk || "").toLowerCase();
+    const namaB = (b.nama_produk || "").toLowerCase();
+
+    const urutanA = urutanMerek.findIndex(merek =>
+        namaA.includes(merek)
+    );
+
+    const urutanB = urutanMerek.findIndex(merek =>
+        namaB.includes(merek)
+    );
+
+    const rankA = urutanA === -1 ? 999 : urutanA;
+    const rankB = urutanB === -1 ? 999 : urutanB;
+
+    if (rankA !== rankB) {
+        return rankA - rankB;
+    }
+
+    return namaA.localeCompare(namaB);
+});
+        
         if (!data || data.length === 0) {
             grid.innerHTML = "<p>Belum ada produk tersedia.</p>";
             return;
