@@ -2403,3 +2403,11 @@ header {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+/* MENDEKATKAN SELAMAT DATANG KE KOLOM PENCARIAN DI HP */
+@media screen and (max-width: 600px) {
+    .judul-selamat-datang {
+        margin-top: -35px;
+    }
+}
