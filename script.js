@@ -1291,6 +1291,7 @@ const grid = document.querySelector("#produk .produk-grid");
 const urutanMerek = [
     "indomie",
     "mie sedaap",
+    "gaga",
     "sami raos",
     "al hakim",
     "cimory",
