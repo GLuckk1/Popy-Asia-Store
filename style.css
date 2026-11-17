@@ -2342,25 +2342,26 @@ header {
 }
 
 
-/* PERKECIL TOMBOL MEDIA SOSIAL DI HP */
-@media (max-width: 600px) {
-    .sosmed-list {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
+/* UKURAN MEDIA SOSIAL KHUSUS HP */
+@media screen and (max-width: 900px) {
+    body .sosmed-toko .sosmed-list {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
     }
 
-    .sosmed-list .sosmed-link {
-        padding: 9px 13px;
-        font-size: 13px;
-        gap: 7px;
-        border-radius: 12px;
+    body .sosmed-toko .sosmed-list .sosmed-link {
+        padding: 4px 7px !important;
+        font-size: 10px !important;
+        gap: 4px !important;
+        border-radius: 8px !important;
     }
 
-    .sosmed-list .sosmed-link img {
-        width: 30px;
-        height: 30px;
+    body .sosmed-toko .sosmed-list .sosmed-link img {
+        width: 20px !important;
+        height: 20px !important;
+        max-width: 20px !important;
     }
 }
