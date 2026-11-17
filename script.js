@@ -1290,7 +1290,21 @@ const grid = document.querySelector("#produk .produk-grid");
         // Urutan merek produk
 const urutanMerek = [
     "indomie",
-    "mie sedaap"
+    "mie sedaap",
+    "sami raos",
+    "al hakim",
+    "cimory",
+    "popice",
+    "kopi",
+    "kanzler",
+    "wafer",
+    "roma",
+    "malkist",
+    "kue lapis",
+    "keripik",
+    "bakso",
+    "fiesta",
+    
 ];
 
 data.sort((a, b) => {
