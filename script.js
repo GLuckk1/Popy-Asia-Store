@@ -1297,6 +1297,7 @@ const urutanMerek = [
     "sami raos",
     "cilok",
     "boci",
+    "raja",
     "bakso",
     "cireng",
     "al hakim",
