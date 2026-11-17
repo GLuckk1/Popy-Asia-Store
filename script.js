@@ -1295,9 +1295,13 @@ const urutanMerek = [
     "cup",
     "gaga",
     "sami raos",
+    "cilok",
+    "boci",
+    "bakso",
+    "cireng",
     "al hakim",
     "cimory",
-    "popice",
+    "pop ice",
     "kopi",
     "kanzler",
     "wafer",
@@ -1305,7 +1309,6 @@ const urutanMerek = [
     "malkist",
     "kue lapis",
     "keripik",
-    "bakso",
     "fiesta",
     
 ];
