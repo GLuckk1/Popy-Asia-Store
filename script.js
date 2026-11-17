@@ -1301,7 +1301,7 @@ const urutanMerek = [
     "raja",
     "bakso",
     "cireng",
-    "al hakim",
+    "alhakim",
     "cimory",
     "pop ice",
     "kopi",
