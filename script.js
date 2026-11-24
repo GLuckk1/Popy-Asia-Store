@@ -1329,7 +1329,7 @@ const urutanMerek = [
     "usus",
     "basreng",
     "kerupuk seblak",
-    "sariraya bawang keriting"
+    "sariraya bawang keriting",
     "sariraya bawang oval",
     "zona",
     "keripik tempe sariraya",
